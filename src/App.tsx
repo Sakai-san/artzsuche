@@ -4,7 +4,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 const SEARCH_ENDPOINT =
-  "https://api-dev.insurando.ch/v1/products/health/basic/doctorlist";
+  "https://api-dev.insurando.ch/v1/products/health/basic/doctorlist/";
 
 const App = () => {
   const [physicians, setPhysicians] = useState<any[]>([]);
