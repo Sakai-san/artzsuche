@@ -11,10 +11,10 @@ const App = () => {
   useEffect(() => {
     fetch(SEARCH_ENDPOINT, {
       method: "POST",
-      mode: "cors",
+      //      mode: "cors",
       headers: {
-        "Content-Type": "application/json",
-        "Content-Language": "de-CH",
+        //      "Content-Type": "application/json",
+        "Accept-Language": "de-CH",
       },
       body: JSON.stringify({
         InsurerId: "8",
