@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
-function App() {
+const SEARCH_ENDPOINT =
+  "https://api-dev.insurando.ch/v1/products/health/basic/doctorlist";
+
+const App = () => {
+  const [physicians, setPhysicians] = useState([]);
+
+  useEffect(() => {
+    fetch(SEARCH_ENDPOINT, { method: "post" })
+      .then((r) => r.json())
+      .then((r) => setPhysicians(r));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {physicians.map((physician) => {
+        return <div>{JSON.stringify(physician)}</div>;
+      })}
     </div>
   );
-}
+};
 
 export default App;
