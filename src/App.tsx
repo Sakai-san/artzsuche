@@ -11,19 +11,20 @@ const App = () => {
 
   useEffect(() => {
     fetch(SEARCH_ENDPOINT, {
-      method: "GET",
+      method: "POST",
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
         "Accept-Language": "de-CH",
       },
+      /*
       body: JSON.stringify({
         InsurerId: "8",
         CantonId: "ZH",
         PostCode: "8600",
         CommunityNumber: 191,
         TariffName: "Gesundheitspraxisversicherung T1",
-      }),
+      }),*/
     })
       .then((r) => r.json())
       .then((r) => setPhysicians(r));
