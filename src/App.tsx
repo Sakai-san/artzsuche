@@ -15,7 +15,7 @@ const App = () => {
       headers: [
         ["Content-Type", "application/json"],
         ["Content-Type", "text/plain"],
-        //        ["Content-Language", "de-CH"],
+        ["Content-Language", "de-CH"],
         ["Accept-Language", "de-CH"],
       ],
       body: JSON.stringify({
