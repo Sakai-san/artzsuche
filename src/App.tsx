@@ -15,6 +15,7 @@ const App = () => {
       headers: [
         ["Content-Type", "application/json"],
         ["Content-Language", "de-CH"],
+        ["Accept-Language", "de-CH"],
       ],
       body: JSON.stringify({
         InsurerId: "8",
