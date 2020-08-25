@@ -14,7 +14,7 @@ const App = () => {
       method: "POST",
       mode: "cors",
       headers: {
-        "Content-Language": "de-CH",
+        "Content-Type": "application/json",
         "Accept-Language": "de-CH",
       },
       body: JSON.stringify({
