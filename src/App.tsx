@@ -11,8 +11,8 @@ const App = () => {
 
   useEffect(() => {
     fetch(SEARCH_ENDPOINT, {
-      method: "POST",
-      mode: "no-cors",
+      method: "GET",
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
         "Accept-Language": "de-CH",
