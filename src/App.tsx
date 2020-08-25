@@ -6,10 +6,10 @@ const SEARCH_ENDPOINT =
   "https://api-dev.insurando.ch/v1/products/health/basic/doctorlist";
 
 const App = () => {
-  const [physicians, setPhysicians] = useState([]);
+  const [physicians, setPhysicians] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch(SEARCH_ENDPOINT, { method: "post" })
+    fetch(SEARCH_ENDPOINT, { method: "POST" })
       .then((r) => r.json())
       .then((r) => setPhysicians(r));
   }, []);
