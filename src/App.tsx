@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
@@ -11,8 +12,9 @@ const App = () => {
   useEffect(() => {
     fetch(SEARCH_ENDPOINT, {
       method: "POST",
-      mode: "no-cors",
+      mode: "cors",
       headers: {
+        "Content-Language": "de-CH",
         "Accept-Language": "de-CH",
       },
       body: JSON.stringify({
@@ -23,7 +25,7 @@ const App = () => {
         TariffName: "Gesundheitspraxisversicherung T1",
       }),
     })
-      //   .then((r) => r.json())
+      .then((r) => r.json())
       .then((r) => setPhysicians(r));
   }, []);
 
