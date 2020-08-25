@@ -25,9 +25,7 @@ const App = () => {
         CommunityNumber: 191,
         TariffName: "Gesundheitspraxisversicherung T1",
       }),
-    })
-      .then((r) => r.json())
-      .then((r) => setPhysicians(r));
+    }).then((r) => setPhysicians(r));
   }, []);
 
   return (
