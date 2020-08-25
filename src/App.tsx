@@ -12,11 +12,7 @@ const App = () => {
     fetch(SEARCH_ENDPOINT, {
       method: "POST",
       mode: "cors",
-      headers: [
-        ["Content-Type", "application/json"],
-        ["Content-Language", "en_US"],
-        ["Accept-Language", "en_US"],
-      ],
+      headers: [["Accept-Language", "de-CH"]],
       body: JSON.stringify({
         InsurerId: "8",
         CantonId: "ZH",
