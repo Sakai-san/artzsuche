@@ -12,7 +12,13 @@ const App = () => {
     fetch(SEARCH_ENDPOINT, {
       method: "POST",
       mode: "cors",
-      body: JSON.stringify({ loc: "zürich" }),
+      body: JSON.stringify({
+        InsurerId: "8",
+        CantonId: "ZH",
+        PostCode: "8600",
+        CommunityNumber: 191,
+        TariffName: "Gesundheitspraxisversicherung T1",
+      }),
     })
       .then((r) => r.json())
       .then((r) => setPhysicians(r));
