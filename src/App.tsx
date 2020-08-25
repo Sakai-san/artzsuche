@@ -9,7 +9,11 @@ const App = () => {
   const [physicians, setPhysicians] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch(SEARCH_ENDPOINT, { method: "POST", mode: "cors" })
+    fetch(SEARCH_ENDPOINT, {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify({ loc: "zürich" }),
+    })
       .then((r) => r.json())
       .then((r) => setPhysicians(r));
   }, []);
