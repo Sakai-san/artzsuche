@@ -23,7 +23,7 @@ const App = () => {
         TariffName: "Gesundheitspraxisversicherung T1",
       }),
     })
-      .then((r) => r.json())
+      //   .then((r) => r.json())
       .then((r) => setPhysicians(r));
   }, []);
 
