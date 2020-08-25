@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bf39acd6f05ae3a9f15fa698c03e9f2f",
+    "revision": "5314f4f4d895d16a3659d56b69faab9f",
     "url": "/artzsuche/index.html"
   },
   {
-    "revision": "50c217d9aba58504573b",
+    "revision": "dfd8577892b0beaab874",
     "url": "/artzsuche/static/css/main.5f361e03.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/artzsuche/static/js/2.07d82875.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "50c217d9aba58504573b",
-    "url": "/artzsuche/static/js/main.2ca38e27.chunk.js"
+    "revision": "dfd8577892b0beaab874",
+    "url": "/artzsuche/static/js/main.367528e1.chunk.js"
   },
   {
     "revision": "43dc10f30bab9aad9947",
