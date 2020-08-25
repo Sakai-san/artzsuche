@@ -14,8 +14,8 @@ const App = () => {
       mode: "cors",
       headers: [
         ["Content-Type", "application/json"],
-        //        ["Content-Language", "de-CH"],
-        ["Accept-Language", "de-CH, fr-CH, it-CH, en-US"],
+        ["Content-Language", "*"],
+        ["Accept-Language", "*"],
       ],
       body: JSON.stringify({
         InsurerId: "8",
