@@ -5,7 +5,7 @@ import "./App.css";
 
 const SEARCH_ENDPOINT =
   //  "https://api-tst.insurando.ch/v1/products/health/basic/zipmunicipalitycity/8600" ||
-  "https://api-dev.insurando.ch/v1/products/health/basic/doctorlist/";
+  "http://api-dev.insurando.ch/v1/products/health/basic/doctorlist/";
 
 const App = () => {
   const [physicians, setPhysicians] = useState<any[]>([]);
