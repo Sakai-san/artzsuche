@@ -13,12 +13,6 @@ const App = () => {
   useEffect(() => {
     fetch(SEARCH_ENDPOINT, {
       method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Accept-Language": "de-CH",
-      },
       body: JSON.stringify({
         InsurerId: "8",
         CantonId: "ZH",
