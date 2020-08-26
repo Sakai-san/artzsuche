@@ -27,7 +27,7 @@ const App = () => {
           setResponse={setStep1Response}
           setCurrentStep={setCurrentStep}
         />,
-      ]}
+      ].slice(0, currentStep + 1)}
     </div>
   );
 };
