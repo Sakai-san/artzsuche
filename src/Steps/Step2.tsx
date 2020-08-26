@@ -21,8 +21,7 @@ const Step2: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <LocalHospitalRoundedIcon fontSize="large" />
-          Wähle deinen Artz ?
+          <LocalHospitalRoundedIcon fontSize="large" /> Wähle deinen Artz ?
         </span>
         {!response && (
           <Autocomplete

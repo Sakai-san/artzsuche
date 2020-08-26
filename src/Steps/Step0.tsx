@@ -18,8 +18,7 @@ const Step0: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <DomainRoundedIcon fontSize="large" />
-          Im welchem Kanton wohnst du ?
+          <DomainRoundedIcon fontSize="large" /> Im welchem Kanton wohnst du ?
         </span>
         {!response && (
           <select onChange={onChangeHandler}>

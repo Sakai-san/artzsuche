@@ -28,8 +28,8 @@ const Step1: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <RoomRoundedIcon fontSize="large" />
-          Was ist die Postleitzahl deines Wohnortes ?
+          <RoomRoundedIcon fontSize="large" /> Was ist die Postleitzahl deines
+          Wohnortes ?
         </span>
 
         {!response && (
