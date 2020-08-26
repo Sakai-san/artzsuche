@@ -2,6 +2,9 @@ import React, { FunctionComponent } from "react";
 import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
 import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
+import physicians from "../physicians.json";
 
 const Step2: FunctionComponent<IStepProps> = ({
   response,
@@ -9,8 +12,8 @@ const Step2: FunctionComponent<IStepProps> = ({
   setCurrentStep,
   className,
 }) => {
-  const onChangeHandler = (e: any) => {
-    setResponse(e.target.value);
+  const onChangeHandler = (e: any, value: any) => {
+    setResponse(`${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`);
     setCurrentStep(2);
   };
 
@@ -22,11 +25,22 @@ const Step2: FunctionComponent<IStepProps> = ({
           Wähle deinen Artz ?
         </span>
         {!response && (
-          <select onChange={onChangeHandler}>
-            <option value="95224158">Praxis Gruppe Dübendorf AG</option>
-            <option value="86040845">ediX Praxis Dübendorf</option>
-            <option value="71603324">Aerztepraxis Kern AG</option>
-          </select>
+          <Autocomplete
+            id="combo-box-physicians"
+            options={physicians}
+            getOptionLabel={(option: any) =>
+              `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` || ""
+            }
+            style={{ width: 300 }}
+            onChange={onChangeHandler}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Suche nach deinem Artz"
+                variant="outlined"
+              />
+            )}
+          />
         )}
       </div>
 
