@@ -1,12 +1,7 @@
 import React, { FunctionComponent, useRef } from "react";
+import { IStepProps } from "./StepType";
 
-interface Step1Props {
-  response: string | null;
-  setResponse: (response: string) => void;
-  setCurrentStep: (step: number) => void;
-}
-
-const Step1: FunctionComponent<Step1Props> = ({
+const Step1: FunctionComponent<IStepProps> = ({
   response,
   setResponse,
   setCurrentStep,

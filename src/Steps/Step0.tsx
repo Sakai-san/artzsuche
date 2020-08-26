@@ -1,12 +1,7 @@
 import React, { FunctionComponent } from "react";
+import { IStepProps } from "./StepType";
 
-interface Step0Props {
-  response: string | null;
-  setResponse: (response: string) => void;
-  setCurrentStep: (step: number) => void;
-}
-
-const Step0: FunctionComponent<Step0Props> = ({
+const Step0: FunctionComponent<IStepProps> = ({
   response,
   setResponse,
   setCurrentStep,
@@ -17,7 +12,7 @@ const Step0: FunctionComponent<Step0Props> = ({
   };
 
   return (
-    <div>
+    <section>
       Im weles Kanton wohnst du ?
       {!response ? (
         <select onChange={onChangeHandler}>
@@ -28,7 +23,7 @@ const Step0: FunctionComponent<Step0Props> = ({
       ) : (
         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{response}</div>
       )}
-    </div>
+    </section>
   );
 };
 
