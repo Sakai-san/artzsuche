@@ -33,7 +33,7 @@ const Step0: FunctionComponent<IStepProps> = ({
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Suche nach deinem Artz"
+                label="Wähle bitte deinen Kanton"
                 variant="outlined"
               />
             )}
