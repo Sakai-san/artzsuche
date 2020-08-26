@@ -17,8 +17,8 @@ const styles = createStyles((theme: Theme) => ({
   },
   lanes: {
     display: "flex",
-    "&>div": {
-      width: "50%",
+    "&>div:last-child": {
+      marginLeft: "auto",
     },
   },
   orange: {
@@ -49,7 +49,7 @@ const App = withStyles(styles)(({ classes }: IAppProps) => {
       <section className={classes.lanes}>
         <div>
           <Avatar alt="bot" className={classes.bot}>
-            🤖
+            <span role="img">🤖</span>
           </Avatar>
         </div>
         <div>
