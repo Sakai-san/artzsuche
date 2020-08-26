@@ -4,7 +4,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 const SEARCH_ENDPOINT =
-  "https://api-tst.insurando.ch/v1/products/health/basic/zipmunicipalitycity/8600" ||
+  //  "https://api-tst.insurando.ch/v1/products/health/basic/zipmunicipalitycity/8600" ||
   "https://api-dev.insurando.ch/v1/products/health/basic/doctorlist/";
 
 const App = () => {
@@ -18,13 +18,13 @@ const App = () => {
         "Content-Type": "application/json",
         "Accept-Language": "de-CH",
       },
-      /*body: JSON.stringify({
+      body: JSON.stringify({
         InsurerId: "8",
         CantonId: "ZH",
         PostCode: "8600",
         CommunityNumber: 191,
         TariffName: "Gesundheitspraxisversicherung T1",
-      }),*/
+      }),
     })
       .then((r) => r.json())
       .then((r) => setPhysicians(r));
