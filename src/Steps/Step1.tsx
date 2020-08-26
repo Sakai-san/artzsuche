@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useRef } from "react";
 import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
+import RoomIcon from "@material-ui/icons/Room";
 
 const Step1: FunctionComponent<IStepProps> = ({
   response,
@@ -26,7 +27,10 @@ const Step1: FunctionComponent<IStepProps> = ({
   return (
     <section className={className}>
       <div>
-        <span>Was ist der PostAnzahl deines Standortes ?</span>
+        <span>
+          <RoomIcon fontSize="large" />
+          Was ist der PostAnzahl deines Standortes ?
+        </span>
 
         {!response && (
           <form onSubmit={onSumitHandler}>
