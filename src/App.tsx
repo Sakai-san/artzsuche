@@ -13,6 +13,10 @@ const App = () => {
   useEffect(() => {
     fetch(SEARCH_ENDPOINT, {
       method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         InsurerId: "8",
         CantonId: "ZH",
