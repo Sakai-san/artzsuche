@@ -11,6 +11,7 @@ const styles = createStyles((theme: Theme) => ({
   root: {
     padding: "20px",
     "&>section:not(:first-child)": {
+      padding: "5px",
       marginTop: "30px",
       borderRadius: "6px 6px",
       border: "1px solid grey",
