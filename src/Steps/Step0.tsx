@@ -25,7 +25,6 @@ const Step0: FunctionComponent<IStepProps> = ({
         </span>
         {!response && (
           <Autocomplete
-            id="combo-box-physicians"
             options={cantons}
             getOptionLabel={(option: string) => option}
             style={{ width: 300 }}

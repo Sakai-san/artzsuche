@@ -25,7 +25,6 @@ const Step2: FunctionComponent<IStepProps> = ({
         </span>
         {!response && (
           <Autocomplete
-            id="combo-box-physicians"
             options={physicians}
             getOptionLabel={(option: any) =>
               `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` || ""
