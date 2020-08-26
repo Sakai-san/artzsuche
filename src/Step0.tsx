@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 
 interface Step0Props {
-  response?: string;
+  response: string | null;
   setResponse: (response: string) => void;
   setCurrentStep: (step: number) => void;
 }

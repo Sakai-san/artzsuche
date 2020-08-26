@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from "react";
 import Step0 from "./Step0";
 import Step1 from "./Step1";
@@ -23,8 +22,6 @@ const App = withStyles(styles)(({ classes }: IAppProps) => {
   const [step1Response, setStep1Response] = useState<string | null>(null);
   const [step2Response, setStep2Response] = useState<string | null>(null);
 
-  console.log("step0Response", step0Response);
-  console.log("step1Response", step1Response);
   return (
     <div className={classes.root}>
       {[
