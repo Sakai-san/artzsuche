@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useRef } from "react";
 import { IStepProps } from "./StepType";
+import Paper from "@material-ui/core/Paper";
 
 const Step1: FunctionComponent<IStepProps> = ({
   response,
@@ -23,7 +24,7 @@ const Step1: FunctionComponent<IStepProps> = ({
 
   return (
     <section>
-      Was ist der PostAnzahl deines Standortes ?
+      <div>Was ist der PostAnzahl deines Standortes ?</div>
       {!response ? (
         <form onSubmit={onSumitHandler}>
           <input
@@ -39,7 +40,7 @@ const Step1: FunctionComponent<IStepProps> = ({
           />
         </form>
       ) : (
-        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{response}</div>
+        <Paper>{response}</Paper>
       )}
     </section>
   );

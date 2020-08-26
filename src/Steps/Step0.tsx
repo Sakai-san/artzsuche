@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { IStepProps } from "./StepType";
+import Paper from "@material-ui/core/Paper";
 
 const Step0: FunctionComponent<IStepProps> = ({
   response,
@@ -13,7 +14,7 @@ const Step0: FunctionComponent<IStepProps> = ({
 
   return (
     <section>
-      Im weles Kanton wohnst du ?
+      <div>Im weles Kanton wohnst du ?</div>
       {!response ? (
         <select onChange={onChangeHandler}>
           <option value="zug">Zug</option>
@@ -21,7 +22,7 @@ const Step0: FunctionComponent<IStepProps> = ({
           <option value="stgallen">St. Gallen</option>
         </select>
       ) : (
-        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{response}</div>
+        <Paper>{response}</Paper>
       )}
     </section>
   );
