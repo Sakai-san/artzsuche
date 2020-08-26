@@ -28,6 +28,13 @@ const styles = createStyles((theme: Theme) => ({
   bot: {
     fontSize: "35px",
   },
+  step: {
+    display: "flex",
+    flexDirection: "column",
+    "&>div:nth-child(2)": {
+      marginLeft: "auto",
+    },
+  },
 }));
 
 interface IAppProps extends WithStyles<typeof styles> {
@@ -35,6 +42,8 @@ interface IAppProps extends WithStyles<typeof styles> {
     root: string;
     lanes: string;
     orange: string;
+    bot: string;
+    step: strig;
   };
 }
 
@@ -49,7 +58,7 @@ const App = withStyles(styles)(({ classes }: IAppProps) => {
       <section className={classes.lanes}>
         <div>
           <Avatar alt="bot" className={classes.bot}>
-            <span role="img">🤖</span>
+            <span>🤖</span>
           </Avatar>
         </div>
         <div>
@@ -60,18 +69,21 @@ const App = withStyles(styles)(({ classes }: IAppProps) => {
       </section>
       {[
         <Step0
+          className={classes.step}
           key="step0"
           response={step0Response}
           setResponse={setStep0Response}
           setCurrentStep={setCurrentStep}
         />,
         <Step1
+          className={classes.step}
           key="step1"
           response={step1Response}
           setResponse={setStep1Response}
           setCurrentStep={setCurrentStep}
         />,
         <Step2
+          className={classes.step}
           key="step2"
           response={step2Response}
           setResponse={setStep2Response}

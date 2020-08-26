@@ -6,6 +6,7 @@ const Step2: FunctionComponent<IStepProps> = ({
   response,
   setResponse,
   setCurrentStep,
+  className,
 }) => {
   const onChangeHandler = (e: any) => {
     setResponse(e.target.value);
@@ -13,7 +14,7 @@ const Step2: FunctionComponent<IStepProps> = ({
   };
 
   return (
-    <section>
+    <section className={className}>
       <div>
         <span>Wele deinen Artz ?</span>
         {!response && (

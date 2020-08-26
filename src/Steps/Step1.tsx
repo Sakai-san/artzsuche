@@ -6,6 +6,7 @@ const Step1: FunctionComponent<IStepProps> = ({
   response,
   setResponse,
   setCurrentStep,
+  className,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -23,7 +24,7 @@ const Step1: FunctionComponent<IStepProps> = ({
   };
 
   return (
-    <section>
+    <section className={className}>
       <div>Was ist der PostAnzahl deines Standortes ?</div>
       {!response ? (
         <form onSubmit={onSumitHandler}>
