@@ -15,15 +15,21 @@ const Step0: FunctionComponent<IStepProps> = ({
 
   return (
     <section className={className}>
-      <div>Im weles Kanton wohnst du ?</div>
-      {!response ? (
-        <select onChange={onChangeHandler}>
-          <option value="zug">Zug</option>
-          <option value="zuerich">Zuerich</option>
-          <option value="stgallen">St. Gallen</option>
-        </select>
-      ) : (
-        <Paper>{response}</Paper>
+      <div>
+        <span>Im weles Kanton wohnst du ?</span>
+        {!response && (
+          <select onChange={onChangeHandler}>
+            <option value="zug">Zug</option>
+            <option value="zuerich">Zuerich</option>
+            <option value="stgallen">St. Gallen</option>
+          </select>
+        )}
+      </div>
+
+      {response && (
+        <div>
+          <Paper>{response}</Paper>
+        </div>
       )}
     </section>
   );
