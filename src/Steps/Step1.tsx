@@ -1,7 +1,8 @@
-import React, { FunctionComponent, useRef } from "react";
+import React, { FunctionComponent, useRef, useState } from "react";
 import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
+import TextField from "@material-ui/core/TextField";
 
 const Step1: FunctionComponent<IStepProps> = ({
   response,
@@ -9,17 +10,20 @@ const Step1: FunctionComponent<IStepProps> = ({
   setCurrentStep,
   className,
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const isError = useRef<boolean | null>(null);
+  const [isInvalidInput, setInvalidInput] = useState<boolean>(false);
 
-  const validation = (input: any) => input && input.length === 4;
+  const validation = (input: any) =>
+    input && input.length === 4 && !input.startsWith("0");
 
-  const onSumitHandler = (e: any) => {
-    e.preventDefault();
-    const enteredZip = inputRef?.current?.value;
-    enteredZip && setResponse(enteredZip);
+  const onChangeHandler = (event: any) => {
+    const enteredZip = event.target.value;
+
     if (!validation(enteredZip)) {
-      return;
+      setInvalidInput(true);
     } else {
+      setInvalidInput(false);
+      setResponse(enteredZip);
       setCurrentStep(2);
     }
   };
@@ -33,19 +37,13 @@ const Step1: FunctionComponent<IStepProps> = ({
         </span>
 
         {!response && (
-          <form onSubmit={onSumitHandler}>
-            <input
-              style={
-                validation(inputRef?.current?.value)
-                  ? {}
-                  : { border: "1px solid red" }
-              }
-              minLength={4}
-              ref={inputRef}
-              type="number"
-              placeholder="gib deine postanzahl ein"
-            />
-          </form>
+          <TextField
+            onChange={onChangeHandler}
+            error={isInvalidInput}
+            label="PLZ"
+            type="number"
+            variant="outlined"
+          />
         )}
       </div>
 
