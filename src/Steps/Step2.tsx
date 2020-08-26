@@ -12,7 +12,7 @@ const Step2: FunctionComponent<IStepProps> = ({
   };
 
   return (
-    <div>
+    <section>
       Wele deinen Artz ?
       {!response ? (
         <select onChange={onChangeHandler}>
@@ -23,7 +23,7 @@ const Step2: FunctionComponent<IStepProps> = ({
       ) : (
         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{response}</div>
       )}
-    </div>
+    </section>
   );
 };
 

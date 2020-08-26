@@ -7,6 +7,10 @@ import { WithStyles, withStyles, createStyles } from "@material-ui/core";
 const styles = createStyles({
   root: {
     padding: "20px",
+    "&>section:not(:first-child)": {
+      marginTop: "30px",
+      border: "3px solid red",
+    },
   },
 });
 

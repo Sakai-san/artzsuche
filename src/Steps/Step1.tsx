@@ -22,7 +22,7 @@ const Step1: FunctionComponent<IStepProps> = ({
   };
 
   return (
-    <div>
+    <section>
       Was ist der PostAnzahl deines Standortes ?
       {!response ? (
         <form onSubmit={onSumitHandler}>
@@ -41,7 +41,7 @@ const Step1: FunctionComponent<IStepProps> = ({
       ) : (
         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{response}</div>
       )}
-    </div>
+    </section>
   );
 };
 
