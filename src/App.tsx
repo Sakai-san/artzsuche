@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from "react";
 import Step0 from "./Steps/Step0";
 import Step1 from "./Steps/Step1";
@@ -49,10 +48,11 @@ interface IAppProps extends WithStyles<typeof styles> {
     lanes: string;
     orange: string;
     bot: string;
-    step: strig;
+    step: string;
   };
 }
 
+// @ts-ignore
 const App = withStyles(styles)(({ classes }: IAppProps) => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [step0Response, setStep0Response] = useState<string | null>(null);
