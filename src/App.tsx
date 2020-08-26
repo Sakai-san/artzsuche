@@ -12,7 +12,8 @@ const styles = createStyles((theme: Theme) => ({
     padding: "20px",
     "&>section:not(:first-child)": {
       marginTop: "30px",
-      backgroundColor: "grey",
+      borderRadius: "6px 6px",
+      border: "1px solid grey",
     },
   },
   lanes: {
