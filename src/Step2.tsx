@@ -6,24 +6,24 @@ interface Step0Props {
   setCurrentStep: (step: number) => void;
 }
 
-const Step0: FunctionComponent<Step0Props> = ({
+const Step2: FunctionComponent<Step0Props> = ({
   response,
   setResponse,
   setCurrentStep,
 }) => {
   const onChangeHandler = (e: any) => {
     setResponse(e.target.value);
-    setCurrentStep(1);
+    setCurrentStep(2);
   };
 
   return (
     <div>
-      Im weles Kanton wohnst du ?
+      Wele deinen Artz ?
       {!response ? (
         <select onChange={onChangeHandler}>
-          <option value="zug">Zug</option>
-          <option value="zuerich">Zuerich</option>
-          <option value="stgallen">St. Gallen</option>
+          <option value="95224158">Praxis Gruppe Dübendorf AG</option>
+          <option value="86040845">ediX Praxis Dübendorf</option>
+          <option value="71603324">Aerztepraxis Kern AG</option>
         </select>
       ) : (
         <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{response}</div>
@@ -32,4 +32,4 @@ const Step0: FunctionComponent<Step0Props> = ({
   );
 };
 
-export default Step0;
+export default Step2;

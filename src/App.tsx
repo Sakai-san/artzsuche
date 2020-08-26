@@ -1,7 +1,8 @@
 // @ts-nocheck
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Step0 from "./Step0";
 import Step1 from "./Step1";
+import Step2 from "./Step2";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -9,6 +10,7 @@ const App = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [step0Response, setStep0Response] = useState<string | null>(null);
   const [step1Response, setStep1Response] = useState<string | null>(null);
+  const [step2Response, setStep2Response] = useState<string | null>(null);
 
   console.log("step0Response", step0Response);
   console.log("step1Response", step1Response);
@@ -25,6 +27,12 @@ const App = () => {
           key="step1"
           response={step1Response}
           setResponse={setStep1Response}
+          setCurrentStep={setCurrentStep}
+        />,
+        <Step2
+          key="step2"
+          response={step2Response}
+          setResponse={setStep2Response}
           setCurrentStep={setCurrentStep}
         />,
       ].slice(0, currentStep + 1)}
