@@ -1,39 +1,33 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
+import Step0 from "./Step0";
+import Step1 from "./Step1";
 import logo from "./logo.svg";
 import "./App.css";
 
-const SEARCH_ENDPOINT =
-  //  "https://api-tst.insurando.ch/v1/products/health/basic/zipmunicipalitycity/8600" ||
-  "https://api-tst.insurando.ch/v1/products/health/basic/doctorlist/";
-
 const App = () => {
-  const [physicians, setPhysicians] = useState<any[]>([]);
+  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [step0Response, setStep0Response] = useState<string | null>(null);
+  const [step1Response, setStep1Response] = useState<string | null>(null);
 
-  //  useEffect(() => {
-  fetch(SEARCH_ENDPOINT, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      InsurerId: "8",
-      CantonId: "ZH",
-      PostCode: "8600",
-      CommunityNumber: 191,
-      TariffName: "Gesundheitspraxisversicherung T1",
-    }),
-  })
-    .then((r) => r.json())
-    .then((r) => setPhysicians(r));
-  // }, []);
-
+  console.log("step0Response", step0Response);
+  console.log("step1Response", step1Response);
   return (
     <div>
-      {physicians.map((physician) => {
-        return <div>{JSON.stringify(physician)}</div>;
-      })}
+      {[
+        <Step0
+          key="step0"
+          response={step0Response}
+          setResponse={setStep0Response}
+          setCurrentStep={setCurrentStep}
+        />,
+        <Step1
+          key="step1"
+          response={step1Response}
+          setResponse={setStep1Response}
+          setCurrentStep={setCurrentStep}
+        />,
+      ]}
     </div>
   );
 };
