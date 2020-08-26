@@ -18,7 +18,7 @@ const Step2: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <LocalHospitalIcon />
+          <LocalHospitalIcon fontSize="large" />
           Wähle deinen Artz ?
         </span>
         {!response && (
