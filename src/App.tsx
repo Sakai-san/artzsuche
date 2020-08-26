@@ -9,7 +9,6 @@ const styles = createStyles({
     padding: "20px",
     "&>section:not(:first-child)": {
       marginTop: "30px",
-      border: "3px solid red",
     },
   },
 });
@@ -25,6 +24,8 @@ const App = withStyles(styles)(({ classes }: IAppProps) => {
   const [step0Response, setStep0Response] = useState<string | null>(null);
   const [step1Response, setStep1Response] = useState<string | null>(null);
   const [step2Response, setStep2Response] = useState<string | null>(null);
+
+  console.log("step0Response", step0Response);
 
   return (
     <div className={classes.root}>
