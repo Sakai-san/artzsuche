@@ -5,7 +5,7 @@ import "./App.css";
 
 const SEARCH_ENDPOINT =
   //  "https://api-tst.insurando.ch/v1/products/health/basic/zipmunicipalitycity/8600" ||
-  "http://api-dev.insurando.ch/v1/products/health/basic/doctorlist/";
+  "https://api-tst.insurando.ch/v1/products/health/basic/doctorlist/";
 
 const App = () => {
   const [physicians, setPhysicians] = useState<any[]>([]);
@@ -13,7 +13,7 @@ const App = () => {
   useEffect(() => {
     fetch(SEARCH_ENDPOINT, {
       method: "POST",
-      //      mode: "cors",
+      mode: "cors",
       headers: {
         "Content-Type": "application/json",
         "Accept-Language": "de-CH",
