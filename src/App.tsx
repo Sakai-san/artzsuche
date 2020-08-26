@@ -6,7 +6,6 @@ import Step2 from "./Steps/Step2";
 import { WithStyles, withStyles, createStyles, Theme } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
-import { relative } from "path";
 
 const styles = createStyles((theme: Theme) => ({
   root: {
