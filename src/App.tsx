@@ -3,10 +3,21 @@ import React, { useState } from "react";
 import Step0 from "./Step0";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
-import logo from "./logo.svg";
-import "./App.css";
+import { WithStyles, withStyles, createStyles } from "@material-ui/core";
 
-const App = () => {
+const styles = createStyles({
+  root: {
+    padding: "20px",
+  },
+});
+
+interface IAppProps extends WithStyles<typeof styles> {
+  classes: {
+    root: string;
+  };
+}
+
+const App = withStyles(styles)(({ classes }: IAppProps) => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [step0Response, setStep0Response] = useState<string | null>(null);
   const [step1Response, setStep1Response] = useState<string | null>(null);
@@ -15,7 +26,7 @@ const App = () => {
   console.log("step0Response", step0Response);
   console.log("step1Response", step1Response);
   return (
-    <div>
+    <div className={classes.root}>
       {[
         <Step0
           key="step0"
@@ -38,6 +49,6 @@ const App = () => {
       ].slice(0, currentStep + 1)}
     </div>
   );
-};
+});
 
 export default App;
