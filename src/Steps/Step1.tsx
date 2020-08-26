@@ -29,7 +29,7 @@ const Step1: FunctionComponent<IStepProps> = ({
       <div>
         <span>
           <RoomRoundedIcon fontSize="large" />
-          Was ist der Postanzahl deines Standortes ?
+          Was ist die Postleitzahl deines Wohnortes ?
         </span>
 
         {!response && (
