@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
-import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
+import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 
 const Step2: FunctionComponent<IStepProps> = ({
   response,
@@ -18,7 +18,7 @@ const Step2: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <LocalHospitalIcon fontSize="large" />
+          <LocalHospitalRoundedIcon fontSize="large" />
           Wähle deinen Artz ?
         </span>
         {!response && (

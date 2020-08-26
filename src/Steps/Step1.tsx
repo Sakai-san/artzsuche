@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useRef } from "react";
 import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
-import RoomIcon from "@material-ui/icons/Room";
+import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 
 const Step1: FunctionComponent<IStepProps> = ({
   response,
@@ -28,7 +28,7 @@ const Step1: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <RoomIcon fontSize="large" />
+          <RoomRoundedIcon fontSize="large" />
           Was ist der Postanzahl deines Standortes ?
         </span>
 

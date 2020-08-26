@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
-import DomainIcon from "@material-ui/icons/Domain";
+import DomainRoundedIcon from "@material-ui/icons/DomainRounded";
 
 const Step0: FunctionComponent<IStepProps> = ({
   response,
@@ -18,7 +18,7 @@ const Step0: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <DomainIcon fontSize="large" />
+          <DomainRoundedIcon fontSize="large" />
           Im welchem Kanton wohnst du ?
         </span>
         {!response && (
