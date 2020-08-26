@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
+import LocalHospitalIcon from "@material-ui/icons/LocalHospital";
 
 const Step2: FunctionComponent<IStepProps> = ({
   response,
@@ -16,7 +17,10 @@ const Step2: FunctionComponent<IStepProps> = ({
   return (
     <section className={className}>
       <div>
-        <span>Wele deinen Artz ?</span>
+        <span>
+          <LocalHospitalIcon />
+          Wähle deinen Artz ?
+        </span>
         {!response && (
           <select onChange={onChangeHandler}>
             <option value="95224158">Praxis Gruppe Dübendorf AG</option>

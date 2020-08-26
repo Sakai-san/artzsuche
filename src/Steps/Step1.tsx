@@ -25,23 +25,30 @@ const Step1: FunctionComponent<IStepProps> = ({
 
   return (
     <section className={className}>
-      <div>Was ist der PostAnzahl deines Standortes ?</div>
-      {!response ? (
-        <form onSubmit={onSumitHandler}>
-          <input
-            style={
-              validation(inputRef?.current?.value)
-                ? {}
-                : { border: "1px solid red" }
-            }
-            minLength={4}
-            ref={inputRef}
-            type="number"
-            placeholder="gib deine postanzahl ein"
-          />
-        </form>
-      ) : (
-        <Paper>{response}</Paper>
+      <div>
+        <span>Was ist der PostAnzahl deines Standortes ?</span>
+
+        {!response && (
+          <form onSubmit={onSumitHandler}>
+            <input
+              style={
+                validation(inputRef?.current?.value)
+                  ? {}
+                  : { border: "1px solid red" }
+              }
+              minLength={4}
+              ref={inputRef}
+              type="number"
+              placeholder="gib deine postanzahl ein"
+            />
+          </form>
+        )}
+      </div>
+
+      {response && (
+        <div>
+          <Paper>{response}</Paper>
+        </div>
       )}
     </section>
   );
