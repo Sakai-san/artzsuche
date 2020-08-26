@@ -28,7 +28,7 @@ const Step0: FunctionComponent<IStepProps> = ({
 
       {response && (
         <div>
-          <Paper>{response}</Paper>
+          <Paper style={{ padding: "20px" }}>{response}</Paper>
         </div>
       )}
     </section>
