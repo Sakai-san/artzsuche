@@ -10,24 +10,24 @@ const SEARCH_ENDPOINT =
 const App = () => {
   const [physicians, setPhysicians] = useState<any[]>([]);
 
-  useEffect(() => {
-    fetch(SEARCH_ENDPOINT, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        InsurerId: "8",
-        CantonId: "ZH",
-        PostCode: "8600",
-        CommunityNumber: 191,
-        TariffName: "Gesundheitspraxisversicherung T1",
-      }),
-    })
-      .then((r) => r.json())
-      .then((r) => setPhysicians(r));
-  }, []);
+  //  useEffect(() => {
+  fetch(SEARCH_ENDPOINT, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      InsurerId: "8",
+      CantonId: "ZH",
+      PostCode: "8600",
+      CommunityNumber: 191,
+      TariffName: "Gesundheitspraxisversicherung T1",
+    }),
+  })
+    .then((r) => r.json())
+    .then((r) => setPhysicians(r));
+  // }, []);
 
   return (
     <div>
