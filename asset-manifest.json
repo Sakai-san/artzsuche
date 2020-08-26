@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/artzsuche/static/css/main.5f361e03.chunk.css",
-    "main.js": "/artzsuche/static/js/main.de4d41a3.chunk.js",
-    "main.js.map": "/artzsuche/static/js/main.de4d41a3.chunk.js.map",
+    "main.js": "/artzsuche/static/js/main.b08a5b08.chunk.js",
+    "main.js.map": "/artzsuche/static/js/main.b08a5b08.chunk.js.map",
     "runtime-main.js": "/artzsuche/static/js/runtime-main.8bcdaec0.js",
     "runtime-main.js.map": "/artzsuche/static/js/runtime-main.8bcdaec0.js.map",
     "static/js/2.07d82875.chunk.js": "/artzsuche/static/js/2.07d82875.chunk.js",
     "static/js/2.07d82875.chunk.js.map": "/artzsuche/static/js/2.07d82875.chunk.js.map",
     "index.html": "/artzsuche/index.html",
-    "precache-manifest.93ed38bae1abbebd65f83dcac04b3bf3.js": "/artzsuche/precache-manifest.93ed38bae1abbebd65f83dcac04b3bf3.js",
+    "precache-manifest.b733423013d9658df30b0fadbbb43a4d.js": "/artzsuche/precache-manifest.b733423013d9658df30b0fadbbb43a4d.js",
     "service-worker.js": "/artzsuche/service-worker.js",
     "static/css/main.5f361e03.chunk.css.map": "/artzsuche/static/css/main.5f361e03.chunk.css.map",
     "static/js/2.07d82875.chunk.js.LICENSE.txt": "/artzsuche/static/js/2.07d82875.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.8bcdaec0.js",
     "static/js/2.07d82875.chunk.js",
     "static/css/main.5f361e03.chunk.css",
-    "static/js/main.de4d41a3.chunk.js"
+    "static/js/main.b08a5b08.chunk.js"
   ]
 }
