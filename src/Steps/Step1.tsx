@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
@@ -10,7 +10,6 @@ const Step1: FunctionComponent<IStepProps> = ({
   setCurrentStep,
   className,
 }) => {
-  const isError = useRef<boolean | null>(null);
   const [isInvalidInput, setInvalidInput] = useState<boolean>(false);
 
   const validation = (input: any) =>
