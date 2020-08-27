@@ -1,8 +1,8 @@
 import { actionTypes, IPhysician } from "./types";
 
-const makePhysiciansFetch = (result: IPhysician[]) => ({
+const makePhysiciansFetch = (physicians: IPhysician[]) => ({
   type: actionTypes.PHYSICIANS_FETCH,
-  payload: result,
+  payload: physicians,
 });
 
 export default {

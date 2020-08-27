@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
-import { IPhysician } from "../types/phyisician";
+import { IPhysician } from "../ducks/physicians/types";
 
 const Step2: FunctionComponent<IStepProps> = ({
   response,
