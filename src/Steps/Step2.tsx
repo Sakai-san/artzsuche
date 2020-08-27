@@ -1,10 +1,11 @@
 import React, { FunctionComponent } from "react";
-import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
 import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import { IPhysician } from "../ducks/physicians/types";
+import { IStepProps } from "./StepType";
 
 const Step2: FunctionComponent<IStepProps> = ({
   response,
@@ -12,10 +13,12 @@ const Step2: FunctionComponent<IStepProps> = ({
   setCurrentStep,
   className,
   options,
+  isEditing,
+  setIsEditing,
 }) => {
   const onChangeHandler = (e: any, value: any) => {
     setResponse(`${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`);
-    setCurrentStep(2);
+    !isEditing && setCurrentStep(2);
   };
 
   return (
@@ -29,7 +32,15 @@ const Step2: FunctionComponent<IStepProps> = ({
 
       <div>
         {response ? (
-          <Paper style={{ padding: "20px" }}>{response}</Paper>
+          <div>
+            <Paper style={{ padding: "20px" }}>{response}</Paper>
+            <CreateRoundedIcon
+              onClick={(e) => {
+                setIsEditing(true);
+                setResponse(null);
+              }}
+            />
+          </div>
         ) : (
           <Autocomplete
             options={options}

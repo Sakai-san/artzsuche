@@ -3,6 +3,7 @@ import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import TextField from "@material-ui/core/TextField";
+import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 
 const validation = (input: string | undefined) =>
   input && input.length === 4 && !input.startsWith("0");
@@ -12,6 +13,8 @@ const Step1: FunctionComponent<IStepProps> = ({
   setResponse,
   setCurrentStep,
   className,
+  isEditing,
+  setIsEditing,
 }) => {
   const [isInvalidInput, setInvalidInput] = useState<boolean>(false);
 
@@ -25,8 +28,8 @@ const Step1: FunctionComponent<IStepProps> = ({
 
       setTimeout(() => {
         setResponse(enteredZip);
-        setCurrentStep(2);
-      }, 2000);
+        !isEditing && setCurrentStep(2);
+      }, 500);
     }
   };
 
@@ -41,7 +44,15 @@ const Step1: FunctionComponent<IStepProps> = ({
 
       <div>
         {response ? (
-          <Paper style={{ padding: "20px" }}>{response}</Paper>
+          <div>
+            <Paper style={{ padding: "20px" }}>{response}</Paper>
+            <CreateRoundedIcon
+              onClick={(e) => {
+                setIsEditing(true);
+                setResponse(null);
+              }}
+            />
+          </div>
         ) : (
           <TextField
             onChange={onChangeHandler}

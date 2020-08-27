@@ -1,7 +1,9 @@
 export interface IStepProps {
   response: string | null;
-  setResponse: (response: string) => void;
+  setResponse: (response: string | null) => void;
   setCurrentStep: (step: number) => void;
   className?: string;
   options?: any;
+  isEditing: boolean;
+  setIsEditing: (isEditing: boolean) => void;
 }

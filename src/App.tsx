@@ -67,6 +67,10 @@ const App: FunctionComponent = () => {
   const [step1Response, setStep1Response] = useState<string | null>(null);
   const [step2Response, setStep2Response] = useState<string | null>(null);
 
+  const [step0IsEditing, setStep0IsEditing] = useState<boolean>(false);
+  const [step1IsEditing, setStep1IsEditing] = useState<boolean>(false);
+  const [step2IsEditing, setStep2IsEditing] = useState<boolean>(false);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(physiciansOperations.fetchPhysicians());
@@ -111,6 +115,8 @@ const App: FunctionComponent = () => {
             setResponse={setStep0Response}
             setCurrentStep={setCurrentStep}
             options={cantons}
+            isEditing={step0IsEditing}
+            setIsEditing={setStep0IsEditing}
           />,
           <Step1
             className={classes.step}
@@ -118,6 +124,8 @@ const App: FunctionComponent = () => {
             response={step1Response}
             setResponse={setStep1Response}
             setCurrentStep={setCurrentStep}
+            isEditing={step1IsEditing}
+            setIsEditing={setStep1IsEditing}
           />,
           <Step2
             className={classes.step}
@@ -126,6 +134,8 @@ const App: FunctionComponent = () => {
             setResponse={setStep2Response}
             setCurrentStep={setCurrentStep}
             options={physicians}
+            isEditing={step2IsEditing}
+            setIsEditing={setStep2IsEditing}
           />,
         ].slice(0, currentStep + 1)}
       </div>

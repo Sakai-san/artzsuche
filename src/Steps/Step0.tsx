@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from "react";
-import { IStepProps } from "./StepType";
 import Paper from "@material-ui/core/Paper";
 import MapRoundedIcon from "@material-ui/icons/MapRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
+import { IStepProps } from "./StepType";
 
 const Step0: FunctionComponent<IStepProps> = ({
   response,
@@ -11,10 +12,12 @@ const Step0: FunctionComponent<IStepProps> = ({
   setCurrentStep,
   className,
   options,
+  isEditing,
+  setIsEditing,
 }) => {
   const onChangeHandler = (e: any, value: any) => {
     setResponse(value);
-    setCurrentStep(1);
+    !isEditing && setCurrentStep(1);
   };
 
   return (
@@ -27,7 +30,15 @@ const Step0: FunctionComponent<IStepProps> = ({
 
       <div>
         {response ? (
-          <Paper style={{ padding: "20px" }}>{response}</Paper>
+          <div>
+            <Paper style={{ padding: "20px" }}>{response}</Paper>
+            <CreateRoundedIcon
+              onClick={(e) => {
+                setIsEditing(true);
+                setResponse(null);
+              }}
+            />
+          </div>
         ) : (
           <Autocomplete
             options={options}
