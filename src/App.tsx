@@ -62,7 +62,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const App: FunctionComponent = () => {
   const classes = useStyles();
+
   const [currentStep, setCurrentStep] = useState<number>(0);
+
   const [step0Response, setStep0Response] = useState<string | null>(null);
   const [step1Response, setStep1Response] = useState<string | null>(null);
   const [step2Response, setStep2Response] = useState<string | null>(null);
@@ -90,7 +92,7 @@ const App: FunctionComponent = () => {
           <Typography variant="h6" color="inherit" className={classes.title}>
             Lass uns diskutieren
           </Typography>
-          <ForumIcon />
+          <ForumIcon fontSize="large" />
         </Toolbar>
       </AppBar>
 
