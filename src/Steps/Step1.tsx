@@ -34,8 +34,12 @@ const Step1: FunctionComponent<IStepProps> = ({
           <RoomRoundedIcon fontSize="large" /> Was ist die Postleitzahl deines
           Wohnortes ?
         </span>
+      </div>
 
-        {!response && (
+      <div>
+        {response ? (
+          <Paper style={{ padding: "20px" }}>{response}</Paper>
+        ) : (
           <TextField
             onChange={onChangeHandler}
             error={isInvalidInput}
@@ -43,14 +47,8 @@ const Step1: FunctionComponent<IStepProps> = ({
             type="number"
             variant="outlined"
           />
-        )}
+        )}{" "}
       </div>
-
-      {response && (
-        <div>
-          <Paper style={{ padding: "20px" }}>{response}</Paper>
-        </div>
-      )}
     </section>
   );
 };
