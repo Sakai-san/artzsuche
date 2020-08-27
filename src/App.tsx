@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Step0 from "./Steps/Step0";
 import Step1 from "./Steps/Step1";
 import Step2 from "./Steps/Step2";
@@ -67,12 +68,15 @@ const App: FunctionComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const physicians: any = useSelector((state: any) => state.physicians);
+  console.log("physicians", physicians);
+
   return (
     <div>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" className={classes.title}>
-            Lass uns dikutieren
+            Lass uns diskutieren
           </Typography>
           <ForumIcon />
         </Toolbar>
@@ -112,6 +116,7 @@ const App: FunctionComponent = () => {
             response={step2Response}
             setResponse={setStep2Response}
             setCurrentStep={setCurrentStep}
+            options={physicians}
           />,
         ].slice(0, currentStep + 1)}
       </div>

@@ -7,9 +7,7 @@ const reducer: Reducer<
   ReturnType<typeof actions.makePhysiciansFetch>
 > = (state = [], action) => {
   if (isFetchAction(action)) {
-    return {
-      ...action.payload,
-    };
+    return [...action.payload];
   } else {
     return state;
   }
