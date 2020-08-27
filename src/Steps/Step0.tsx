@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import MapRoundedIcon from "@material-ui/icons/MapRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import Typist from "react-typist";
 
 import Response from "./Response";
 import useFocus from "./useFocus";
@@ -28,7 +29,8 @@ const Step0: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <MapRoundedIcon fontSize="large" /> Im welchem Kanton wohnst du ?
+          <MapRoundedIcon fontSize="large" />{" "}
+          <Typist>Im welchem Kanton wohnst du ?</Typist>
         </span>
       </div>
 

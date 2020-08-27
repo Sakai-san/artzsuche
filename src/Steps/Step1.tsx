@@ -2,6 +2,8 @@ import React, { FunctionComponent, useState } from "react";
 import { IStepProps } from "./StepType";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import TextField from "@material-ui/core/TextField";
+import Typist from "react-typist";
+
 import Response from "./Response";
 import useFocus from "./useFocus";
 
@@ -38,8 +40,8 @@ const Step1: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <RoomRoundedIcon fontSize="large" /> Was ist die Postleitzahl deines
-          Wohnortes ?
+          <RoomRoundedIcon fontSize="large" />
+          <Typist>Was ist die Postleitzahl deines Wohnortes ?</Typist>
         </span>
       </div>
 

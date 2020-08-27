@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import Typist from "react-typist";
 
 import Response from "./Response";
 import useFocus from "./useFocus";
@@ -29,8 +30,8 @@ const Step2: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <LocalHospitalRoundedIcon fontSize="large" /> Wähle einen Artz / eine
-          Artzin ?
+          <LocalHospitalRoundedIcon fontSize="large" />
+          <Typist>Wähle einen Artz / eine Artzin ?</Typist>
         </span>
       </div>
 
