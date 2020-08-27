@@ -3,6 +3,7 @@ import { IStepProps } from "./StepType";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import TextField from "@material-ui/core/TextField";
 import Response from "./Response";
+import useFocus from "./useFocus";
 
 const validation = (input: string | undefined) =>
   input && input.length === 4 && !input.startsWith("0");
@@ -15,6 +16,7 @@ const Step1: FunctionComponent<IStepProps> = ({
   isEditing,
   setIsEditing,
 }) => {
+  const domRef = useFocus();
   const [isInvalidInput, setInvalidInput] = useState<boolean>(false);
 
   const onChangeHandler = (event: any) => {
@@ -50,6 +52,7 @@ const Step1: FunctionComponent<IStepProps> = ({
           />
         ) : (
           <TextField
+            ref={domRef}
             onChange={onChangeHandler}
             error={isInvalidInput}
             label="PLZ"
