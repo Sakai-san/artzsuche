@@ -22,7 +22,8 @@ const Step2: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <LocalHospitalRoundedIcon fontSize="large" /> Wähle deinen Artz ?
+          <LocalHospitalRoundedIcon fontSize="large" /> Wähle einen Artz / eine
+          Artzin ?
         </span>
       </div>
 
@@ -40,7 +41,7 @@ const Step2: FunctionComponent<IStepProps> = ({
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Suche nach deinem Artz"
+                label="Suche nach einem/er Artz/in"
                 variant="outlined"
               />
             )}
