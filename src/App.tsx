@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: "5px",
         marginTop: "30px",
         borderRadius: "6px 6px",
-        border: "1px solid grey",
       },
     },
     lanes: {
