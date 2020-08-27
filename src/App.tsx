@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
   },
   content: {
-    padding: "20px",
+    width: "90%",
+    padding: "40px",
     "&>section:not(:first-child)": {
       padding: "5px",
       marginTop: "30px",
