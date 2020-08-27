@@ -63,7 +63,7 @@ const App = withStyles(styles)(({ classes }: IAppProps) => {
     <div className={classes.root}>
       <section className={classes.lanes}>
         <div>
-          <Avatar className={classes.bot}>
+          <Avatar alt="bot" className={classes.bot}>
             <span>&#129302;</span>
           </Avatar>
         </div>
