@@ -22,8 +22,11 @@ const Step1: FunctionComponent<IStepProps> = ({
       setInvalidInput(true);
     } else {
       setInvalidInput(false);
-      setResponse(enteredZip);
-      setCurrentStep(2);
+
+      setTimeout(() => {
+        setResponse(enteredZip);
+        setCurrentStep(2);
+      }, 2000);
     }
   };
 
