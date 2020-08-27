@@ -4,6 +4,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 
 import Response from "./Response";
+import useFocus from "./useFocus";
 
 import { IStepProps } from "./StepType";
 
@@ -16,6 +17,8 @@ const Step0: FunctionComponent<IStepProps> = ({
   isEditing,
   setIsEditing,
 }) => {
+  const domRef = useFocus();
+
   const onChangeHandler = (e: any, value: any) => {
     setResponse(value);
     !isEditing && setCurrentStep(1);
@@ -47,6 +50,7 @@ const Step0: FunctionComponent<IStepProps> = ({
                 {...params}
                 label="Wähle bitte deinen Kanton"
                 variant="outlined"
+                ref={domRef}
               />
             )}
           />
