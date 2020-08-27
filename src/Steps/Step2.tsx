@@ -35,6 +35,7 @@ const Step2: FunctionComponent<IStepProps> = ({
           <div>
             <Paper style={{ padding: "20px" }}>{response}</Paper>
             <CreateRoundedIcon
+              fontSize="small"
               onClick={(e) => {
                 setIsEditing(true);
                 setResponse(null);
