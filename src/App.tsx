@@ -1,7 +1,8 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 import Step0 from "./Steps/Step0";
 import Step1 from "./Steps/Step1";
 import Step2 from "./Steps/Step2";
+import { useDispatch } from "react-redux";
 import { Theme, makeStyles } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import AppBar from "@material-ui/core/AppBar";
@@ -9,6 +10,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import ForumIcon from "@material-ui/icons/Forum";
 import { deepOrange } from "@material-ui/core/colors";
+import { physiciansOperations } from "./ducks/physicians";
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
@@ -58,6 +60,12 @@ const App: FunctionComponent = () => {
   const [step0Response, setStep0Response] = useState<string | null>(null);
   const [step1Response, setStep1Response] = useState<string | null>(null);
   const [step2Response, setStep2Response] = useState<string | null>(null);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(physiciansOperations.fetchBooks);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>

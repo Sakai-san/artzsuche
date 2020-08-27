@@ -1,1 +1,1 @@
-export { default as physicianSearch } from "./physicianSearch";
+export { default as physicians } from "./physicians";
