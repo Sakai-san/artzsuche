@@ -5,6 +5,7 @@ import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import physicians from "../physicians.json";
+import { IPhysician } from "../types/phyisician";
 
 const Step2: FunctionComponent<IStepProps> = ({
   response,
@@ -31,7 +32,7 @@ const Step2: FunctionComponent<IStepProps> = ({
         ) : (
           <Autocomplete
             options={physicians}
-            getOptionLabel={(option: any) =>
+            getOptionLabel={(option: IPhysician) =>
               `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` || ""
             }
             style={{ width: 300 }}
