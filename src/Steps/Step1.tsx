@@ -47,7 +47,7 @@ const Step1: FunctionComponent<IStepProps> = ({
             type="number"
             variant="outlined"
           />
-        )}{" "}
+        )}
       </div>
     </section>
   );
