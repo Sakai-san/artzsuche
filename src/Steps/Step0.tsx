@@ -23,7 +23,12 @@ const Step0: FunctionComponent<IStepProps> = ({
         <span>
           <DomainRoundedIcon fontSize="large" /> Im welchem Kanton wohnst du ?
         </span>
-        {!response && (
+      </div>
+
+      <div>
+        {response ? (
+          <Paper style={{ padding: "20px" }}>{response}</Paper>
+        ) : (
           <Autocomplete
             options={cantons}
             getOptionLabel={(option: string) => option}
@@ -39,12 +44,6 @@ const Step0: FunctionComponent<IStepProps> = ({
           />
         )}
       </div>
-
-      {response && (
-        <div>
-          <Paper style={{ padding: "20px" }}>{response}</Paper>
-        </div>
-      )}
     </section>
   );
 };
