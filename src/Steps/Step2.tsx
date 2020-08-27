@@ -4,6 +4,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 
 import Response from "./Response";
+import useFocus from "./useFocus";
 
 import { IPhysician } from "../ducks/physicians/types";
 import { IStepProps } from "./StepType";
@@ -17,6 +18,8 @@ const Step2: FunctionComponent<IStepProps> = ({
   isEditing,
   setIsEditing,
 }) => {
+  const domRef = useFocus();
+
   const onChangeHandler = (e: any, value: any) => {
     setResponse(`${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`);
     !isEditing && setCurrentStep(2);
@@ -51,6 +54,7 @@ const Step2: FunctionComponent<IStepProps> = ({
                 {...params}
                 label="Suche nach einem/er Artz/in"
                 variant="outlined"
+                ref={domRef}
               />
             )}
           />
