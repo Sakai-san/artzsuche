@@ -16,7 +16,7 @@ const Step1: FunctionComponent<IStepProps> = ({
   isEditing,
   setIsEditing,
 }) => {
-  const domRef = useFocus();
+  const domRef = useFocus([response]);
   const [isInvalidInput, setInvalidInput] = useState<boolean>(false);
 
   const onChangeHandler = (event: any) => {

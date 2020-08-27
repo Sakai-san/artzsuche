@@ -17,7 +17,7 @@ const Step0: FunctionComponent<IStepProps> = ({
   isEditing,
   setIsEditing,
 }) => {
-  const domRef = useFocus();
+  const domRef = useFocus([response]);
 
   const onChangeHandler = (e: any, value: any) => {
     setResponse(value);
