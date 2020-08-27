@@ -1,4 +1,4 @@
-// import physiciansReducer from "./reducers";
-// export { default as physiciansActions } from "./actions";
+import physiciansReducer from "./reducers";
+export { default as physiciansActions } from "./actions";
 export { default as physiciansOperations } from "./operations";
-// export default physiciansReducer;
+export default physiciansReducer;

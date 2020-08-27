@@ -63,7 +63,7 @@ const App: FunctionComponent = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(physiciansOperations.fetchBooks);
+    dispatch(physiciansOperations.fetchPhysicians);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
