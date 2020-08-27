@@ -12,6 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import ForumIcon from "@material-ui/icons/Forum";
 import { deepOrange } from "@material-ui/core/colors";
 import { physiciansOperations } from "./ducks/physicians";
+import { IPhysician } from "./ducks/physicians/types";
+import { IReduxStore } from "./ducks/reduxStore";
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
@@ -68,8 +70,9 @@ const App: FunctionComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const physicians: any = useSelector((state: any) => state.physicians);
-  console.log("physicians", physicians);
+  const physicians: IPhysician[] = useSelector(
+    (state: IReduxStore) => state.physicians
+  );
 
   return (
     <div>

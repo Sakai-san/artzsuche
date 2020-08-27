@@ -12,7 +12,7 @@ export interface IPhysician {
   TariffName?: string;
 }
 
-export type IPhysicianStore = IPhysician[];
+export type IPhysiciansStore = IPhysician[];
 
 interface IAction {
   type: actionTypes;

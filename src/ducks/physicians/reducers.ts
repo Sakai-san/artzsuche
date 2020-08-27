@@ -1,9 +1,9 @@
 import { Reducer } from "redux";
 import actions from "./actions";
-import { IPhysicianStore, isFetchAction } from "./types";
+import { IPhysiciansStore, isFetchAction } from "./types";
 
 const reducer: Reducer<
-  IPhysicianStore,
+  IPhysiciansStore,
   ReturnType<typeof actions.makePhysiciansFetch>
 > = (state = [], action) => {
   if (isFetchAction(action)) {
