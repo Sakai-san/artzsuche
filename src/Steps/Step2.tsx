@@ -2,7 +2,9 @@ import React, { FunctionComponent } from "react";
 import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+
 import Response from "./Response";
+
 import { IPhysician } from "../ducks/physicians/types";
 import { IStepProps } from "./StepType";
 

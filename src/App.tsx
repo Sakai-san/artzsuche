@@ -1,8 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import Step0 from "./Steps/Step0";
-import Step1 from "./Steps/Step1";
-import Step2 from "./Steps/Step2";
 import { useDispatch } from "react-redux";
 import { Theme, makeStyles } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
@@ -11,8 +8,13 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import ForumIcon from "@material-ui/icons/Forum";
 import { deepOrange } from "@material-ui/core/colors";
+
+import Step0 from "./Steps/Step0";
+import Step1 from "./Steps/Step1";
+import Step2 from "./Steps/Step2";
 import { physiciansOperations } from "./ducks/physicians";
 import { cantonsOperations } from "./ducks/cantons";
+
 import { IPhysician } from "./ducks/physicians/types";
 import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
