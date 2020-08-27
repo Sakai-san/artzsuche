@@ -1,59 +1,51 @@
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import Step0 from "./Steps/Step0";
 import Step1 from "./Steps/Step1";
 import Step2 from "./Steps/Step2";
-import { WithStyles, withStyles, createStyles, Theme } from "@material-ui/core";
+import { createStyles, Theme, makeStyles } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
 
-const styles = createStyles((theme: Theme) => ({
-  root: {
-    padding: "20px",
-    "&>section:not(:first-child)": {
-      padding: "5px",
-      marginTop: "30px",
-      borderRadius: "6px 6px",
-      border: "1px solid grey",
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      padding: "20px",
+      "&>section:not(:first-child)": {
+        padding: "5px",
+        marginTop: "30px",
+        borderRadius: "6px 6px",
+        border: "1px solid grey",
+      },
     },
-  },
-  lanes: {
-    display: "flex",
-    "&>div:last-child": {
-      marginLeft: "auto",
+    lanes: {
+      display: "flex",
+      "&>div:last-child": {
+        marginLeft: "auto",
+      },
     },
-  },
-  orange: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
-  },
-  bot: {
-    fontSize: "35px",
-  },
-  step: {
-    display: "flex",
-    flexDirection: "column",
-    "&>div:nth-child(2)": {
-      marginLeft: "auto",
+    orange: {
+      color: theme.palette.getContrastText(deepOrange[500]),
+      backgroundColor: deepOrange[500],
     },
-    "& svg": {
-      position: "relative",
-      top: "6px",
+    bot: {
+      fontSize: "35px",
     },
-  },
-}));
+    step: {
+      display: "flex",
+      flexDirection: "column",
+      "&>div:nth-child(2)": {
+        marginLeft: "auto",
+      },
+      "& svg": {
+        position: "relative",
+        top: "6px",
+      },
+    },
+  })
+);
 
-interface IAppProps extends WithStyles<typeof styles> {
-  classes: {
-    root: string;
-    lanes: string;
-    orange: string;
-    bot: string;
-    step: string;
-  };
-}
-
-// @ts-ignore
-const App = withStyles(styles)(({ classes }: IAppProps) => {
+const App: FunctionComponent = () => {
+  const classes = useStyles();
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [step0Response, setStep0Response] = useState<string | null>(null);
   const [step1Response, setStep1Response] = useState<string | null>(null);
@@ -98,6 +90,6 @@ const App = withStyles(styles)(({ classes }: IAppProps) => {
       ].slice(0, currentStep + 1)}
     </div>
   );
-});
+};
 
 export default App;
