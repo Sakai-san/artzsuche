@@ -1,9 +1,8 @@
 import React, { FunctionComponent, useState } from "react";
 import { IStepProps } from "./StepType";
-import Paper from "@material-ui/core/Paper";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import TextField from "@material-ui/core/TextField";
-import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
+import Response from "./Response";
 
 const validation = (input: string | undefined) =>
   input && input.length === 4 && !input.startsWith("0");
@@ -44,16 +43,11 @@ const Step1: FunctionComponent<IStepProps> = ({
 
       <div>
         {response ? (
-          <div>
-            <Paper style={{ padding: "20px" }}>{response}</Paper>
-            <CreateRoundedIcon
-              fontSize="small"
-              onClick={(e) => {
-                setIsEditing(true);
-                setResponse(null);
-              }}
-            />
-          </div>
+          <Response
+            response={response}
+            setIsEditing={setIsEditing}
+            setResponse={setResponse}
+          />
         ) : (
           <TextField
             onChange={onChangeHandler}

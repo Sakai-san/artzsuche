@@ -7,3 +7,8 @@ export interface IStepProps {
   isEditing: boolean;
   setIsEditing: (isEditing: boolean) => void;
 }
+
+export type IResponseProps = Pick<
+  IStepProps,
+  "response" | "setResponse" | "setIsEditing"
+>;
