@@ -7,12 +7,16 @@ import Avatar from "@material-ui/core/Avatar";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import ForumIcon from "@material-ui/icons/Forum";
 import { deepOrange } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
     backgroundColor: "#FF51A1",
     minHeight: 80,
+  },
+  title: {
+    flexGrow: 1,
   },
   root: {
     padding: "20px",
@@ -59,9 +63,10 @@ const App: FunctionComponent = () => {
     <div>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
-          <Typography variant="h6" color="inherit">
+          <Typography variant="h6" color="inherit" className={classes.title}>
             Lass uns dikutieren
           </Typography>
+          <ForumIcon />
         </Toolbar>
       </AppBar>
 
