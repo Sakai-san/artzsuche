@@ -4,13 +4,13 @@ import Paper from "@material-ui/core/Paper";
 import DomainRoundedIcon from "@material-ui/icons/DomainRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
-import cantons from "../cantons.json";
 
 const Step0: FunctionComponent<IStepProps> = ({
   response,
   setResponse,
   setCurrentStep,
   className,
+  options,
 }) => {
   const onChangeHandler = (e: any, value: any) => {
     setResponse(value);
@@ -30,7 +30,7 @@ const Step0: FunctionComponent<IStepProps> = ({
           <Paper style={{ padding: "20px" }}>{response}</Paper>
         ) : (
           <Autocomplete
-            options={cantons}
+            options={options}
             getOptionLabel={(option: string) => option}
             style={{ width: 300 }}
             onChange={onChangeHandler}

@@ -12,7 +12,9 @@ import Typography from "@material-ui/core/Typography";
 import ForumIcon from "@material-ui/icons/Forum";
 import { deepOrange } from "@material-ui/core/colors";
 import { physiciansOperations } from "./ducks/physicians";
+import { cantonsOperations } from "./ducks/cantons";
 import { IPhysician } from "./ducks/physicians/types";
+import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -67,12 +69,14 @@ const App: FunctionComponent = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(physiciansOperations.fetchPhysicians);
+    dispatch(cantonsOperations.fetchCantons);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const physicians: IPhysician[] = useSelector(
     (state: IReduxStore) => state.physicians
   );
+  const cantons: ICanton[] = useSelector((state: IReduxStore) => state.cantons);
 
   return (
     <div>
@@ -105,6 +109,7 @@ const App: FunctionComponent = () => {
             response={step0Response}
             setResponse={setStep0Response}
             setCurrentStep={setCurrentStep}
+            options={cantons}
           />,
           <Step1
             className={classes.step}
