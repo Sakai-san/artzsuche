@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     flexGrow: 1,
   },
-  root: {
+  content: {
     padding: "20px",
     "&>section:not(:first-child)": {
       padding: "5px",
@@ -70,7 +70,7 @@ const App: FunctionComponent = () => {
         </Toolbar>
       </AppBar>
 
-      <div className={classes.root}>
+      <div className={classes.content}>
         <section className={classes.lanes}>
           <div>
             <Avatar alt="bot" className={classes.bot}>
