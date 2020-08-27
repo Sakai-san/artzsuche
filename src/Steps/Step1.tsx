@@ -4,6 +4,9 @@ import Paper from "@material-ui/core/Paper";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import TextField from "@material-ui/core/TextField";
 
+const validation = (input: string | undefined) =>
+  input && input.length === 4 && !input.startsWith("0");
+
 const Step1: FunctionComponent<IStepProps> = ({
   response,
   setResponse,
@@ -11,9 +14,6 @@ const Step1: FunctionComponent<IStepProps> = ({
   className,
 }) => {
   const [isInvalidInput, setInvalidInput] = useState<boolean>(false);
-
-  const validation = (input: any) =>
-    input && input.length === 4 && !input.startsWith("0");
 
   const onChangeHandler = (event: any) => {
     const enteredZip = event.target.value;
