@@ -23,7 +23,12 @@ const Step2: FunctionComponent<IStepProps> = ({
         <span>
           <LocalHospitalRoundedIcon fontSize="large" /> Wähle deinen Artz ?
         </span>
-        {!response && (
+      </div>
+
+      <div>
+        {response ? (
+          <Paper style={{ padding: "20px" }}>{response}</Paper>
+        ) : (
           <Autocomplete
             options={physicians}
             getOptionLabel={(option: any) =>
@@ -41,12 +46,6 @@ const Step2: FunctionComponent<IStepProps> = ({
           />
         )}
       </div>
-
-      {response && (
-        <div>
-          <Paper style={{ padding: "20px" }}>{response}</Paper>
-        </div>
-      )}
     </section>
   );
 };
