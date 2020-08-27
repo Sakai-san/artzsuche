@@ -4,7 +4,18 @@ import MapRoundedIcon from "@material-ui/icons/MapRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
+import { Theme, makeStyles } from "@material-ui/core";
 import { IStepProps } from "./StepType";
+
+const useStyles = makeStyles((theme: Theme) => ({
+  response: {
+    display: "flex",
+    alignItems: "center",
+    "&> svg": {
+      marginLeft: "10px",
+    },
+  },
+}));
 
 const Step0: FunctionComponent<IStepProps> = ({
   response,
@@ -15,6 +26,8 @@ const Step0: FunctionComponent<IStepProps> = ({
   isEditing,
   setIsEditing,
 }) => {
+  const classes = useStyles();
+
   const onChangeHandler = (e: any, value: any) => {
     setResponse(value);
     !isEditing && setCurrentStep(1);
@@ -30,7 +43,7 @@ const Step0: FunctionComponent<IStepProps> = ({
 
       <div>
         {response ? (
-          <div>
+          <div className={classes.response}>
             <Paper style={{ padding: "20px" }}>{response}</Paper>
             <CreateRoundedIcon
               fontSize="small"
