@@ -46,7 +46,7 @@ const Step1: FunctionComponent<IStepProps> = ({
             onTypingDone={() => setIsTyping(false)}
           >
             <RoomRoundedIcon fontSize="large" />
-            Was ist die Postleitzahl deines Wohnortes ?
+            <span>Was ist die Postleitzahl deines Wohnortes ?</span>
           </Typist>
         </span>
       </div>

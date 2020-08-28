@@ -36,7 +36,7 @@ const Step2: FunctionComponent<IStepProps> = ({
             onTypingDone={() => setIsTyping(false)}
           >
             <LocalHospitalRoundedIcon fontSize="large" />
-            Wähle einen Artz / eine Artzin ?
+            <span>Wähle einen Artz / eine Artzin ?</span>
           </Typist>
         </span>
       </div>

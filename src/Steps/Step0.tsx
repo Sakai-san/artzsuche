@@ -33,7 +33,8 @@ const Step0: FunctionComponent<IStepProps> = ({
             cursor={{ hideWhenDone: true }}
             onTypingDone={() => setIsTyping(false)}
           >
-            <MapRoundedIcon fontSize="large" /> Im welchem Kanton wohnst du ?
+            <MapRoundedIcon fontSize="large" />
+            <span>Im welchem Kanton wohnst du ?</span>
           </Typist>
         </span>
       </div>
