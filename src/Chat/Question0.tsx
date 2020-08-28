@@ -36,7 +36,9 @@ const Question0: FunctionComponent<IQuestionProps> = ({
             onTypingDone={() => setIsTyping(false)}
           >
             <MapRoundedIcon fontSize="large" />
-            <span>Im welchem Kanton wohnst du ?</span>
+            <span style={{ fontSize: "18px" }}>
+              Im welchem Kanton wohnst du ?
+            </span>
           </Typist>
         </span>
       </div>

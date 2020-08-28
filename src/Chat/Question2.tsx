@@ -37,7 +37,9 @@ const Question2: FunctionComponent<IQuestionProps> = ({
             onTypingDone={() => setIsTyping(false)}
           >
             <LocalHospitalRoundedIcon fontSize="large" />
-            <span>Wähle einen Artz / eine Artzin ?</span>
+            <span style={{ fontSize: "18px" }}>
+              Wähle einen Artz / eine Artzin ?
+            </span>
           </Typist>
         </span>
       </div>
