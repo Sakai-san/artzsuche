@@ -11,4 +11,4 @@ export interface IQuestionProps {
 export type IResponseProps = Pick<
   IQuestionProps,
   "response" | "setResponse" | "setIsEditing"
->;
+> & { setIsInputValid?: (args: any) => void };

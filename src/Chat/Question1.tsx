@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useRef } from "react";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import TextField from "@material-ui/core/TextField";
 import Typist from "react-typist";
@@ -10,7 +10,7 @@ import useFocus from "./useFocus";
 import { IQuestionProps } from "./QuestionType";
 
 const validation = (input: string | undefined) =>
-  input && input.length === 4 && !input.startsWith("0");
+  !!(input && input.length === 4 && !input.startsWith("0"));
 
 const Question1: FunctionComponent<IQuestionProps> = ({
   response,
@@ -22,20 +22,18 @@ const Question1: FunctionComponent<IQuestionProps> = ({
 }) => {
   const [isTyping, setIsTyping] = useState<boolean>(true);
   const domRef = useFocus([response, isTyping]);
-  const [isInvalidInput, setInvalidInput] = useState<boolean>(false);
+  const [isInputValid, setIsInputValid] = useState<boolean>(false);
+  const enteredZip = useRef<string>("");
 
   const onChangeHandler = (event: any) => {
-    const enteredZip = event.target.value;
+    enteredZip.current = event.target.value;
+    setIsInputValid(validation(enteredZip?.current));
+  };
 
-    if (!validation(enteredZip)) {
-      setInvalidInput(true);
-    } else {
-      setInvalidInput(false);
-
-      setTimeout(() => {
-        setResponse(enteredZip);
-        !isEditing && setCurrentQuestion(2);
-      }, 500);
+  const onKeyPressHandler = (event: any) => {
+    if (event.key === "Enter" && isInputValid) {
+      setResponse(enteredZip.current);
+      !isEditing && setCurrentQuestion(2);
     }
   };
 
@@ -61,13 +59,16 @@ const Question1: FunctionComponent<IQuestionProps> = ({
             response={response}
             setIsEditing={setIsEditing}
             setResponse={setResponse}
+            setIsInputValid={setIsInputValid}
           />
         ) : (
           <VisibilityTransition isHidden={isTyping}>
             <TextField
+              helperText={(isInputValid && "Bitte schluss Enter") || ""}
               ref={domRef}
               onChange={onChangeHandler}
-              error={isInvalidInput}
+              onKeyPress={onKeyPressHandler}
+              error={!isInputValid}
               label="PLZ"
               type="number"
               variant="outlined"

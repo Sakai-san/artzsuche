@@ -19,6 +19,7 @@ const Response: FunctionComponent<IResponseProps> = ({
   response,
   setResponse,
   setIsEditing,
+  setIsInputValid,
 }) => {
   const classes = useStyles();
   return (
@@ -29,6 +30,8 @@ const Response: FunctionComponent<IResponseProps> = ({
         onClick={(e) => {
           setIsEditing(true);
           setResponse(null);
+          // on editing reset to false (reinitialization)
+          setIsInputValid?.(false);
         }}
       />
     </div>
