@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
@@ -19,7 +19,8 @@ const Step2: FunctionComponent<IStepProps> = ({
   isEditing,
   setIsEditing,
 }) => {
-  const domRef = useFocus([response]);
+  const [isTyping, setIsTyping] = useState<boolean>(true);
+  const domRef = useFocus([response, isTyping]);
 
   const onChangeHandler = (e: any, value: any) => {
     setResponse(`${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`);
@@ -30,8 +31,11 @@ const Step2: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <LocalHospitalRoundedIcon fontSize="large" />
-          <Typist cursor={{ hideWhenDone: true }}>
+          <Typist
+            cursor={{ hideWhenDone: true }}
+            onTypingDone={() => setIsTyping(false)}
+          >
+            <LocalHospitalRoundedIcon fontSize="large" />
             Wähle einen Artz / eine Artzin ?
           </Typist>
         </span>
@@ -50,7 +54,7 @@ const Step2: FunctionComponent<IStepProps> = ({
             getOptionLabel={(option: IPhysician) =>
               `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` || ""
             }
-            style={{ width: 300 }}
+            style={{ width: 300, visibility: isTyping ? "hidden" : "visible" }}
             onChange={onChangeHandler}
             renderInput={(params) => (
               <TextField

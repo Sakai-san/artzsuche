@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import MapRoundedIcon from "@material-ui/icons/MapRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
@@ -18,8 +18,8 @@ const Step0: FunctionComponent<IStepProps> = ({
   isEditing,
   setIsEditing,
 }) => {
-  const domRef = useFocus([response]);
-
+  const [isTyping, setIsTyping] = useState<boolean>(true);
+  const domRef = useFocus([response, isTyping]);
   const onChangeHandler = (e: any, value: any) => {
     setResponse(value);
     !isEditing && setCurrentStep(1);
@@ -29,9 +29,11 @@ const Step0: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <MapRoundedIcon fontSize="large" />{" "}
-          <Typist cursor={{ hideWhenDone: true }}>
-            Im welchem Kanton wohnst du ?
+          <Typist
+            cursor={{ hideWhenDone: true }}
+            onTypingDone={() => setIsTyping(false)}
+          >
+            <MapRoundedIcon fontSize="large" /> Im welchem Kanton wohnst du ?
           </Typist>
         </span>
       </div>
@@ -47,7 +49,7 @@ const Step0: FunctionComponent<IStepProps> = ({
           <Autocomplete
             options={options}
             getOptionLabel={(option: string) => option}
-            style={{ width: 300 }}
+            style={{ width: 300, visibility: isTyping ? "hidden" : "visible" }}
             onChange={onChangeHandler}
             renderInput={(params) => (
               <TextField

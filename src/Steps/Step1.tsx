@@ -18,7 +18,8 @@ const Step1: FunctionComponent<IStepProps> = ({
   isEditing,
   setIsEditing,
 }) => {
-  const domRef = useFocus([response]);
+  const [isTyping, setIsTyping] = useState<boolean>(true);
+  const domRef = useFocus([response, isTyping]);
   const [isInvalidInput, setInvalidInput] = useState<boolean>(false);
 
   const onChangeHandler = (event: any) => {
@@ -40,8 +41,11 @@ const Step1: FunctionComponent<IStepProps> = ({
     <section className={className}>
       <div>
         <span>
-          <RoomRoundedIcon fontSize="large" />
-          <Typist cursor={{ hideWhenDone: true }}>
+          <Typist
+            cursor={{ hideWhenDone: true }}
+            onTypingDone={() => setIsTyping(false)}
+          >
+            <RoomRoundedIcon fontSize="large" />
             Was ist die Postleitzahl deines Wohnortes ?
           </Typist>
         </span>
@@ -56,6 +60,7 @@ const Step1: FunctionComponent<IStepProps> = ({
           />
         ) : (
           <TextField
+            style={{ visibility: isTyping ? "hidden" : "visible" }}
             ref={domRef}
             onChange={onChangeHandler}
             error={isInvalidInput}
