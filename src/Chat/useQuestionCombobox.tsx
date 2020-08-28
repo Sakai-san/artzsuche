@@ -8,19 +8,18 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { IPhysician } from "../ducks/physicians/types";
 import { IQuestionProps } from "./QuestionType";
 
 interface useQuestionComboboxProps extends IQuestionProps {
   inputFieldLabel: string;
-  questionMessage: string;
+  questionSentence: string;
   onChangeHandler: (event: any, value: any) => void;
-  getOptionLabel: (option: any) => any;
+  getOptionLabel: (option: any) => string;
 }
 
 const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
   inputFieldLabel,
-  questionMessage,
+  questionSentence,
   onChangeHandler,
   getOptionLabel,
   response,
@@ -41,7 +40,7 @@ const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
             onTypingDone={() => setIsTyping(false)}
           >
             <LocalHospitalRoundedIcon fontSize="large" />
-            <span style={{ fontSize: "18px" }}>{questionMessage}</span>
+            <span style={{ fontSize: "18px" }}>{questionSentence}</span>
           </Typist>
         </span>
       </div>
@@ -57,12 +56,7 @@ const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
           <VisibilityTransition isHidden={isTyping}>
             <Autocomplete
               options={options}
-              getOptionLabel={
-                getOptionLabel ||
-                ((option: IPhysician) =>
-                  `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
-                  "")
-              }
+              getOptionLabel={getOptionLabel}
               style={{ width: 300 }}
               onChange={onChangeHandler}
               renderInput={(params) => (

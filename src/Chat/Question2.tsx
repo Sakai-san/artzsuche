@@ -1,80 +1,27 @@
-import React, { FunctionComponent, useState } from "react";
-import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
-import Typist from "react-typist";
+import { FunctionComponent } from "react";
 
-import VisibilityTransition from "./VisibilityTransition";
-import Response from "./Response";
-import useFocus from "./useFocus";
+import { IQuestionProps } from "./QuestionType";
+import useQuestionCombobox from "./useQuestionCombobox";
 
 import { IPhysician } from "../ducks/physicians/types";
-import { IQuestionProps } from "./QuestionType";
 
-const Question2: FunctionComponent<IQuestionProps> = ({
-  response,
-  setResponse,
-  setCurrentQuestion,
-  className,
-  options,
-  isEditing,
-  setIsEditing,
-}) => {
-  const [isTyping, setIsTyping] = useState<boolean>(true);
-  const domRef = useFocus([response, isTyping]);
-
+const Question2: FunctionComponent<IQuestionProps> = (props) => {
   const onChangeHandler = (e: any, value: any) => {
+    const { setResponse, isEditing, setCurrentQuestion } = props;
     setResponse(`${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`);
     !isEditing && setCurrentQuestion(2);
   };
 
-  return (
-    <section className={className}>
-      <div>
-        <span>
-          <Typist
-            cursor={{ hideWhenDone: true }}
-            onTypingDone={() => setIsTyping(false)}
-          >
-            <LocalHospitalRoundedIcon fontSize="large" />
-            <span style={{ fontSize: "18px" }}>
-              Wähle einen Artz / eine Artzin ?
-            </span>
-          </Typist>
-        </span>
-      </div>
-
-      <div>
-        {response ? (
-          <Response
-            response={response}
-            setIsEditing={setIsEditing}
-            setResponse={setResponse}
-          />
-        ) : (
-          <VisibilityTransition isHidden={isTyping}>
-            <Autocomplete
-              options={options}
-              getOptionLabel={(option: IPhysician) =>
-                `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
-                ""
-              }
-              style={{ width: 300 }}
-              onChange={onChangeHandler}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Suche nach einem/er Artz/in"
-                  variant="outlined"
-                  ref={domRef}
-                />
-              )}
-            />
-          </VisibilityTransition>
-        )}
-      </div>
-    </section>
-  );
+  return useQuestionCombobox({
+    ...{
+      getOptionLabel: (option: IPhysician) =>
+        `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` || "",
+      onChangeHandler: onChangeHandler,
+      questionSentence: "Wähle einen Artz / eine Artzin ?",
+      inputFieldLabel: "Suche nach einem/er Artz/in",
+    },
+    ...props,
+  });
 };
 
 export default Question2;
