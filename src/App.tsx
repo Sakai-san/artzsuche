@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Theme, makeStyles } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import AppBar from "@material-ui/core/AppBar";
@@ -9,9 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import ForumIcon from "@material-ui/icons/Forum";
 import { deepOrange } from "@material-ui/core/colors";
 
-import Step0 from "./Steps/Step0";
-import Step1 from "./Steps/Step1";
-import Step2 from "./Steps/Step2";
+import Question0 from "./Chat/Question0";
+import Question1 from "./Chat/Question1";
+import Question2 from "./Chat/Question2";
 import { physiciansOperations } from "./ducks/physicians";
 import { cantonsOperations } from "./ducks/cantons";
 
@@ -112,7 +111,7 @@ const App: FunctionComponent = () => {
           </div>
         </section>
         {[
-          <Step0
+          <Question0
             className={classes.step}
             key="step0"
             response={step0Response}
@@ -122,7 +121,7 @@ const App: FunctionComponent = () => {
             isEditing={step0IsEditing}
             setIsEditing={setStep0IsEditing}
           />,
-          <Step1
+          <Question1
             className={classes.step}
             key="step1"
             response={step1Response}
@@ -131,7 +130,7 @@ const App: FunctionComponent = () => {
             isEditing={step1IsEditing}
             setIsEditing={setStep1IsEditing}
           />,
-          <Step2
+          <Question2
             className={classes.step}
             key="step2"
             response={step2Response}

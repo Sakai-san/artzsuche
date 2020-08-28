@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
+import MapRoundedIcon from "@material-ui/icons/MapRounded";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import Typist from "react-typist";
@@ -8,10 +8,9 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { IPhysician } from "../ducks/physicians/types";
 import { IStepProps } from "./StepType";
 
-const Step2: FunctionComponent<IStepProps> = ({
+const Question0: FunctionComponent<IStepProps> = ({
   response,
   setResponse,
   setCurrentStep,
@@ -24,8 +23,8 @@ const Step2: FunctionComponent<IStepProps> = ({
   const domRef = useFocus([response, isTyping]);
 
   const onChangeHandler = (e: any, value: any) => {
-    setResponse(`${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`);
-    !isEditing && setCurrentStep(2);
+    setResponse(value);
+    !isEditing && setCurrentStep(1);
   };
 
   return (
@@ -36,8 +35,8 @@ const Step2: FunctionComponent<IStepProps> = ({
             cursor={{ hideWhenDone: true }}
             onTypingDone={() => setIsTyping(false)}
           >
-            <LocalHospitalRoundedIcon fontSize="large" />
-            <span>Wähle einen Artz / eine Artzin ?</span>
+            <MapRoundedIcon fontSize="large" />
+            <span>Im welchem Kanton wohnst du ?</span>
           </Typist>
         </span>
       </div>
@@ -53,16 +52,13 @@ const Step2: FunctionComponent<IStepProps> = ({
           <VisibilityTransition isHidden={isTyping}>
             <Autocomplete
               options={options}
-              getOptionLabel={(option: IPhysician) =>
-                `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
-                ""
-              }
+              getOptionLabel={(option: string) => option}
               style={{ width: 300 }}
               onChange={onChangeHandler}
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Suche nach einem/er Artz/in"
+                  label="Wähle bitte deinen Kanton"
                   variant="outlined"
                   ref={domRef}
                 />
@@ -75,4 +71,4 @@ const Step2: FunctionComponent<IStepProps> = ({
   );
 };
 
-export default Step2;
+export default Question0;

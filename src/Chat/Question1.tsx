@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
-import MapRoundedIcon from "@material-ui/icons/MapRounded";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import { IStepProps } from "./StepType";
+import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import TextField from "@material-ui/core/TextField";
 import Typist from "react-typist";
 
@@ -8,23 +8,34 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { IStepProps } from "./StepType";
+const validation = (input: string | undefined) =>
+  input && input.length === 4 && !input.startsWith("0");
 
-const Step0: FunctionComponent<IStepProps> = ({
+const Question1: FunctionComponent<IStepProps> = ({
   response,
   setResponse,
   setCurrentStep,
   className,
-  options,
   isEditing,
   setIsEditing,
 }) => {
   const [isTyping, setIsTyping] = useState<boolean>(true);
   const domRef = useFocus([response, isTyping]);
+  const [isInvalidInput, setInvalidInput] = useState<boolean>(false);
 
-  const onChangeHandler = (e: any, value: any) => {
-    setResponse(value);
-    !isEditing && setCurrentStep(1);
+  const onChangeHandler = (event: any) => {
+    const enteredZip = event.target.value;
+
+    if (!validation(enteredZip)) {
+      setInvalidInput(true);
+    } else {
+      setInvalidInput(false);
+
+      setTimeout(() => {
+        setResponse(enteredZip);
+        !isEditing && setCurrentStep(2);
+      }, 500);
+    }
   };
 
   return (
@@ -35,8 +46,8 @@ const Step0: FunctionComponent<IStepProps> = ({
             cursor={{ hideWhenDone: true }}
             onTypingDone={() => setIsTyping(false)}
           >
-            <MapRoundedIcon fontSize="large" />
-            <span>Im welchem Kanton wohnst du ?</span>
+            <RoomRoundedIcon fontSize="large" />
+            <span>Was ist die Postleitzahl deines Wohnortes ?</span>
           </Typist>
         </span>
       </div>
@@ -50,19 +61,13 @@ const Step0: FunctionComponent<IStepProps> = ({
           />
         ) : (
           <VisibilityTransition isHidden={isTyping}>
-            <Autocomplete
-              options={options}
-              getOptionLabel={(option: string) => option}
-              style={{ width: 300 }}
+            <TextField
+              ref={domRef}
               onChange={onChangeHandler}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Wähle bitte deinen Kanton"
-                  variant="outlined"
-                  ref={domRef}
-                />
-              )}
+              error={isInvalidInput}
+              label="PLZ"
+              type="number"
+              variant="outlined"
             />
           </VisibilityTransition>
         )}
@@ -71,4 +76,4 @@ const Step0: FunctionComponent<IStepProps> = ({
   );
 };
 
-export default Step0;
+export default Question1;
