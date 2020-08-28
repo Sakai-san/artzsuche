@@ -31,7 +31,9 @@ const Step2: FunctionComponent<IStepProps> = ({
       <div>
         <span>
           <LocalHospitalRoundedIcon fontSize="large" />
-          <Typist>Wähle einen Artz / eine Artzin ?</Typist>
+          <Typist cursor={{ hideWhenDone: true }}>
+            Wähle einen Artz / eine Artzin ?
+          </Typist>
         </span>
       </div>
 

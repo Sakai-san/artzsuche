@@ -30,7 +30,9 @@ const Step0: FunctionComponent<IStepProps> = ({
       <div>
         <span>
           <MapRoundedIcon fontSize="large" />{" "}
-          <Typist>Im welchem Kanton wohnst du ?</Typist>
+          <Typist cursor={{ hideWhenDone: true }}>
+            Im welchem Kanton wohnst du ?
+          </Typist>
         </span>
       </div>
 

@@ -41,7 +41,9 @@ const Step1: FunctionComponent<IStepProps> = ({
       <div>
         <span>
           <RoomRoundedIcon fontSize="large" />
-          <Typist>Was ist die Postleitzahl deines Wohnortes ?</Typist>
+          <Typist cursor={{ hideWhenDone: true }}>
+            Was ist die Postleitzahl deines Wohnortes ?
+          </Typist>
         </span>
       </div>
 
