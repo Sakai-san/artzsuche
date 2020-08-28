@@ -8,9 +8,9 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { IStepProps } from "./StepType";
+import { IQuestionProps } from "./QuestionType";
 
-const Question0: FunctionComponent<IStepProps> = ({
+const Question0: FunctionComponent<IQuestionProps> = ({
   response,
   setResponse,
   setCurrentStep,

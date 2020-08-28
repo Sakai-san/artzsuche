@@ -2,7 +2,8 @@ import React, { FunctionComponent } from "react";
 import Paper from "@material-ui/core/Paper";
 import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import { Theme, makeStyles } from "@material-ui/core";
-import { IResponseProps } from "./StepType";
+
+import { IResponseProps } from "./QuestionType";
 
 const useStyles = makeStyles((theme: Theme) => ({
   response: {

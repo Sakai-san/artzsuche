@@ -9,9 +9,9 @@ import Response from "./Response";
 import useFocus from "./useFocus";
 
 import { IPhysician } from "../ducks/physicians/types";
-import { IStepProps } from "./StepType";
+import { IQuestionProps } from "./QuestionType";
 
-const Question2: FunctionComponent<IStepProps> = ({
+const Question2: FunctionComponent<IQuestionProps> = ({
   response,
   setResponse,
   setCurrentStep,

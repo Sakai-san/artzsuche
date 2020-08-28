@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useState } from "react";
-import { IStepProps } from "./StepType";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import TextField from "@material-ui/core/TextField";
 import Typist from "react-typist";
@@ -8,10 +7,12 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
+import { IQuestionProps } from "./QuestionType";
+
 const validation = (input: string | undefined) =>
   input && input.length === 4 && !input.startsWith("0");
 
-const Question1: FunctionComponent<IStepProps> = ({
+const Question1: FunctionComponent<IQuestionProps> = ({
   response,
   setResponse,
   setCurrentStep,

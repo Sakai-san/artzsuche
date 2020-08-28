@@ -1,4 +1,4 @@
-export interface IStepProps {
+export interface IQuestionProps {
   response: string | null;
   setResponse: (response: string | null) => void;
   setCurrentStep: (step: number) => void;
@@ -9,6 +9,6 @@ export interface IStepProps {
 }
 
 export type IResponseProps = Pick<
-  IStepProps,
+  IQuestionProps,
   "response" | "setResponse" | "setIsEditing"
 >;

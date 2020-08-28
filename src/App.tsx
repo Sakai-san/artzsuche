@@ -113,7 +113,7 @@ const App: FunctionComponent = () => {
         {[
           <Question0
             className={classes.step}
-            key="step0"
+            key="question0"
             response={step0Response}
             setResponse={setStep0Response}
             setCurrentStep={setCurrentStep}
@@ -123,7 +123,7 @@ const App: FunctionComponent = () => {
           />,
           <Question1
             className={classes.step}
-            key="step1"
+            key="question1"
             response={step1Response}
             setResponse={setStep1Response}
             setCurrentStep={setCurrentStep}
@@ -132,7 +132,7 @@ const App: FunctionComponent = () => {
           />,
           <Question2
             className={classes.step}
-            key="step2"
+            key="question2"
             response={step2Response}
             setResponse={setStep2Response}
             setCurrentStep={setCurrentStep}
