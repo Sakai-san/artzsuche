@@ -4,6 +4,7 @@ import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import TextField from "@material-ui/core/TextField";
 import Typist from "react-typist";
 
+import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
@@ -59,15 +60,16 @@ const Step1: FunctionComponent<IStepProps> = ({
             setResponse={setResponse}
           />
         ) : (
-          <TextField
-            style={{ visibility: isTyping ? "hidden" : "visible" }}
-            ref={domRef}
-            onChange={onChangeHandler}
-            error={isInvalidInput}
-            label="PLZ"
-            type="number"
-            variant="outlined"
-          />
+          <VisibilityTransition isHidden={isTyping}>
+            <TextField
+              ref={domRef}
+              onChange={onChangeHandler}
+              error={isInvalidInput}
+              label="PLZ"
+              type="number"
+              variant="outlined"
+            />
+          </VisibilityTransition>
         )}
       </div>
     </section>

@@ -4,6 +4,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import Typist from "react-typist";
 
+import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
@@ -49,22 +50,25 @@ const Step2: FunctionComponent<IStepProps> = ({
             setResponse={setResponse}
           />
         ) : (
-          <Autocomplete
-            options={options}
-            getOptionLabel={(option: IPhysician) =>
-              `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` || ""
-            }
-            style={{ width: 300, visibility: isTyping ? "hidden" : "visible" }}
-            onChange={onChangeHandler}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Suche nach einem/er Artz/in"
-                variant="outlined"
-                ref={domRef}
-              />
-            )}
-          />
+          <VisibilityTransition isHidden={isTyping}>
+            <Autocomplete
+              options={options}
+              getOptionLabel={(option: IPhysician) =>
+                `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
+                ""
+              }
+              style={{ width: 300 }}
+              onChange={onChangeHandler}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Suche nach einem/er Artz/in"
+                  variant="outlined"
+                  ref={domRef}
+                />
+              )}
+            />
+          </VisibilityTransition>
         )}
       </div>
     </section>

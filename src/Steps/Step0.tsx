@@ -4,6 +4,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import Typist from "react-typist";
 
+import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
@@ -20,6 +21,7 @@ const Step0: FunctionComponent<IStepProps> = ({
 }) => {
   const [isTyping, setIsTyping] = useState<boolean>(true);
   const domRef = useFocus([response, isTyping]);
+
   const onChangeHandler = (e: any, value: any) => {
     setResponse(value);
     !isEditing && setCurrentStep(1);
@@ -47,20 +49,22 @@ const Step0: FunctionComponent<IStepProps> = ({
             setResponse={setResponse}
           />
         ) : (
-          <Autocomplete
-            options={options}
-            getOptionLabel={(option: string) => option}
-            style={{ width: 300, visibility: isTyping ? "hidden" : "visible" }}
-            onChange={onChangeHandler}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Wähle bitte deinen Kanton"
-                variant="outlined"
-                ref={domRef}
-              />
-            )}
-          />
+          <VisibilityTransition isHidden={isTyping}>
+            <Autocomplete
+              options={options}
+              getOptionLabel={(option: string) => option}
+              style={{ width: 300 }}
+              onChange={onChangeHandler}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Wähle bitte deinen Kanton"
+                  variant="outlined"
+                  ref={domRef}
+                />
+              )}
+            />
+          </VisibilityTransition>
         )}
       </div>
     </section>
