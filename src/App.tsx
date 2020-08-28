@@ -66,13 +66,13 @@ const App: FunctionComponent = () => {
 
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
 
-  const [step0Response, setStep0Response] = useState<string | null>(null);
-  const [step1Response, setStep1Response] = useState<string | null>(null);
-  const [step2Response, setStep2Response] = useState<string | null>(null);
+  const [response0, setResponse0] = useState<string | null>(null);
+  const [response1, setResponse1] = useState<string | null>(null);
+  const [response2, setResponse2] = useState<string | null>(null);
 
-  const [step0IsEditing, setStep0IsEditing] = useState<boolean>(false);
-  const [step1IsEditing, setStep1IsEditing] = useState<boolean>(false);
-  const [step2IsEditing, setStep2IsEditing] = useState<boolean>(false);
+  const [isEditing0, setIsEditing0] = useState<boolean>(false);
+  const [isEditing1, setIsEditing1] = useState<boolean>(false);
+  const [isEditing2, setIsEditing2] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -114,31 +114,31 @@ const App: FunctionComponent = () => {
           <Question0
             className={classes.question}
             key="question0"
-            response={step0Response}
-            setResponse={setStep0Response}
+            response={response0}
+            setResponse={setResponse0}
             setCurrentQuestion={setCurrentQuestion}
+            isEditing={isEditing0}
+            setIsEditing={setIsEditing0}
             options={cantons}
-            isEditing={step0IsEditing}
-            setIsEditing={setStep0IsEditing}
           />,
           <Question1
             className={classes.question}
             key="question1"
-            response={step1Response}
-            setResponse={setStep1Response}
+            response={response1}
+            setResponse={setResponse1}
             setCurrentQuestion={setCurrentQuestion}
-            isEditing={step1IsEditing}
-            setIsEditing={setStep1IsEditing}
+            isEditing={isEditing1}
+            setIsEditing={setIsEditing1}
           />,
           <Question2
             className={classes.question}
             key="question2"
-            response={step2Response}
-            setResponse={setStep2Response}
+            response={response2}
+            setResponse={setResponse2}
             setCurrentQuestion={setCurrentQuestion}
+            isEditing={isEditing2}
+            setIsEditing={setIsEditing2}
             options={physicians}
-            isEditing={step2IsEditing}
-            setIsEditing={setStep2IsEditing}
           />,
         ].slice(0, currentQuestion + 1)}
       </div>
