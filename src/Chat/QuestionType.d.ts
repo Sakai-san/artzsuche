@@ -1,7 +1,7 @@
 export interface IQuestionProps {
   response: string | null;
   setResponse: (response: string | null) => void;
-  setCurrentStep: (step: number) => void;
+  setCurrentQuestion: (step: number) => void;
   className?: string;
   options?: any;
   isEditing: boolean;

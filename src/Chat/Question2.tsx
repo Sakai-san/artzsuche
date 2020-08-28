@@ -14,7 +14,7 @@ import { IQuestionProps } from "./QuestionType";
 const Question2: FunctionComponent<IQuestionProps> = ({
   response,
   setResponse,
-  setCurrentStep,
+  setCurrentQuestion,
   className,
   options,
   isEditing,
@@ -25,7 +25,7 @@ const Question2: FunctionComponent<IQuestionProps> = ({
 
   const onChangeHandler = (e: any, value: any) => {
     setResponse(`${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`);
-    !isEditing && setCurrentStep(2);
+    !isEditing && setCurrentQuestion(2);
   };
 
   return (

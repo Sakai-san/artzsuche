@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   bot: {
     fontSize: "35px",
   },
-  step: {
+  question: {
     display: "flex",
     flexDirection: "column",
     "&>div:nth-child(2)": {
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const App: FunctionComponent = () => {
   const classes = useStyles();
 
-  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
 
   const [step0Response, setStep0Response] = useState<string | null>(null);
   const [step1Response, setStep1Response] = useState<string | null>(null);
@@ -112,35 +112,35 @@ const App: FunctionComponent = () => {
         </section>
         {[
           <Question0
-            className={classes.step}
+            className={classes.question}
             key="question0"
             response={step0Response}
             setResponse={setStep0Response}
-            setCurrentStep={setCurrentStep}
+            setCurrentQuestion={setCurrentQuestion}
             options={cantons}
             isEditing={step0IsEditing}
             setIsEditing={setStep0IsEditing}
           />,
           <Question1
-            className={classes.step}
+            className={classes.question}
             key="question1"
             response={step1Response}
             setResponse={setStep1Response}
-            setCurrentStep={setCurrentStep}
+            setCurrentQuestion={setCurrentQuestion}
             isEditing={step1IsEditing}
             setIsEditing={setStep1IsEditing}
           />,
           <Question2
-            className={classes.step}
+            className={classes.question}
             key="question2"
             response={step2Response}
             setResponse={setStep2Response}
-            setCurrentStep={setCurrentStep}
+            setCurrentQuestion={setCurrentQuestion}
             options={physicians}
             isEditing={step2IsEditing}
             setIsEditing={setStep2IsEditing}
           />,
-        ].slice(0, currentStep + 1)}
+        ].slice(0, currentQuestion + 1)}
       </div>
     </div>
   );

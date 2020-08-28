@@ -15,7 +15,7 @@ const validation = (input: string | undefined) =>
 const Question1: FunctionComponent<IQuestionProps> = ({
   response,
   setResponse,
-  setCurrentStep,
+  setCurrentQuestion,
   className,
   isEditing,
   setIsEditing,
@@ -34,7 +34,7 @@ const Question1: FunctionComponent<IQuestionProps> = ({
 
       setTimeout(() => {
         setResponse(enteredZip);
-        !isEditing && setCurrentStep(2);
+        !isEditing && setCurrentQuestion(2);
       }, 500);
     }
   };

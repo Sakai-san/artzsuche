@@ -13,7 +13,7 @@ import { IQuestionProps } from "./QuestionType";
 const Question0: FunctionComponent<IQuestionProps> = ({
   response,
   setResponse,
-  setCurrentStep,
+  setCurrentQuestion,
   className,
   options,
   isEditing,
@@ -24,7 +24,7 @@ const Question0: FunctionComponent<IQuestionProps> = ({
 
   const onChangeHandler = (e: any, value: any) => {
     setResponse(value);
-    !isEditing && setCurrentStep(1);
+    !isEditing && setCurrentQuestion(1);
   };
 
   return (
