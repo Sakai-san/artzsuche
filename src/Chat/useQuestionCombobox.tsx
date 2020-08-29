@@ -1,8 +1,6 @@
-import React, { FunctionComponent, useState } from "react";
-import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
+import React, { FunctionComponent, ReactElement } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
-import Typist from "react-typist";
 
 import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
@@ -13,14 +11,14 @@ import { IQuestionProps } from "./QuestionType";
 
 interface useQuestionComboboxProps extends IQuestionProps {
   inputFieldLabel: string;
-  questionSentence: string;
   onChangeHandler: (event: any, value: any) => void;
   getOptionLabel: (option: any) => string;
+  isTyping: boolean;
+  questionSentenceComponent: ReactElement;
 }
 
 const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
   inputFieldLabel,
-  questionSentence,
   onChangeHandler,
   getOptionLabel,
   response,
@@ -29,23 +27,16 @@ const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
   options,
   setIsEditing,
   setIsBotTyping,
+  questionSentenceComponent,
+  isTyping,
 }) => {
-  const [isTyping, setIsTyping] = useState<boolean>(true);
   useBotIsTyping(isTyping, setIsBotTyping, [isTyping]);
   const domRef = useFocus([response, isTyping]);
 
   return (
     <section className={className}>
       <div>
-        <span>
-          <Typist
-            cursor={{ hideWhenDone: true }}
-            onTypingDone={() => setIsTyping(false)}
-          >
-            <LocalHospitalRoundedIcon fontSize="large" />
-            <span style={{ fontSize: "18px" }}>{questionSentence}</span>
-          </Typist>
-        </span>
+        <span>{questionSentenceComponent}</span>
       </div>
 
       <div>

@@ -1,4 +1,6 @@
-import { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
+import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
+import Typist from "react-typist";
 
 import { IQuestionProps } from "./QuestionType";
 import useQuestionCombobox from "./useQuestionCombobox";
@@ -6,6 +8,8 @@ import useQuestionCombobox from "./useQuestionCombobox";
 import { ICanton } from "../ducks/cantons/types";
 
 const Question0: FunctionComponent<IQuestionProps> = (props) => {
+  const [isTyping, setIsTyping] = useState<boolean>(true);
+
   const onChangeHandler = (e: any, value: any) => {
     const { setResponse, isEditing, setCurrentQuestion } = props;
     setResponse(value);
@@ -13,13 +17,27 @@ const Question0: FunctionComponent<IQuestionProps> = (props) => {
   };
 
   return useQuestionCombobox({
-    ...{
-      getOptionLabel: (option: ICanton) => option,
-      onChangeHandler: onChangeHandler,
-      questionSentence: "Im welchem Kanton wohnst du ?",
-      inputFieldLabel: "Wähle bitte deinen Kanton",
-    },
     ...props,
+    ...{
+      isTyping,
+      onChangeHandler,
+      getOptionLabel: (option: ICanton) => option,
+      inputFieldLabel: "Wähle bitte deinen Kanton",
+      questionSentenceComponent: (
+        <Typist
+          cursor={{ hideWhenDone: true }}
+          onTypingDone={() => setIsTyping(false)}
+        >
+          <LocalHospitalRoundedIcon
+            fontSize="large"
+            style={{ color: "#D52B1E" }}
+          />
+          <span style={{ fontSize: "18px" }}>
+            Im welchem Kanton wohnst du ?
+          </span>
+        </Typist>
+      ),
+    },
   });
 };
 
