@@ -17,6 +17,7 @@ import { cantonsOperations } from "./ducks/cantons";
 import { IPhysician } from "./ducks/physicians/types";
 import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
+import typingIndicator from "./giphy.gif";
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
@@ -59,11 +60,18 @@ const useStyles = makeStyles((theme: Theme) => ({
       top: "6px",
     },
   },
+  typing: {
+    display: "block",
+    height: "30px",
+    position: "relative",
+    left: "10px",
+    top: "-5px",
+  },
 }));
 
 const App: FunctionComponent = () => {
-  const classes = useStyles();
-
+  const classes = useStyles({});
+  const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
 
   const [response0, setResponse0] = useState<string | null>(null);
@@ -86,6 +94,9 @@ const App: FunctionComponent = () => {
   );
   const cantons: ICanton[] = useSelector((state: IReduxStore) => state.cantons);
 
+  const isDiscussionOver =
+    [response0, response1, response2].indexOf(null) === -1;
+
   return (
     <div>
       <AppBar position="static">
@@ -100,11 +111,26 @@ const App: FunctionComponent = () => {
       <div className={classes.content}>
         <section className={classes.lanes}>
           <div>
+            <img
+              style={{ visibility: isBotTyping ? "visible" : "hidden" }}
+              className={classes.typing}
+              src={typingIndicator}
+              alt="Typing indicator"
+            />
             <Avatar alt="bot" className={classes.bot}>
               <span>&#129302;</span>
             </Avatar>
           </div>
           <div>
+            <img
+              style={{
+                visibility:
+                  !isBotTyping && !isDiscussionOver ? "visible" : "hidden",
+              }}
+              className={classes.typing}
+              src={typingIndicator}
+              alt="Typing indicator"
+            />
             <Avatar alt="you" className={classes.orange}>
               Du
             </Avatar>
@@ -120,6 +146,7 @@ const App: FunctionComponent = () => {
             isEditing={isEditing0}
             setIsEditing={setIsEditing0}
             options={cantons}
+            setIsBotTyping={setIsBotTyping}
           />,
           <Question1
             className={classes.question}
@@ -129,6 +156,7 @@ const App: FunctionComponent = () => {
             setCurrentQuestion={setCurrentQuestion}
             isEditing={isEditing1}
             setIsEditing={setIsEditing1}
+            setIsBotTyping={setIsBotTyping}
           />,
           <Question2
             className={classes.question}
@@ -139,6 +167,7 @@ const App: FunctionComponent = () => {
             isEditing={isEditing2}
             setIsEditing={setIsEditing2}
             options={physicians}
+            setIsBotTyping={setIsBotTyping}
           />,
         ].slice(0, currentQuestion + 1)}
       </div>

@@ -7,6 +7,7 @@ import Typist from "react-typist";
 import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
+import useBotIsTyping from "./useBotTyping";
 
 import { IQuestionProps } from "./QuestionType";
 
@@ -27,8 +28,10 @@ const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
   className,
   options,
   setIsEditing,
+  setIsBotTyping,
 }) => {
   const [isTyping, setIsTyping] = useState<boolean>(true);
+  useBotIsTyping(isTyping, setIsBotTyping, [isTyping]);
   const domRef = useFocus([response, isTyping]);
 
   return (
