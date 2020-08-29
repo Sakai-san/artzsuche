@@ -2,9 +2,9 @@ import React, { FunctionComponent, useState } from "react";
 import LocalHospitalOutlinedIcon from "@material-ui/icons/LocalHospitalOutlined";
 import Typist from "react-typist";
 
-import { IQuestionProps } from "./QuestionType";
 import useQuestionCombobox from "./useQuestionCombobox";
 
+import { IQuestionProps } from "./QuestionType";
 import { IPhysician } from "../ducks/physicians/types";
 
 const Question2: FunctionComponent<IQuestionProps> = (props) => {
