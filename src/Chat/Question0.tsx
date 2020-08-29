@@ -33,6 +33,7 @@ const Question0: FunctionComponent<IQuestionProps> = (props) => {
             style={{ color: "#D52B1E" }}
           />
           <span style={{ fontSize: "18px" }}>
+            {" "}
             Im welchem Kanton wohnst du ?
           </span>
         </Typist>

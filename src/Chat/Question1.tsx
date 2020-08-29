@@ -50,6 +50,7 @@ const Question1: FunctionComponent<IQuestionProps> = ({
           >
             <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
             <span style={{ fontSize: "18px" }}>
+              {" "}
               Was ist die Postleitzahl deines Wohnortes ?
             </span>
           </Typist>

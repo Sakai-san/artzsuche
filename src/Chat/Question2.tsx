@@ -34,6 +34,7 @@ const Question2: FunctionComponent<IQuestionProps> = (props) => {
             style={{ color: "#D52B1E" }}
           />
           <span style={{ fontSize: "18px" }}>
+            {" "}
             Wähle einen Artz / eine Artzin ?
           </span>
         </Typist>
