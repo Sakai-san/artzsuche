@@ -8,7 +8,7 @@ import useQuestionCombobox from "./useQuestionCombobox";
 import { IPhysician } from "../ducks/physicians/types";
 
 const Question2: FunctionComponent<IQuestionProps> = (props) => {
-  const [isTyping, setIsTyping] = useState<boolean>(true);
+  const [isTypingBot, setIsTypingBot] = useState<boolean>(true);
 
   const onChangeHandler = (e: any, value: any) => {
     const { setResponse, isEditing, setCurrentQuestion } = props;
@@ -19,7 +19,7 @@ const Question2: FunctionComponent<IQuestionProps> = (props) => {
   return useQuestionCombobox({
     ...props,
     ...{
-      isTyping,
+      isTypingBot,
       onChangeHandler,
       getOptionLabel: (option: IPhysician) =>
         `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` || "",
@@ -27,7 +27,7 @@ const Question2: FunctionComponent<IQuestionProps> = (props) => {
       questionSentenceComponent: (
         <Typist
           cursor={{ hideWhenDone: true }}
-          onTypingDone={() => setIsTyping(false)}
+          onTypingDone={() => setIsTypingBot(false)}
         >
           <LocalHospitalRoundedIcon
             fontSize="large"

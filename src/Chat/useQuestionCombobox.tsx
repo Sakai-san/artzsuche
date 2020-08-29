@@ -13,7 +13,7 @@ interface useQuestionComboboxProps extends IQuestionProps {
   inputFieldLabel: string;
   onChangeHandler: (event: any, value: any) => void;
   getOptionLabel: (option: any) => string;
-  isTyping: boolean;
+  isTypingBot: boolean;
   questionSentenceComponent: ReactElement;
 }
 
@@ -28,10 +28,10 @@ const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
   setIsEditing,
   setIsBotTyping,
   questionSentenceComponent,
-  isTyping,
+  isTypingBot,
 }) => {
-  useBotIsTyping(isTyping, setIsBotTyping, [isTyping]);
-  const domRef = useFocus([response, isTyping]);
+  useBotIsTyping(isTypingBot, setIsBotTyping, [isTypingBot]);
+  const domRef = useFocus([response, isTypingBot]);
 
   return (
     <section className={className}>
@@ -47,7 +47,7 @@ const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
             setResponse={setResponse}
           />
         ) : (
-          <VisibilityTransition isHidden={isTyping}>
+          <VisibilityTransition isHidden={isTypingBot}>
             <Autocomplete
               options={options}
               getOptionLabel={getOptionLabel}

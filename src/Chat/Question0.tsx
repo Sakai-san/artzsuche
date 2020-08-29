@@ -8,7 +8,7 @@ import useQuestionCombobox from "./useQuestionCombobox";
 import { ICanton } from "../ducks/cantons/types";
 
 const Question0: FunctionComponent<IQuestionProps> = (props) => {
-  const [isTyping, setIsTyping] = useState<boolean>(true);
+  const [isTypingBot, setIsTypingBot] = useState<boolean>(true);
 
   const onChangeHandler = (e: any, value: any) => {
     const { setResponse, isEditing, setCurrentQuestion } = props;
@@ -19,14 +19,14 @@ const Question0: FunctionComponent<IQuestionProps> = (props) => {
   return useQuestionCombobox({
     ...props,
     ...{
-      isTyping,
+      isTypingBot,
       onChangeHandler,
       getOptionLabel: (option: ICanton) => option,
       inputFieldLabel: "Wähle bitte deinen Kanton",
       questionSentenceComponent: (
         <Typist
           cursor={{ hideWhenDone: true }}
-          onTypingDone={() => setIsTyping(false)}
+          onTypingDone={() => setIsTypingBot(false)}
         >
           <LocalHospitalRoundedIcon
             fontSize="large"
