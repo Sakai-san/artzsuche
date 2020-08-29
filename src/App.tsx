@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   typing: {
     display: "block",
-    height: "30px",
+    height: "50px",
     position: "relative",
     left: "10px",
     top: "-5px",
