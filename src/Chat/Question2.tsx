@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
+import LocalHospitalOutlinedIcon from "@material-ui/icons/LocalHospitalOutlined";
 import Typist from "react-typist";
 
 import { IQuestionProps } from "./QuestionType";
@@ -29,7 +29,7 @@ const Question2: FunctionComponent<IQuestionProps> = (props) => {
           cursor={{ hideWhenDone: true }}
           onTypingDone={() => setIsTypingBot(false)}
         >
-          <LocalHospitalRoundedIcon
+          <LocalHospitalOutlinedIcon
             fontSize="large"
             style={{ color: "#D52B1E" }}
           />
