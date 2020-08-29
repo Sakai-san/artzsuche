@@ -48,10 +48,10 @@ const Question1: FunctionComponent<IQuestionProps> = ({
             cursor={{ hideWhenDone: true }}
             onTypingDone={() => setIsTyping(false)}
           >
-            <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
             <span style={{ fontSize: "18px" }}>
-              {" "}
-              Was ist die Postleitzahl deines Wohnortes ?
+              Was ist die Postleitzahl{" "}
+              <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
+              deines Wohnortes ?
             </span>
           </Typist>
         </span>
