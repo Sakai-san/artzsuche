@@ -28,13 +28,12 @@ const Question0: FunctionComponent<IQuestionProps> = (props) => {
           cursor={{ hideWhenDone: true }}
           onTypingDone={() => setIsTypingBot(false)}
         >
+          <LocalHospitalRoundedIcon
+            fontSize="large"
+            style={{ color: "#D52B1E" }}
+          />{" "}
           <span style={{ fontSize: "18px" }}>
-            Im welchem Kanton{" "}
-            <LocalHospitalRoundedIcon
-              fontSize="large"
-              style={{ color: "#D52B1E" }}
-            />{" "}
-            wohnst du ?
+            Im welchem Kanton wohnst du ?
           </span>
         </Typist>
       ),
