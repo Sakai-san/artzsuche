@@ -160,22 +160,20 @@ const App: FunctionComponent = () => {
             isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
           >
-            {(setIsTypingBot: any) => {
-              return (
-                <Typist
-                  cursor={{ hideWhenDone: true }}
-                  onTypingDone={() => setIsTypingBot(false)}
-                >
-                  <LocalHospitalRoundedIcon
-                    fontSize="large"
-                    style={{ color: "#D52B1E" }}
-                  />{" "}
-                  <span style={{ fontSize: "18px" }}>
-                    Im welchem Kanton wohnst du ?
-                  </span>
-                </Typist>
-              );
-            }}
+            {(setIsBotTyping) => (
+              <Typist
+                cursor={{ hideWhenDone: true }}
+                onTypingDone={() => setIsBotTyping(false)}
+              >
+                <LocalHospitalRoundedIcon
+                  fontSize="large"
+                  style={{ color: "#D52B1E" }}
+                />{" "}
+                <span style={{ fontSize: "18px" }}>
+                  Im welchem Kanton wohnst du ?
+                </span>
+              </Typist>
+            )}
           </Question0>,
           <Question1
             className={classes.question}
@@ -188,22 +186,17 @@ const App: FunctionComponent = () => {
             isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
           >
-            {(setIsTypingBot: any) => {
-              return (
-                <Typist
-                  cursor={{ hideWhenDone: true }}
-                  onTypingDone={() => setIsTypingBot(false)}
-                >
-                  <RoomRoundedIcon
-                    fontSize="large"
-                    style={{ color: "ff0000" }}
-                  />{" "}
-                  <span style={{ fontSize: "18px" }}>
-                    Was ist die Postleitzahl deines Wohnortes ?
-                  </span>
-                </Typist>
-              );
-            }}
+            {(setIsBotTyping) => (
+              <Typist
+                cursor={{ hideWhenDone: true }}
+                onTypingDone={() => setIsBotTyping(false)}
+              >
+                <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
+                <span style={{ fontSize: "18px" }}>
+                  Was ist die Postleitzahl deines Wohnortes ?
+                </span>
+              </Typist>
+            )}
           </Question1>,
           <Question2
             className={classes.question}
@@ -217,10 +210,10 @@ const App: FunctionComponent = () => {
             isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
           >
-            {(setIsTypingBot: any) => (
+            {(setIsBotTyping) => (
               <Typist
                 cursor={{ hideWhenDone: true }}
-                onTypingDone={() => setIsTypingBot(false)}
+                onTypingDone={() => setIsBotTyping(false)}
               >
                 <LocalHospitalOutlinedIcon
                   fontSize="large"

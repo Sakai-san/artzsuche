@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FunctionComponent, ReactElement } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
@@ -31,7 +30,7 @@ const QuestionCombobox: FunctionComponent<any> = ({
   children,
 }) => {
   const domRef = useFocus([response, isBotTyping]);
-
+  console.log("response QuestionCombobox", response);
   return (
     <section className={className}>
       <div>

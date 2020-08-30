@@ -6,8 +6,9 @@ export interface IQuestionProps {
   options?: any;
   isEditing: boolean;
   setIsEditing: (isEditing: boolean) => void;
-  setIsBotTyping: (isTyping: boolean) => void;
+  setIsBotTyping: (arg: boolean) => void;
   isBotTyping: boolean;
+  children: (props: (arg: boolean) => void) => JSX.Element;
 }
 
 export type IResponseProps = Pick<
