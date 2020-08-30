@@ -7,6 +7,10 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import ForumIcon from "@material-ui/icons/Forum";
 import { deepOrange } from "@material-ui/core/colors";
+import LocalHospitalOutlinedIcon from "@material-ui/icons/LocalHospitalOutlined";
+import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
+import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
+import Typist from "react-typist";
 
 import Question0 from "./Chat/Question0";
 import Question1 from "./Chat/Question1";
@@ -83,6 +87,13 @@ const App: FunctionComponent = () => {
   const [isEditing2, setIsEditing2] = useState<boolean>(false);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // bot is typing after switching to new question
+    setIsBotTyping(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentQuestion]);
+
   useEffect(() => {
     dispatch(physiciansOperations.fetchPhysicians());
     dispatch(cantonsOperations.fetchCantons());
@@ -146,8 +157,26 @@ const App: FunctionComponent = () => {
             isEditing={isEditing0}
             setIsEditing={setIsEditing0}
             options={cantons}
+            isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
-          />,
+          >
+            {(setIsTypingBot: any) => {
+              return (
+                <Typist
+                  cursor={{ hideWhenDone: true }}
+                  onTypingDone={() => setIsTypingBot(false)}
+                >
+                  <LocalHospitalRoundedIcon
+                    fontSize="large"
+                    style={{ color: "#D52B1E" }}
+                  />{" "}
+                  <span style={{ fontSize: "18px" }}>
+                    Im welchem Kanton wohnst du ?
+                  </span>
+                </Typist>
+              );
+            }}
+          </Question0>,
           <Question1
             className={classes.question}
             key="question1"
@@ -156,8 +185,26 @@ const App: FunctionComponent = () => {
             setCurrentQuestion={setCurrentQuestion}
             isEditing={isEditing1}
             setIsEditing={setIsEditing1}
+            isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
-          />,
+          >
+            {(setIsTypingBot: any) => {
+              return (
+                <Typist
+                  cursor={{ hideWhenDone: true }}
+                  onTypingDone={() => setIsTypingBot(false)}
+                >
+                  <RoomRoundedIcon
+                    fontSize="large"
+                    style={{ color: "ff0000" }}
+                  />{" "}
+                  <span style={{ fontSize: "18px" }}>
+                    Was ist die Postleitzahl deines Wohnortes ?
+                  </span>
+                </Typist>
+              );
+            }}
+          </Question1>,
           <Question2
             className={classes.question}
             key="question2"
@@ -167,8 +214,24 @@ const App: FunctionComponent = () => {
             isEditing={isEditing2}
             setIsEditing={setIsEditing2}
             options={physicians}
+            isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
-          />,
+          >
+            {(setIsTypingBot: any) => (
+              <Typist
+                cursor={{ hideWhenDone: true }}
+                onTypingDone={() => setIsTypingBot(false)}
+              >
+                <LocalHospitalOutlinedIcon
+                  fontSize="large"
+                  style={{ color: "#D52B1E" }}
+                />{" "}
+                <span style={{ fontSize: "18px" }}>
+                  Wähle einen Artz / eine Artzin ?
+                </span>
+              </Typist>
+            )}
+          </Question2>,
         ].slice(0, currentQuestion + 1)}
       </div>
     </div>

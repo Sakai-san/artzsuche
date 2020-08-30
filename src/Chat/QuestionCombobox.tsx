@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { FunctionComponent, ReactElement } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
@@ -5,7 +6,6 @@ import TextField from "@material-ui/core/TextField";
 import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
-import useBotIsTyping from "./useBotTyping";
 
 import { IQuestionProps } from "./QuestionType";
 
@@ -17,7 +17,7 @@ interface useQuestionComboboxProps extends IQuestionProps {
   questionSentenceComponent: ReactElement;
 }
 
-const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
+const QuestionCombobox: FunctionComponent<any> = ({
   inputFieldLabel,
   onChangeHandler,
   getOptionLabel,
@@ -26,17 +26,16 @@ const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
   className,
   options,
   setIsEditing,
+  isBotTyping,
   setIsBotTyping,
-  questionSentenceComponent,
-  isTypingBot,
+  children,
 }) => {
-  useBotIsTyping(isTypingBot, setIsBotTyping, [isTypingBot]);
-  const domRef = useFocus([response, isTypingBot]);
+  const domRef = useFocus([response, isBotTyping]);
 
   return (
     <section className={className}>
       <div>
-        <span>{questionSentenceComponent}</span>
+        <span>{children?.(setIsBotTyping)}</span>
       </div>
 
       <div>
@@ -47,7 +46,7 @@ const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
             setResponse={setResponse}
           />
         ) : (
-          <VisibilityTransition isHidden={isTypingBot}>
+          <VisibilityTransition isHidden={isBotTyping}>
             <Autocomplete
               options={options}
               getOptionLabel={getOptionLabel}
@@ -69,4 +68,4 @@ const useQuestionCombobox: FunctionComponent<useQuestionComboboxProps> = ({
   );
 };
 
-export default useQuestionCombobox;
+export default QuestionCombobox;

@@ -1,45 +1,36 @@
-import React, { FunctionComponent, useState } from "react";
-import LocalHospitalOutlinedIcon from "@material-ui/icons/LocalHospitalOutlined";
-import Typist from "react-typist";
+import React, { FunctionComponent } from "react";
 
-import useQuestionCombobox from "./useQuestionCombobox";
+import QuestionCombobox from "./QuestionCombobox";
 
 import { IQuestionProps } from "./QuestionType";
 import { IPhysician } from "../ducks/physicians/types";
 
 const Question2: FunctionComponent<IQuestionProps> = (props) => {
-  const [isTypingBot, setIsTypingBot] = useState<boolean>(true);
-
   const onChangeHandler = (e: any, value: any) => {
     const { setResponse, isEditing, setCurrentQuestion } = props;
     setResponse(`${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`);
-    !isEditing && setCurrentQuestion(2);
+    if (!isEditing) {
+      setCurrentQuestion(2);
+    }
   };
 
-  return useQuestionCombobox({
-    ...props,
-    ...{
-      isTypingBot,
-      onChangeHandler,
-      getOptionLabel: (option: IPhysician) =>
-        `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` || "",
-      inputFieldLabel: "Suche nach einem/er Artz/in",
-      questionSentenceComponent: (
-        <Typist
-          cursor={{ hideWhenDone: true }}
-          onTypingDone={() => setIsTypingBot(false)}
-        >
-          <LocalHospitalOutlinedIcon
-            fontSize="large"
-            style={{ color: "#D52B1E" }}
-          />{" "}
-          <span style={{ fontSize: "18px" }}>
-            Wähle einen Artz / eine Artzin ?
-          </span>
-        </Typist>
-      ),
-    },
-  });
+  const { children } = props;
+
+  return (
+    <QuestionCombobox
+      {...{
+        ...props,
+        ...{
+          onChangeHandler,
+          getOptionLabel: (option: IPhysician) =>
+            `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` || "",
+          inputFieldLabel: "Suche nach einem/er Artz/in",
+        },
+      }}
+    >
+      {children}
+    </QuestionCombobox>
+  );
 };
 
 export default Question2;

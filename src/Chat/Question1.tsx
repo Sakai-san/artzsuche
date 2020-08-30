@@ -1,12 +1,10 @@
+// @ts-nocheck
 import React, { FunctionComponent, useState, useRef } from "react";
-import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import TextField from "@material-ui/core/TextField";
-import Typist from "react-typist";
 
 import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
-import useBotIsTyping from "./useBotTyping";
 
 import { IQuestionProps } from "./QuestionType";
 
@@ -21,10 +19,10 @@ const Question1: FunctionComponent<IQuestionProps> = ({
   isEditing,
   setIsEditing,
   setIsBotTyping,
+  isBotTyping,
+  children,
 }) => {
-  const [isTyping, setIsTyping] = useState<boolean>(true);
-  useBotIsTyping(isTyping, setIsBotTyping, [isTyping]);
-  const domRef = useFocus([response, isTyping]);
+  const domRef = useFocus([response, isBotTyping]);
   const [isInputValid, setIsInputValid] = useState<boolean>(false);
   const enteredZip = useRef<string>("");
 
@@ -36,24 +34,16 @@ const Question1: FunctionComponent<IQuestionProps> = ({
   const onKeyPressHandler = (event: any) => {
     if (event.key === "Enter" && isInputValid) {
       setResponse(enteredZip.current);
-      !isEditing && setCurrentQuestion(2);
+      if (!isEditing) {
+        setCurrentQuestion(2);
+      }
     }
   };
 
   return (
     <section className={className}>
       <div>
-        <span>
-          <Typist
-            cursor={{ hideWhenDone: true }}
-            onTypingDone={() => setIsTyping(false)}
-          >
-            <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
-            <span style={{ fontSize: "18px" }}>
-              Was ist die Postleitzahl deines Wohnortes ?
-            </span>
-          </Typist>
-        </span>
+        <span>{children?.(setIsBotTyping)}</span>
       </div>
 
       <div>
@@ -65,7 +55,7 @@ const Question1: FunctionComponent<IQuestionProps> = ({
             setIsInputValid={setIsInputValid}
           />
         ) : (
-          <VisibilityTransition isHidden={isTyping}>
+          <VisibilityTransition isHidden={isBotTyping}>
             <TextField
               helperText={(isInputValid && "Bitte schluss Enter") || ""}
               ref={domRef}

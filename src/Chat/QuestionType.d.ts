@@ -7,6 +7,7 @@ export interface IQuestionProps {
   isEditing: boolean;
   setIsEditing: (isEditing: boolean) => void;
   setIsBotTyping: (isTyping: boolean) => void;
+  isBotTyping: boolean;
 }
 
 export type IResponseProps = Pick<
