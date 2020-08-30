@@ -33,5 +33,5 @@ const Question0: FunctionComponent<IQuestionProps> = (props) => {
   );
 };
 
-export default Question0;
-//export default React.memo(Question0);
+// export default Question0;
+export default React.memo(Question0);

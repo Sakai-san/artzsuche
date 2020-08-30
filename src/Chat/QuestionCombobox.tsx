@@ -8,15 +8,13 @@ import useFocus from "./useFocus";
 
 import { IQuestionProps } from "./QuestionType";
 
-interface useQuestionComboboxProps extends IQuestionProps {
+interface QuestionComboboxProps extends IQuestionProps {
   inputFieldLabel: string;
   onChangeHandler: (event: any, value: any) => void;
   getOptionLabel: (option: any) => string;
-  isTypingBot: boolean;
-  questionSentenceComponent: ReactElement;
 }
 
-const QuestionCombobox: FunctionComponent<any> = ({
+const QuestionCombobox: FunctionComponent<QuestionComboboxProps> = ({
   inputFieldLabel,
   onChangeHandler,
   getOptionLabel,
@@ -67,4 +65,5 @@ const QuestionCombobox: FunctionComponent<any> = ({
   );
 };
 
-export default QuestionCombobox;
+// export default QuestionCombobox;
+export default React.memo(QuestionCombobox);
