@@ -28,7 +28,7 @@ const QuestionCombobox: FunctionComponent<QuestionComboboxProps> = ({
   children,
 }) => {
   const domRef = useFocus([response, isBotTyping]);
-  console.log("response QuestionCombobox", response);
+
   return (
     <section className={className}>
       <div>
@@ -65,5 +65,4 @@ const QuestionCombobox: FunctionComponent<QuestionComboboxProps> = ({
   );
 };
 
-// export default QuestionCombobox;
-export default React.memo(QuestionCombobox);
+export default QuestionCombobox;
