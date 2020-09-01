@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { FunctionComponent, useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
@@ -59,22 +60,36 @@ interface ReactCasualFormProps {
   children: any;
 }
 
+interface Responses {
+  [key: string]: {
+    response?: string | null;
+    isEditing?: boolean;
+  };
+}
+
 const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   children,
 }) => {
   const classes = useStyles({});
 
+  const [responses, setResponses] = useState<{}>({});
+
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
 
-  const [response0, setResponse0] = useState<string | null>(null);
-  const [response1, setResponse1] = useState<string | null>(null);
-  const [response2, setResponse2] = useState<string | null>(null);
-
   const [isEditing0, setIsEditing0] = useState<boolean>(false);
   const [isEditing1, setIsEditing1] = useState<boolean>(false);
   const [isEditing2, setIsEditing2] = useState<boolean>(false);
+
+  const setResponse = (index: string) => (response: string | null) =>
+    setResponses((prevResponses) => ({
+      ...prevResponses,
+      [index]: {
+        ...(prevResponses?.[index] ? prevResponses[index] : {}),
+        response,
+      },
+    }));
 
   useEffect(() => {
     // bot is typing after switching to new question
@@ -83,7 +98,8 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   }, [currentQuestion]);
 
   const isDiscussionOver =
-    [response0, response1, response2].indexOf(null) === -1;
+    Object.values(responses).filter((item) => item.response).length !=
+    currentQuestion;
 
   return (
     <div
@@ -119,12 +135,8 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
         </div>
       </section>
       {children({
-        response0,
-        response1,
-        response2,
-        setResponse0,
-        setResponse1,
-        setResponse2,
+        responses,
+        setResponse,
         isBotTyping,
         isEditing0,
         isEditing1,
