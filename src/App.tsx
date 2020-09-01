@@ -10,7 +10,9 @@ import { deepOrange } from "@material-ui/core/colors";
 import LocalHospitalOutlinedIcon from "@material-ui/icons/LocalHospitalOutlined";
 import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
+import SendIcon from "@material-ui/icons/Send";
 import Typist from "react-typist";
+import Button from "@material-ui/core/Button";
 
 import Question0 from "./Chat/Question0";
 import Question1 from "./Chat/Question1";
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   content: {
     width: "90%",
-    padding: "40px",
+    margin: "20px auto",
     "&>section:not(:first-child)": {
       padding: "5px",
       marginTop: "30px",
@@ -57,6 +59,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     "&>div:first-child": {
+      width: "50%",
       borderRadius: "0px 10px 10px 10px",
       backgroundColor: "#f2f2f3",
       padding: "3px 0 14px 5px",
@@ -76,6 +79,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: "relative",
     left: "10px",
     top: "-5px",
+  },
+  submit: {
+    marginTop: "40px",
+    display: "flex",
+    flexDirection: "row-reverse",
   },
 }));
 
@@ -232,6 +240,13 @@ const App: FunctionComponent = () => {
             )}
           </Question2>,
         ].slice(0, currentQuestion + 1)}
+        {isDiscussionOver && (
+          <div className={classes.submit}>
+            <Button variant="contained" color="primary" endIcon={<SendIcon />}>
+              Send
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
