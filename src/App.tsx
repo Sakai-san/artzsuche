@@ -42,6 +42,17 @@ const useStyles = makeStyles((theme: Theme) => ({
       borderRadius: "6px 6px",
     },
   },
+  contentVisible: {
+    opacity: 1,
+  },
+  contentHidden: {
+    opacity: 0,
+    transition: "opacity 2s ease-out",
+    "&:after": {
+      opacity: 1,
+      content: `Messi vielmals`,
+    },
+  },
   lanes: {
     display: "flex",
     "&>div:last-child": {
@@ -90,6 +101,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const App: FunctionComponent = () => {
   const classes = useStyles({});
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
+  const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
 
   const [response0, setResponse0] = useState<string | null>(null);
@@ -133,7 +145,11 @@ const App: FunctionComponent = () => {
         </Toolbar>
       </AppBar>
 
-      <div className={classes.content}>
+      <div
+        className={`${classes.content} ${
+          isSumitted ? classes.contentHidden : classes.contentVisible
+        }`}
+      >
         <section className={classes.lanes}>
           <div>
             <img
@@ -247,6 +263,7 @@ const App: FunctionComponent = () => {
               color="primary"
               size="large"
               endIcon={<SendIcon />}
+              onClick={(e) => setIsSubmitted(true)}
             >
               Send
             </Button>
