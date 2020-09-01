@@ -242,7 +242,12 @@ const App: FunctionComponent = () => {
         ].slice(0, currentQuestion + 1)}
         {isDiscussionOver && (
           <div className={classes.submit}>
-            <Button variant="contained" color="primary" endIcon={<SendIcon />}>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              endIcon={<SendIcon />}
+            >
               Send
             </Button>
           </div>
