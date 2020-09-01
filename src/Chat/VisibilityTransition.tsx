@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   inputElementVisible: {
     visibility: "visible",
     opacity: 1,
-    transition: "opacity 2s linear",
+    transition: "opacity 2s ease-in",
   },
   inputElementHidden: {
     visibility: "hidden",
