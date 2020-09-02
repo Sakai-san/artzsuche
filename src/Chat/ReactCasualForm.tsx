@@ -106,6 +106,11 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
     Object.values(responses).filter((item) => item.response).length ===
     React.Children.count(jsxQuestions);
 
+  const currentQuestionIndex = Object.values(responses).reduce(
+    (acc, response) => (response?.response ? acc + 1 : acc),
+    0
+  );
+
   return (
     <div
       className={`${classes.content} ${
@@ -139,7 +144,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
           </Avatar>
         </div>
       </section>
-      {jsxQuestions.slice(0, currentQuestion + 1)}
+      {jsxQuestions.slice(0, currentQuestionIndex + 1)}
       {isDiscussionOver && (
         <div className={classes.submit}>
           <Button
