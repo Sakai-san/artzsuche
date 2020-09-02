@@ -98,7 +98,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   }, [currentQuestion]);
 
   const isDiscussionOver =
-    Object.values(responses).filter((item) => item.response).length !=
+    Object.values(responses).filter((item) => item.response).length !==
     currentQuestion;
 
   return (
