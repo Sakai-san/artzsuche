@@ -63,7 +63,6 @@ interface ReactCasualFormProps {
 interface Responses {
   [key: string]: {
     response?: string | null;
-    isEditing?: boolean;
   };
 }
 
@@ -72,21 +71,16 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
 }) => {
   const classes = useStyles({});
 
-  const [responses, setResponses] = useState<{}>({});
-
+  const [responses, setResponses] = useState<Responses>({});
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-
-  const [isEditing0, setIsEditing0] = useState<boolean>(false);
-  const [isEditing1, setIsEditing1] = useState<boolean>(false);
-  const [isEditing2, setIsEditing2] = useState<boolean>(false);
 
   const setResponse = (index: string) => (response: string | null) =>
     setResponses((prevResponses) => ({
       ...prevResponses,
       [index]: {
-        ...(prevResponses?.[index] ? prevResponses[index] : {}),
         response,
       },
     }));
@@ -137,13 +131,9 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
       {children({
         responses,
         setResponse,
+        isEditing,
+        setIsEditing,
         isBotTyping,
-        isEditing0,
-        isEditing1,
-        isEditing2,
-        setIsEditing0,
-        setIsEditing1,
-        setIsEditing2,
         setIsBotTyping,
         currentQuestion,
         setCurrentQuestion,
