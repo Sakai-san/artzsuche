@@ -91,9 +91,20 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuestion]);
 
+  const jsxQuestions = children({
+    responses,
+    setResponse,
+    isEditing,
+    setIsEditing,
+    isBotTyping,
+    setIsBotTyping,
+    currentQuestion,
+    setCurrentQuestion,
+  });
+
   const isDiscussionOver =
-    Object.values(responses).filter((item) => item.response).length !==
-    currentQuestion;
+    Object.values(responses).filter((item) => item.response).length ===
+    React.Children.count(jsxQuestions);
 
   return (
     <div
@@ -128,16 +139,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
           </Avatar>
         </div>
       </section>
-      {children({
-        responses,
-        setResponse,
-        isEditing,
-        setIsEditing,
-        isBotTyping,
-        setIsBotTyping,
-        currentQuestion,
-        setCurrentQuestion,
-      })}
+      {jsxQuestions.slice(0, currentQuestion + 1)}
       {isDiscussionOver && (
         <div className={classes.submit}>
           <Button

@@ -87,90 +87,85 @@ const App: FunctionComponent = () => {
           setIsBotTyping,
           currentQuestion,
           setCurrentQuestion,
-        }: any) =>
-          [
-            <Question0
-              className={classes.question}
-              key="question0"
-              response={responses?.["0"]?.response}
-              setResponse={setResponse("0")}
-              setCurrentQuestion={setCurrentQuestion}
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              options={cantons}
-              isBotTyping={isBotTyping}
-              setIsBotTyping={setIsBotTyping}
-            >
-              {(setIsBotTyping) => (
-                <Typist
-                  cursor={{ hideWhenDone: true }}
-                  onTypingDone={() => setIsBotTyping(false)}
-                >
-                  <LocalHospitalRoundedIcon
-                    fontSize="large"
-                    style={{ color: "#D52B1E" }}
-                  />{" "}
-                  <span style={{ fontSize: "18px" }}>
-                    Im welchem Kanton wohnst du ?
-                  </span>
-                </Typist>
-              )}
-            </Question0>,
-            <Question1
-              className={classes.question}
-              key="question1"
-              response={responses?.["1"]?.response}
-              setResponse={setResponse("1")}
-              setCurrentQuestion={setCurrentQuestion}
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              isBotTyping={isBotTyping}
-              setIsBotTyping={setIsBotTyping}
-            >
-              {(setIsBotTyping) => (
-                <Typist
-                  cursor={{ hideWhenDone: true }}
-                  onTypingDone={() => setIsBotTyping(false)}
-                >
-                  <RoomRoundedIcon
-                    fontSize="large"
-                    style={{ color: "ff0000" }}
-                  />{" "}
-                  <span style={{ fontSize: "18px" }}>
-                    Was ist die Postleitzahl deines Wohnortes ?
-                  </span>
-                </Typist>
-              )}
-            </Question1>,
-            <Question2
-              className={classes.question}
-              key="question2"
-              response={responses?.["2"]?.response}
-              setResponse={setResponse("2")}
-              setCurrentQuestion={setCurrentQuestion}
-              isEditing={isEditing}
-              setIsEditing={setIsEditing}
-              options={physicians}
-              isBotTyping={isBotTyping}
-              setIsBotTyping={setIsBotTyping}
-            >
-              {(setIsBotTyping) => (
-                <Typist
-                  cursor={{ hideWhenDone: true }}
-                  onTypingDone={() => setIsBotTyping(false)}
-                >
-                  <LocalHospitalOutlinedIcon
-                    fontSize="large"
-                    style={{ color: "#D52B1E" }}
-                  />{" "}
-                  <span style={{ fontSize: "18px" }}>
-                    Wähle einen Artz / eine Artzin ?
-                  </span>
-                </Typist>
-              )}
-            </Question2>,
-          ].slice(0, currentQuestion + 1)
-        }
+        }: any) => [
+          <Question0
+            className={classes.question}
+            key="question0"
+            response={responses?.["0"]?.response}
+            setResponse={setResponse("0")}
+            setCurrentQuestion={setCurrentQuestion}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            options={cantons}
+            isBotTyping={isBotTyping}
+            setIsBotTyping={setIsBotTyping}
+          >
+            {(setIsBotTyping) => (
+              <Typist
+                cursor={{ hideWhenDone: true }}
+                onTypingDone={() => setIsBotTyping(false)}
+              >
+                <LocalHospitalRoundedIcon
+                  fontSize="large"
+                  style={{ color: "#D52B1E" }}
+                />{" "}
+                <span style={{ fontSize: "18px" }}>
+                  Im welchem Kanton wohnst du ?
+                </span>
+              </Typist>
+            )}
+          </Question0>,
+          <Question1
+            className={classes.question}
+            key="question1"
+            response={responses?.["1"]?.response}
+            setResponse={setResponse("1")}
+            setCurrentQuestion={setCurrentQuestion}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            isBotTyping={isBotTyping}
+            setIsBotTyping={setIsBotTyping}
+          >
+            {(setIsBotTyping) => (
+              <Typist
+                cursor={{ hideWhenDone: true }}
+                onTypingDone={() => setIsBotTyping(false)}
+              >
+                <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
+                <span style={{ fontSize: "18px" }}>
+                  Was ist die Postleitzahl deines Wohnortes ?
+                </span>
+              </Typist>
+            )}
+          </Question1>,
+          <Question2
+            className={classes.question}
+            key="question2"
+            response={responses?.["2"]?.response}
+            setResponse={setResponse("2")}
+            setCurrentQuestion={setCurrentQuestion}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+            options={physicians}
+            isBotTyping={isBotTyping}
+            setIsBotTyping={setIsBotTyping}
+          >
+            {(setIsBotTyping) => (
+              <Typist
+                cursor={{ hideWhenDone: true }}
+                onTypingDone={() => setIsBotTyping(false)}
+              >
+                <LocalHospitalOutlinedIcon
+                  fontSize="large"
+                  style={{ color: "#D52B1E" }}
+                />{" "}
+                <span style={{ fontSize: "18px" }}>
+                  Wähle einen Artz / eine Artzin ?
+                </span>
+              </Typist>
+            )}
+          </Question2>,
+        ]}
       </ReactCasualForm>
     </div>
   );
