@@ -60,7 +60,10 @@ interface ReactCasualFormProps {
   children: any;
 }
 
-type Response = string | null;
+type Response = {
+  text?: string | null;
+  isEditing?: boolean;
+};
 
 const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   children,
@@ -68,28 +71,36 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   const classes = useStyles({});
 
   const [responses, setResponses] = useState<Array<Response>>([]);
-  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
   const setResponse = (index: string) => (response: string | null) => {
-    if (response !== null) {
-      setIsEditing(false);
-    } else {
-      setIsEditing(true);
-    }
-
     setResponses((prevResponses) =>
-      Object.assign([], prevResponses, { [index]: response })
+      Object.assign([], prevResponses, {
+        [index]: {
+          ...(prevResponses?.[index] ?? {}),
+          text: response,
+        },
+      })
+    );
+  };
+
+  const setIsEditing = (index: string) => (isEditing: boolean) => {
+    setResponses((prevResponses) =>
+      Object.assign([], prevResponses, {
+        [index]: {
+          ...(prevResponses?.[index] ?? {}),
+          isEditing,
+        },
+      })
     );
   };
 
   const jsxQuestions = children({
     responses,
     setResponse,
-    isEditing,
     setIsEditing,
     isBotTyping,
     setIsBotTyping,
@@ -98,7 +109,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   });
 
   const isDiscussionOver =
-    responses.filter((response) => response).length ===
+    responses.filter((response) => response?.text).length ===
     React.Children.count(jsxQuestions);
 
   useEffect(() => {
@@ -108,7 +119,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
     );
     // current index is the last no not null related index in the array
     setCurrentQuestionIndex(index);
-  }, [responses, isEditing]);
+  }, [responses]);
 
   useEffect(() => {
     // bot is typing after switching to new question

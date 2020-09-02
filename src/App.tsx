@@ -82,7 +82,6 @@ const App: FunctionComponent = () => {
           responses,
           setResponse,
           isBotTyping,
-          isEditing,
           setIsEditing,
           setIsBotTyping,
           setCurrentQuestion,
@@ -90,10 +89,10 @@ const App: FunctionComponent = () => {
           <Question0
             className={classes.question}
             key="question0"
-            response={responses?.[0]}
+            response={responses?.[0]?.text}
             setResponse={setResponse(0)}
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
+            isEditing={responses?.[0]?.isEditing}
+            setIsEditing={setIsEditing(0)}
             options={cantons}
             isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
@@ -116,10 +115,10 @@ const App: FunctionComponent = () => {
           <Question1
             className={classes.question}
             key="question1"
-            response={responses?.[1]}
+            response={responses?.[1]?.text}
             setResponse={setResponse(1)}
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
+            isEditing={responses?.[1]?.isEditing}
+            setIsEditing={setIsEditing(1)}
             isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
           >
@@ -138,10 +137,10 @@ const App: FunctionComponent = () => {
           <Question2
             className={classes.question}
             key="question2"
-            response={responses?.[2]}
+            response={responses?.[2]?.text}
             setResponse={setResponse(2)}
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
+            isEditing={responses?.[2]?.isEditing}
+            setIsEditing={setIsEditing(2)}
             options={physicians}
             isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}

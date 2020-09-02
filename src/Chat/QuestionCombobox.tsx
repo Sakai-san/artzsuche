@@ -25,6 +25,7 @@ const QuestionCombobox: FunctionComponent<QuestionComboboxProps> = ({
   isBotTyping,
   setIsBotTyping,
   children,
+  isEditing,
 }) => {
   const domRef = useFocus([response, isBotTyping]);
 
