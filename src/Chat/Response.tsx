@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Response: FunctionComponent<IResponseProps> = ({
   response,
   setResponse,
-  setIsEditing,
   setIsInputValid,
 }) => {
   const classes = useStyles();
@@ -28,7 +27,6 @@ const Response: FunctionComponent<IResponseProps> = ({
       <CreateRoundedIcon
         fontSize="small"
         onClick={(e) => {
-          setIsEditing(true);
           setResponse(null);
           // on editing reset to false (reinitialization)
           setIsInputValid?.(false);

@@ -13,10 +13,7 @@ const validation = (input: string | undefined) =>
 const Question1: FunctionComponent<IQuestionProps> = ({
   response,
   setResponse,
-  setCurrentQuestion,
   className,
-  isEditing,
-  setIsEditing,
   setIsBotTyping,
   isBotTyping,
   children,
@@ -33,9 +30,6 @@ const Question1: FunctionComponent<IQuestionProps> = ({
   const onKeyPressHandler = (event: any) => {
     if (event.key === "Enter" && isInputValid) {
       setResponse(enteredZip.current);
-      if (!isEditing) {
-        setCurrentQuestion(2);
-      }
     }
   };
 
@@ -49,7 +43,6 @@ const Question1: FunctionComponent<IQuestionProps> = ({
         {response ? (
           <Response
             response={response}
-            setIsEditing={setIsEditing}
             setResponse={setResponse}
             setIsInputValid={setIsInputValid}
           />

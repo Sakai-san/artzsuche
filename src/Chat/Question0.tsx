@@ -7,11 +7,8 @@ import { ICanton } from "../ducks/cantons/types";
 
 const Question0: FunctionComponent<IQuestionProps> = (props) => {
   const onChangeHandler = (e: any, value: any) => {
-    const { setResponse, isEditing, setCurrentQuestion } = props;
+    const { setResponse } = props;
     setResponse(value);
-    if (!isEditing) {
-      setCurrentQuestion(1);
-    }
   };
 
   const { children } = props;

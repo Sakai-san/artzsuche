@@ -60,36 +60,31 @@ interface ReactCasualFormProps {
   children: any;
 }
 
-interface Responses {
-  [key: string]: {
-    response?: string | null;
-  };
-}
+type Response = string | null;
 
 const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   children,
 }) => {
   const classes = useStyles({});
 
-  const [responses, setResponses] = useState<Responses>({});
+  const [responses, setResponses] = useState<Array<Response>>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  const setResponse = (index: string) => (response: string | null) =>
-    setResponses((prevResponses) => ({
-      ...prevResponses,
-      [index]: {
-        response,
-      },
-    }));
+  const setResponse = (index: string) => (response: string | null) => {
+    if (response !== null) {
+      setIsEditing(false);
+    } else {
+      setIsEditing(true);
+    }
 
-  useEffect(() => {
-    // bot is typing after switching to new question
-    setIsBotTyping(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentQuestion]);
+    setResponses((prevResponses) =>
+      Object.assign([], prevResponses, { [index]: response })
+    );
+  };
 
   const jsxQuestions = children({
     responses,
@@ -103,13 +98,25 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   });
 
   const isDiscussionOver =
-    Object.values(responses).filter((item) => item.response).length ===
+    responses.filter((response) => response).length ===
     React.Children.count(jsxQuestions);
 
-  const currentQuestionIndex = Object.values(responses).reduce(
-    (acc, response) => (response?.response ? acc + 1 : acc),
-    0
-  );
+  useEffect(() => {
+    const index = responses.reduce(
+      (acc, response) => (response ? acc + 1 : acc),
+      0
+    );
+    // current index is the last no not null related index in the array
+    setCurrentQuestionIndex(index);
+  }, [responses, isEditing]);
+
+  useEffect(() => {
+    // bot is typing after switching to new question
+    if (!isDiscussionOver) {
+      setIsBotTyping(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentQuestionIndex]);
 
   return (
     <div

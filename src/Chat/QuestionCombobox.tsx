@@ -22,7 +22,6 @@ const QuestionCombobox: FunctionComponent<QuestionComboboxProps> = ({
   setResponse,
   className,
   options,
-  setIsEditing,
   isBotTyping,
   setIsBotTyping,
   children,
@@ -37,11 +36,7 @@ const QuestionCombobox: FunctionComponent<QuestionComboboxProps> = ({
 
       <div>
         {response ? (
-          <Response
-            response={response}
-            setIsEditing={setIsEditing}
-            setResponse={setResponse}
-          />
+          <Response response={response} setResponse={setResponse} />
         ) : (
           <VisibilityTransition isHidden={isBotTyping}>
             <Autocomplete

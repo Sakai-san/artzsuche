@@ -7,11 +7,8 @@ import { IPhysician } from "../ducks/physicians/types";
 
 const Question2: FunctionComponent<IQuestionProps> = (props) => {
   const onChangeHandler = (e: any, value: any) => {
-    const { setResponse, isEditing, setCurrentQuestion } = props;
+    const { setResponse } = props;
     setResponse(`${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`);
-    if (!isEditing) {
-      setCurrentQuestion(2);
-    }
   };
 
   const { children } = props;
