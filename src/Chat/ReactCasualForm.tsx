@@ -151,7 +151,9 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
           <img
             style={{
               visibility:
-                !isBotTyping && !isDiscussionOver ? "visible" : "hidden",
+                !isBotTyping && !isDiscussionOver(responses, reactQuestions)
+                  ? "visible"
+                  : "hidden",
             }}
             className={classes.typing}
             src={typingIndicator}
@@ -163,7 +165,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
         </div>
       </section>
       {reactQuestions.slice(0, currentQuestionIndex + 1)}
-      {isDiscussionOver && (
+      {isDiscussionOver(responses, reactQuestions) && (
         <div className={classes.submit}>
           <Button
             variant="contained"
