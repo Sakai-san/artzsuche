@@ -5,7 +5,7 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { IQuestionProps } from "./QuestionType";
+import { IQuestionProps } from "./ReactCasualFormTypes";
 
 const validation = (input: string | undefined) =>
   !!(input && input.length === 4 && !input.startsWith("0"));

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 
 import QuestionCombobox from "./QuestionCombobox";
 
-import { IQuestionProps } from "./QuestionType";
+import { IQuestionProps } from "./ReactCasualFormTypes";
 import { ICanton } from "../ducks/cantons/types";
 
 const Question0: FunctionComponent<IQuestionProps> = (props) => {

@@ -1,10 +1,17 @@
-// @ts-nocheck
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, {
+  FunctionComponent,
+  useState,
+  useEffect,
+  ReactElement,
+  Children,
+} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
+
+import { Response } from "./ReactCasualFormTypes";
 
 import typingIndicator from "../giphy.gif";
 
@@ -60,20 +67,25 @@ interface ReactCasualFormProps {
   children: any;
 }
 
-type Response = string | null;
-
 const isUserEditing = (responses: Array<Response>) =>
   responses.some((response) => response === null);
 
 const setResponse = (setResponses: Function) => (index: number) => (
-  response: string | null
+  response: Response
 ) => {
-  setResponses((prevResponses) =>
+  setResponses((prevResponses: Array<Response>) =>
     Object.assign([], prevResponses, {
       [index]: response,
     })
   );
 };
+
+const isDiscussionOver = (
+  responses: Array<Response>,
+  reactQuestions: Array<ReactElement>
+) =>
+  responses.filter((response) => response).length ===
+  Children.count(reactQuestions);
 
 const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   children,
@@ -85,31 +97,31 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  const jsxQuestions = children({
-    responses,
-    setResponse: setResponse(setResponses),
-    isBotTyping,
-    setIsBotTyping,
-  });
-
-  const isDiscussionOver =
-    responses.filter((response) => response).length ===
-    React.Children.count(jsxQuestions);
+  const reactQuestions: Array<ReactElement> =
+    children({
+      responses,
+      setResponse: setResponse(setResponses),
+      isBotTyping,
+      setIsBotTyping,
+    }) || [];
 
   useEffect(() => {
-    // get the latest answer done as index
+    // current index is the last no not null related index in the array
     const index = responses.reduce(
       (acc, response) => (response ? acc + 1 : acc),
       0
     );
-    // current index is the last no not null related index in the array
+
     setCurrentQuestionIndex(index);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [responses]);
 
   useEffect(() => {
     // bot is typing after switching to new question
-    if (!isDiscussionOver && !isUserEditing(responses)) {
+    if (
+      !isDiscussionOver(responses, reactQuestions) &&
+      !isUserEditing(responses)
+    ) {
       setIsBotTyping(true);
     } else {
       setIsBotTyping(false);
@@ -150,7 +162,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
           </Avatar>
         </div>
       </section>
-      {jsxQuestions.slice(0, currentQuestionIndex + 1)}
+      {reactQuestions.slice(0, currentQuestionIndex + 1)}
       {isDiscussionOver && (
         <div className={classes.submit}>
           <Button

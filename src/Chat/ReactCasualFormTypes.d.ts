@@ -1,11 +1,15 @@
+import { ReactElement } from "react";
+
+export type Response = string | null;
+
 export interface IQuestionProps {
-  response: string | null;
-  setResponse: (response: string | null) => void;
+  response: Response;
+  setResponse: (response: Response) => void;
   className?: string;
   options?: any;
   setIsBotTyping: (arg: boolean) => void;
   isBotTyping: boolean;
-  children: (props: (arg: boolean) => void) => JSX.Element;
+  children: (args: any) => ReactElement;
 }
 
 export type IResponseProps = Pick<
