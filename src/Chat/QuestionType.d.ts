@@ -3,8 +3,6 @@ export interface IQuestionProps {
   setResponse: (response: string | null) => void;
   className?: string;
   options?: any;
-  isEditing: boolean;
-  setIsEditing: (isEditing: boolean) => void;
   setIsBotTyping: (arg: boolean) => void;
   isBotTyping: boolean;
   children: (props: (arg: boolean) => void) => JSX.Element;

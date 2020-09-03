@@ -60,9 +60,19 @@ interface ReactCasualFormProps {
   children: any;
 }
 
-type Response = {
-  text?: string | null;
-  isEditing?: boolean;
+type Response = string | null;
+
+const isUserEditing = (responses: Array<Response>) =>
+  responses.some((response) => response === null);
+
+const setResponse = (setResponses: Function) => (index: number) => (
+  response: string | null
+) => {
+  setResponses((prevResponses) =>
+    Object.assign([], prevResponses, {
+      [index]: response,
+    })
+  );
 };
 
 const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
@@ -73,58 +83,36 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   const [responses, setResponses] = useState<Array<Response>>([]);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
-  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-
-  const setResponse = (index: string) => (response: string | null) => {
-    setResponses((prevResponses) =>
-      Object.assign([], prevResponses, {
-        [index]: {
-          ...(prevResponses?.[index] ?? {}),
-          text: response,
-        },
-      })
-    );
-  };
-
-  const setIsEditing = (index: string) => (isEditing: boolean) => {
-    setResponses((prevResponses) =>
-      Object.assign([], prevResponses, {
-        [index]: {
-          ...(prevResponses?.[index] ?? {}),
-          isEditing,
-        },
-      })
-    );
-  };
 
   const jsxQuestions = children({
     responses,
-    setResponse,
-    setIsEditing,
+    setResponse: setResponse(setResponses),
     isBotTyping,
     setIsBotTyping,
-    currentQuestion,
-    setCurrentQuestion,
   });
 
   const isDiscussionOver =
-    responses.filter((response) => response?.text).length ===
+    responses.filter((response) => response).length ===
     React.Children.count(jsxQuestions);
 
   useEffect(() => {
+    // get the latest answer done as index
     const index = responses.reduce(
       (acc, response) => (response ? acc + 1 : acc),
       0
     );
     // current index is the last no not null related index in the array
     setCurrentQuestionIndex(index);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [responses]);
 
   useEffect(() => {
     // bot is typing after switching to new question
-    if (!isDiscussionOver) {
+    if (!isDiscussionOver && !isUserEditing(responses)) {
       setIsBotTyping(true);
+    } else {
+      setIsBotTyping(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuestionIndex]);

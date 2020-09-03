@@ -25,7 +25,6 @@ const QuestionCombobox: FunctionComponent<QuestionComboboxProps> = ({
   isBotTyping,
   setIsBotTyping,
   children,
-  isEditing,
 }) => {
   const domRef = useFocus([response, isBotTyping]);
 
@@ -39,7 +38,9 @@ const QuestionCombobox: FunctionComponent<QuestionComboboxProps> = ({
         {response ? (
           <Response response={response} setResponse={setResponse} />
         ) : (
-          <VisibilityTransition isHidden={isBotTyping}>
+          <VisibilityTransition
+            isHidden={response === null ? false : isBotTyping}
+          >
             <Autocomplete
               options={options}
               getOptionLabel={getOptionLabel}

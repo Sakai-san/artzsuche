@@ -47,7 +47,9 @@ const Question1: FunctionComponent<IQuestionProps> = ({
             setIsInputValid={setIsInputValid}
           />
         ) : (
-          <VisibilityTransition isHidden={isBotTyping}>
+          <VisibilityTransition
+            isHidden={response === null ? false : isBotTyping}
+          >
             <TextField
               helperText={(isInputValid && "Bitte schluss Enter") || ""}
               ref={domRef}

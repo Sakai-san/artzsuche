@@ -78,21 +78,12 @@ const App: FunctionComponent = () => {
       </AppBar>
 
       <ReactCasualForm>
-        {({
-          responses,
-          setResponse,
-          isBotTyping,
-          setIsEditing,
-          setIsBotTyping,
-          setCurrentQuestion,
-        }: any) => [
+        {({ responses, setResponse, isBotTyping, setIsBotTyping }: any) => [
           <Question0
             className={classes.question}
             key="question0"
-            response={responses?.[0]?.text}
+            response={responses?.[0]}
             setResponse={setResponse(0)}
-            isEditing={responses?.[0]?.isEditing}
-            setIsEditing={setIsEditing(0)}
             options={cantons}
             isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
@@ -115,10 +106,8 @@ const App: FunctionComponent = () => {
           <Question1
             className={classes.question}
             key="question1"
-            response={responses?.[1]?.text}
+            response={responses?.[1]}
             setResponse={setResponse(1)}
-            isEditing={responses?.[1]?.isEditing}
-            setIsEditing={setIsEditing(1)}
             isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
           >
@@ -137,10 +126,8 @@ const App: FunctionComponent = () => {
           <Question2
             className={classes.question}
             key="question2"
-            response={responses?.[2]?.text}
+            response={responses?.[2]}
             setResponse={setResponse(2)}
-            isEditing={responses?.[2]?.isEditing}
-            setIsEditing={setIsEditing(2)}
             options={physicians}
             isBotTyping={isBotTyping}
             setIsBotTyping={setIsBotTyping}
