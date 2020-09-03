@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, {
   FunctionComponent,
   useState,
@@ -11,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 
-import { Response } from "./ReactCasualFormTypes";
+import { Response, IQuestionExtendedProps } from "./ReactCasualFormTypes";
 
 import typingIndicator from "../giphy.gif";
 
@@ -99,11 +100,18 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
 
   const reactQuestions: Array<ReactElement> =
     children({
-      responses,
-      setResponse: setResponse(setResponses),
-      isBotTyping,
       setIsBotTyping,
     }) || [];
+
+  const extendedReactQuestions: Array<IQuestionExtendedProps> = reactQuestions.map(
+    (node, index) => {
+      return React.cloneElement(node, {
+        response: responses?.[index],
+        setResponse: setResponse(setResponses)(index),
+        isBotTyping,
+      });
+    }
+  );
 
   useEffect(() => {
     // current index is the last no not null related index in the array
@@ -164,7 +172,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
           </Avatar>
         </div>
       </section>
-      {reactQuestions.slice(0, currentQuestionIndex + 1)}
+      {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
       {isDiscussionOver(responses, reactQuestions) && (
         <div className={classes.submit}>
           <Button

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { FunctionComponent, useState, useRef } from "react";
 import TextField from "@material-ui/core/TextField";
 
@@ -5,12 +6,12 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { IQuestionProps } from "./ReactCasualFormTypes";
+import { IQuestionExtendedProps } from "./ReactCasualFormTypes";
 
 const validation = (input: string | undefined) =>
   !!(input && input.length === 4 && !input.startsWith("0"));
 
-const Question1: FunctionComponent<IQuestionProps> = ({
+const Question1: FunctionComponent<IQuestionExtendedProps> = ({
   response,
   setResponse,
   className,
@@ -29,7 +30,7 @@ const Question1: FunctionComponent<IQuestionProps> = ({
 
   const onKeyPressHandler = (event: any) => {
     if (event.key === "Enter" && isInputValid) {
-      setResponse(enteredZip.current);
+      setResponse?.(enteredZip.current);
     }
   };
 

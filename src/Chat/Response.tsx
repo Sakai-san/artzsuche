@@ -27,7 +27,7 @@ const Response: FunctionComponent<IResponseProps> = ({
       <CreateRoundedIcon
         fontSize="small"
         onClick={(e) => {
-          setResponse(null);
+          setResponse?.(null);
           // on editing reset to false (reinitialization)
           setIsInputValid?.(false);
         }}

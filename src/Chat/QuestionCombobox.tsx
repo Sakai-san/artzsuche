@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { FunctionComponent } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
@@ -6,9 +7,9 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { IQuestionProps } from "./ReactCasualFormTypes";
+import { IQuestionExtendedProps } from "./ReactCasualFormTypes";
 
-interface QuestionComboboxProps extends IQuestionProps {
+interface QuestionComboboxProps extends IQuestionExtendedProps {
   inputFieldLabel: string;
   onChangeHandler: (event: any, value: any) => void;
   getOptionLabel: (option: any) => string;
