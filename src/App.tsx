@@ -21,6 +21,7 @@ import { cantonsOperations } from "./ducks/cantons";
 import { IPhysician } from "./ducks/physicians/types";
 import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
+import { IQuestionProps } from "./Chat/ReactCasualFormTypes";
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
@@ -85,10 +86,10 @@ const App: FunctionComponent = () => {
             options={cantons}
             setIsBotTyping={setIsBotTyping}
           >
-            {(setIsBotTyping) => (
+            {({ setIsBotTyping }: IQuestionProps) => (
               <Typist
                 cursor={{ hideWhenDone: true }}
-                onTypingDone={() => setIsBotTyping(false)}
+                onTypingDone={() => setIsBotTyping?.(false)}
               >
                 <LocalHospitalRoundedIcon
                   fontSize="large"
@@ -105,10 +106,10 @@ const App: FunctionComponent = () => {
             key="question1"
             setIsBotTyping={setIsBotTyping}
           >
-            {(setIsBotTyping) => (
+            {({ setIsBotTyping }: IQuestionProps) => (
               <Typist
                 cursor={{ hideWhenDone: true }}
-                onTypingDone={() => setIsBotTyping(false)}
+                onTypingDone={() => setIsBotTyping?.(false)}
               >
                 <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
                 <span style={{ fontSize: "18px" }}>
@@ -123,10 +124,10 @@ const App: FunctionComponent = () => {
             options={physicians}
             setIsBotTyping={setIsBotTyping}
           >
-            {(setIsBotTyping) => (
+            {({ setIsBotTyping }: IQuestionProps) => (
               <Typist
                 cursor={{ hideWhenDone: true }}
-                onTypingDone={() => setIsBotTyping(false)}
+                onTypingDone={() => setIsBotTyping?.(false)}
               >
                 <LocalHospitalOutlinedIcon
                   fontSize="large"

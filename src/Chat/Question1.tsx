@@ -37,7 +37,7 @@ const Question1: FunctionComponent<IQuestionExtendedProps> = ({
   return (
     <section className={className}>
       <div>
-        <span>{children?.(setIsBotTyping)}</span>
+        <span>{children?.({ setIsBotTyping })}</span>
       </div>
 
       <div>

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from "react";
+import React, { FunctionComponent, ReactElement } from "react";
 import { Theme, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface VisibilityTransitionProps {
   isHidden: boolean;
-  children: ReactNode;
+  children: ReactElement;
 }
 
 const VisibilityTransition: FunctionComponent<VisibilityTransitionProps> = ({

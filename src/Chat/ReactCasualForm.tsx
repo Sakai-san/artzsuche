@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, {
   FunctionComponent,
   useState,
@@ -12,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 
-import { Response, IQuestionExtendedProps } from "./ReactCasualFormTypes";
+import { Response } from "./ReactCasualFormTypes";
 
 import typingIndicator from "../giphy.gif";
 
@@ -64,10 +63,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface ReactCasualFormProps {
-  children: any;
-}
-
 const isUserEditing = (responses: Array<Response>) =>
   responses.some((response) => response === null);
 
@@ -88,6 +83,10 @@ const isDiscussionOver = (
   responses.filter((response) => response).length ===
   Children.count(reactQuestions);
 
+interface ReactCasualFormProps {
+  children: (args: any) => Array<ReactElement>;
+}
+
 const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   children,
 }) => {
@@ -99,18 +98,16 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
   const reactQuestions: Array<ReactElement> =
-    children({
-      setIsBotTyping,
-    }) || [];
+    children({ setIsBotTyping }) || [];
 
-  const extendedReactQuestions: Array<IQuestionExtendedProps> = reactQuestions.map(
-    (node, index) => {
-      return React.cloneElement(node, {
+  const extendedReactQuestions: Array<ReactElement> = Children.map(
+    reactQuestions,
+    (child, index) =>
+      React.cloneElement(child, {
         response: responses?.[index],
         setResponse: setResponse(setResponses)(index),
         isBotTyping,
-      });
-    }
+      })
   );
 
   useEffect(() => {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FunctionComponent } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
@@ -32,7 +31,7 @@ const QuestionCombobox: FunctionComponent<QuestionComboboxProps> = ({
   return (
     <section className={className}>
       <div>
-        <span>{children?.(setIsBotTyping)}</span>
+        <span>{children?.({ setIsBotTyping })}</span>
       </div>
 
       <div>
@@ -40,7 +39,7 @@ const QuestionCombobox: FunctionComponent<QuestionComboboxProps> = ({
           <Response response={response} setResponse={setResponse} />
         ) : (
           <VisibilityTransition
-            isHidden={response === null ? false : isBotTyping}
+            isHidden={response === null ? false : !!isBotTyping}
           >
             <Autocomplete
               options={options}
