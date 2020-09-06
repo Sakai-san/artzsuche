@@ -79,7 +79,7 @@ const App: FunctionComponent = () => {
       </AppBar>
 
       <ReactCasualForm>
-        {({ setIsBotTyping }: any) => [
+        {({ setIsBotTyping }: IQuestionProps) => [
           <Question0
             className={classes.question}
             key="question0"
