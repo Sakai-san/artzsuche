@@ -76,11 +76,12 @@ const setResponse = (setResponses: Function) => (index: number) => (
   );
 };
 
+// all responses are not null
 const isDiscussionOver = (
   responses: Array<Response>,
   reactQuestions: Array<ReactElement>
 ) =>
-  responses.filter((response) => response).length ===
+  responses.filter((response) => response !== null).length ===
   Children.count(reactQuestions);
 
 interface ReactCasualFormProps {
