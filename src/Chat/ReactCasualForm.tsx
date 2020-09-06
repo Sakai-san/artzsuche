@@ -4,6 +4,7 @@ import React, {
   useEffect,
   ReactElement,
   Children,
+  cloneElement,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
@@ -104,7 +105,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   const extendedReactQuestions: Array<ReactElement> = Children.map(
     reactQuestions,
     (child, index) =>
-      React.cloneElement(child, {
+      cloneElement(child, {
         response: responses?.[index],
         setResponse: setResponse(setResponses)(index),
         isBotTyping,
