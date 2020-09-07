@@ -2,10 +2,10 @@ import React, { FunctionComponent } from "react";
 
 import QuestionCombobox from "./QuestionCombobox";
 
-import { IQuestionExtendedProps } from "./ReactCasualFormTypes";
+import { IQuestionProps } from "./ReactCasualFormTypes";
 import { IPhysician } from "../ducks/physicians/types";
 
-const Question2: FunctionComponent<IQuestionExtendedProps> = (props) => {
+const Question2: FunctionComponent<IQuestionProps> = (props) => {
   const onChangeHandler = (e: any, value: any) => {
     const { setResponse } = props;
     setResponse?.(`${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`);

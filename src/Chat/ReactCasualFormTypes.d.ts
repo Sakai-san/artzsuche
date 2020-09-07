@@ -7,9 +7,6 @@ export interface IQuestionProps {
   options?: any;
   setIsBotTyping?: (arg: boolean) => void;
   children?: (args: any) => ReactElement;
-}
-
-export interface IQuestionExtendedProps extends IQuestionProps {
   response?: Response;
   setResponse?: (response: Response) => void;
   isBotTyping?: boolean;

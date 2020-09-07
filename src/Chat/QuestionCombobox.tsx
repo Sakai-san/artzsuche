@@ -6,9 +6,9 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { IQuestionExtendedProps } from "./ReactCasualFormTypes";
+import { IQuestionProps } from "./ReactCasualFormTypes";
 
-interface QuestionComboboxProps extends IQuestionExtendedProps {
+interface QuestionComboboxProps extends IQuestionProps {
   inputFieldLabel: string;
   onChangeHandler: (event: any, value: any) => void;
   getOptionLabel: (option: any) => string;

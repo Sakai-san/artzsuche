@@ -6,12 +6,12 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { IQuestionExtendedProps } from "./ReactCasualFormTypes";
+import { IQuestionProps } from "./ReactCasualFormTypes";
 
 const validation = (input: string | undefined) =>
   !!(input && input.length === 4 && !input.startsWith("0"));
 
-const Question1: FunctionComponent<IQuestionExtendedProps> = ({
+const Question1: FunctionComponent<IQuestionProps> = ({
   response,
   setResponse,
   className,
