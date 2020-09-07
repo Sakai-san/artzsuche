@@ -77,7 +77,7 @@ const setResponse = (setResponses: Function) => (index: number) => (
   );
 };
 
-// all responses are not null
+// all responses are not null, means the discussion is over
 const isDiscussionOver = (
   responses: Array<Response>,
   reactQuestions: Array<ReactElement>
