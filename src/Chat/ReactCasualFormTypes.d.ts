@@ -13,6 +13,6 @@ export interface IQuestionProps {
 }
 
 export type IResponseProps = Pick<
-  QuestionExtendedProps,
+  IQuestionProps,
   "response" | "setResponse"
 > & { setIsInputValid?: (args: any) => void };
