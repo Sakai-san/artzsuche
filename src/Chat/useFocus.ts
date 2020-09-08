@@ -5,7 +5,7 @@ const useFocus = (dependencyArray?: any[]) => {
 
   useEffect(
     () => {
-      domRef?.current?.focus?.();
+      domRef?.current?.querySelector?.("label")?.focus?.();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     dependencyArray ? [...dependencyArray] : []
