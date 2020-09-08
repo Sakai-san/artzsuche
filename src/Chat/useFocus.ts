@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useRef, useEffect } from "react";
 
 const useFocus = (dependencyArray?: any[]) => {
@@ -5,7 +6,9 @@ const useFocus = (dependencyArray?: any[]) => {
 
   useEffect(
     () => {
-      domRef?.current?.querySelector?.("label")?.click?.();
+      domRef?.current
+        ?.querySelector?.("input, button, textarea, select")
+        ?.focus?.();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     dependencyArray ? [...dependencyArray] : []

@@ -10,6 +10,7 @@ import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
+import Suggestion from "./Suggestion";
 
 import { Response } from "./ReactCasualFormTypes";
 
@@ -165,17 +166,25 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
       </section>
       {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
       {isDiscussionOver(responses, children) && (
-        <div className={classes.submit}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            endIcon={<SendIcon />}
-            onClick={(e) => setIsSubmitted(true)}
-          >
-            Send
-          </Button>
-        </div>
+        <Suggestion
+          response={null}
+          setResponse={() => null}
+          isBotTyping={false}
+        >
+          {({ domRef }) => (
+            <span ref={domRef}>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                endIcon={<SendIcon />}
+                onClick={(e) => setIsSubmitted(true)}
+              >
+                Send
+              </Button>
+            </span>
+          )}
+        </Suggestion>
       )}
     </div>
   );
