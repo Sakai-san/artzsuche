@@ -101,7 +101,6 @@ const App: FunctionComponent = () => {
               >
                 {({ domRef }) => (
                   <Autocomplete
-                    ref={domRef}
                     options={cantons}
                     getOptionLabel={(option) => option}
                     style={{ width: 300 }}
@@ -109,6 +108,7 @@ const App: FunctionComponent = () => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
+                        ref={domRef}
                         label="Wähle bitte deinen Kanton"
                         variant="outlined"
                       />
@@ -139,7 +139,6 @@ const App: FunctionComponent = () => {
               >
                 {({ isValid, inputedValue, setInputedValue, domRef }) => (
                   <TextField
-                    ref={domRef}
                     helperText={
                       (isValid(inputedValue) && "Bitte schluss Enter") || ""
                     }
@@ -157,6 +156,7 @@ const App: FunctionComponent = () => {
                     label="PLZ"
                     type="number"
                     variant="outlined"
+                    ref={domRef}
                   />
                 )}
               </Suggestion>
@@ -183,7 +183,6 @@ const App: FunctionComponent = () => {
               >
                 {({ domRef }) => (
                   <Autocomplete
-                    ref={domRef}
                     options={physicians}
                     getOptionLabel={(option) =>
                       `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
@@ -198,6 +197,7 @@ const App: FunctionComponent = () => {
                     renderInput={(params) => (
                       <TextField
                         {...params}
+                        ref={domRef}
                         label="Suche nach einem/er Artz/in"
                         variant="outlined"
                       />
