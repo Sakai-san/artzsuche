@@ -1,10 +1,9 @@
+// @ts-nocheck
 import React, {
   FunctionComponent,
   useState,
   useEffect,
   ReactElement,
-  Children,
-  cloneElement,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
@@ -80,13 +79,12 @@ const setResponse = (setResponses: Function) => (index: number) => (
 // all responses are not null, means the discussion is over
 const isDiscussionOver = (
   responses: Array<Response>,
-  reactQuestions: Array<ReactElement>
+  children: ReactCasualFormProps["children"]
 ) =>
-  responses.filter((response) => response !== null).length ===
-  Children.count(reactQuestions);
+  responses.filter((response) => response !== null).length === children.length;
 
 interface ReactCasualFormProps {
-  children: (args: any) => Array<ReactElement>;
+  children: Array<(args: any) => ReactNode>;
 }
 
 const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
@@ -99,16 +97,13 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  const reactQuestions: Array<ReactElement> =
-    children({ setIsBotTyping }) || [];
-
-  const extendedReactQuestions: Array<ReactElement> = Children.map(
-    reactQuestions,
+  const extendedReactQuestions: Array<ReactElement> = children.map(
     (child, index) =>
-      cloneElement(child, {
-        response: responses?.[index],
+      child({
         setResponse: setResponse(setResponses)(index),
+        response: responses?.[index],
         isBotTyping,
+        setIsBotTyping,
       })
   );
 
@@ -125,10 +120,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
 
   useEffect(() => {
     // bot is typing after switching to new question
-    if (
-      !isDiscussionOver(responses, reactQuestions) &&
-      !isUserEditing(responses)
-    ) {
+    if (!isDiscussionOver(responses, children) && !isUserEditing(responses)) {
       setIsBotTyping(true);
     } else {
       setIsBotTyping(false);
@@ -158,7 +150,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
           <img
             style={{
               visibility:
-                !isBotTyping && !isDiscussionOver(responses, reactQuestions)
+                !isBotTyping && !isDiscussionOver(responses, children)
                   ? "visible"
                   : "hidden",
             }}
@@ -172,7 +164,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
         </div>
       </section>
       {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
-      {isDiscussionOver(responses, reactQuestions) && (
+      {isDiscussionOver(responses, children) && (
         <div className={classes.submit}>
           <Button
             variant="contained"

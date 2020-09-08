@@ -1,6 +1,9 @@
+// @ts-nocheck
 import React, { FunctionComponent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Theme, makeStyles } from "@material-ui/core";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,9 +15,7 @@ import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import Typist from "react-typist";
 
 import ReactCasualForm from "./Chat/ReactCasualForm";
-import Question0 from "./Chat/Question0";
-import Question1 from "./Chat/Question1";
-import Question2 from "./Chat/Question2";
+import Suggestion from "./Chat/Suggestion";
 import { physiciansOperations } from "./ducks/physicians";
 import { cantonsOperations } from "./ducks/cantons";
 
@@ -34,12 +35,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   question: {
     display: "flex",
     flexDirection: "column",
-    "&>div:first-child": {
+    "& > *:first-child": {
       borderRadius: "0px 10px 10px 10px",
       backgroundColor: "#f2f2f3",
       padding: "3px 0 14px 5px",
     },
-    "&>div:nth-child(2)": {
+    "& > *:nth-child(2)": {
       marginTop: "15px",
       marginLeft: "auto",
     },
@@ -78,14 +79,9 @@ const App: FunctionComponent = () => {
       </AppBar>
 
       <ReactCasualForm>
-        {({ setIsBotTyping }: IQuestionProps) => [
-          <Question0
-            className={classes.question}
-            key="question0"
-            options={cantons}
-            setIsBotTyping={setIsBotTyping}
-          >
-            {({ setIsBotTyping }: IQuestionProps) => (
+        {[
+          ({ response, setResponse, isBotTyping, setIsBotTyping }) => (
+            <section className={classes.question} key="question0">
               <Typist
                 cursor={{ hideWhenDone: true }}
                 onTypingDone={() => setIsBotTyping?.(false)}
@@ -98,14 +94,32 @@ const App: FunctionComponent = () => {
                   Im welchem Kanton wohnst du ?
                 </span>
               </Typist>
-            )}
-          </Question0>,
-          <Question1
-            className={classes.question}
-            key="question1"
-            setIsBotTyping={setIsBotTyping}
-          >
-            {({ setIsBotTyping }: IQuestionProps) => (
+              <Suggestion
+                response={response}
+                setResponse={setResponse}
+                isBotTyping={isBotTyping}
+              >
+                {({ domRef }) => (
+                  <Autocomplete
+                    ref={domRef}
+                    options={cantons}
+                    getOptionLabel={(option) => option}
+                    style={{ width: 300 }}
+                    onChange={(e, value) => setResponse(value)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Wähle bitte deinen Kanton"
+                        variant="outlined"
+                      />
+                    )}
+                  />
+                )}
+              </Suggestion>
+            </section>
+          ),
+          ({ response, setResponse, isBotTyping, setIsBotTyping }) => (
+            <section className={classes.question} key="question1">
               <Typist
                 cursor={{ hideWhenDone: true }}
                 onTypingDone={() => setIsBotTyping?.(false)}
@@ -115,15 +129,41 @@ const App: FunctionComponent = () => {
                   Was ist die Postleitzahl deines Wohnortes ?
                 </span>
               </Typist>
-            )}
-          </Question1>,
-          <Question2
-            className={classes.question}
-            key="question2"
-            options={physicians}
-            setIsBotTyping={setIsBotTyping}
-          >
-            {({ setIsBotTyping }: IQuestionProps) => (
+              <Suggestion
+                response={response}
+                setResponse={setResponse}
+                isBotTyping={isBotTyping}
+                isValid={(input: string | undefined) =>
+                  !!(input && input.length === 4 && !input.startsWith("0"))
+                }
+              >
+                {({ isValid, inputedValue, setInputedValue, domRef }) => (
+                  <TextField
+                    ref={domRef}
+                    helperText={
+                      (isValid(inputedValue) && "Bitte schluss Enter") || ""
+                    }
+                    onChange={(event: any) =>
+                      setInputedValue(event.target.value)
+                    }
+                    onKeyPress={(event: any) => {
+                      if (event.key === "Enter") {
+                        if (isValid(inputedValue)) {
+                          setResponse?.(inputedValue);
+                        }
+                      }
+                    }}
+                    error={!isValid(inputedValue)}
+                    label="PLZ"
+                    type="number"
+                    variant="outlined"
+                  />
+                )}
+              </Suggestion>
+            </section>
+          ),
+          ({ response, setResponse, isBotTyping, setIsBotTyping }) => (
+            <section className={classes.question} key="question2">
               <Typist
                 cursor={{ hideWhenDone: true }}
                 onTypingDone={() => setIsBotTyping?.(false)}
@@ -136,8 +176,37 @@ const App: FunctionComponent = () => {
                   Wähle einen Artz / eine Artzin ?
                 </span>
               </Typist>
-            )}
-          </Question2>,
+              <Suggestion
+                response={response}
+                setResponse={setResponse}
+                isBotTyping={isBotTyping}
+              >
+                {({ domRef }) => (
+                  <Autocomplete
+                    ref={domRef}
+                    options={physicians}
+                    getOptionLabel={(option) =>
+                      `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
+                      ""
+                    }
+                    style={{ width: 300 }}
+                    onChange={(e, value) =>
+                      setResponse?.(
+                        `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`
+                      )
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Suche nach einem/er Artz/in"
+                        variant="outlined"
+                      />
+                    )}
+                  />
+                )}
+              </Suggestion>
+            </section>
+          ),
         ]}
       </ReactCasualForm>
     </div>
