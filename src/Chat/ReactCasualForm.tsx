@@ -169,7 +169,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
         <Suggestion
           response={null}
           setResponse={() => null}
-          isBotTyping={false}
+          isBotTyping={isBotTyping}
         >
           {({ domRef }) => (
             <span ref={domRef}>
