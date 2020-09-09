@@ -1,19 +1,12 @@
-// @ts-nocheck
 import React, { FunctionComponent, useState } from "react";
 
 import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { IQuestionProps } from "./ReactCasualFormTypes";
+import { ISuggestionProps } from "./ReactCasualFormTypes";
 
-interface QuestionComboboxProps extends IQuestionProps {
-  inputFieldLabel: string;
-  onChangeHandler: (event: any, value: any) => void;
-  getOptionLabel: (option: any) => string;
-}
-
-const Suggestion: FunctionComponent<QuestionComboboxProps> = ({
+const Suggestion: FunctionComponent<ISuggestionProps> = ({
   response,
   setResponse,
   className,

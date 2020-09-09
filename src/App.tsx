@@ -134,7 +134,7 @@ const App: FunctionComponent = () => {
                 setResponse={setResponse}
                 isBotTyping={isBotTyping}
                 isValid={(input: string | undefined) =>
-                  !!(input && input.length === 4 && !input.startsWith("0"))
+                  input && input.length === 4 && !input.match("(-1|0).*")
                 }
               >
                 {({ isValid, inputedValue, setInputedValue, domRef }) => (
