@@ -13,7 +13,7 @@ export interface IQuestionProps {
 }
 
 export interface ISuggestionProps extends IQuestionProps {
-  isValid?: (input: sting) => boolean;
+  isValid?: (input: string | undefined) => boolean;
 }
 
 export type IResponseProps = Pick<

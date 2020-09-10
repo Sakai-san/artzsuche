@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FunctionComponent, useState, useRef } from "react";
 import TextField from "@material-ui/core/TextField";
 
@@ -49,7 +48,7 @@ const Question1: FunctionComponent<IQuestionProps> = ({
           />
         ) : (
           <VisibilityTransition
-            isHidden={response === null ? false : isBotTyping}
+            isHidden={response === null ? false : !!isBotTyping}
           >
             <TextField
               helperText={(isInputValid && "Bitte schluss Enter") || ""}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FunctionComponent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Theme, makeStyles } from "@material-ui/core";
@@ -22,7 +21,6 @@ import { cantonsOperations } from "./ducks/cantons";
 import { IPhysician } from "./ducks/physicians/types";
 import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
-import { IQuestionProps } from "./Chat/ReactCasualFormTypes";
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
@@ -134,7 +132,7 @@ const App: FunctionComponent = () => {
                 setResponse={setResponse}
                 isBotTyping={isBotTyping}
                 isValid={(input: string | undefined) =>
-                  input && input.length === 4 && !input.match("(-1|0).*")
+                  !!(input?.length === 4 && !input.match("(-1|0).*"))
                 }
               >
                 {({ isValid, inputedValue, setInputedValue, domRef }) => (

@@ -1,9 +1,8 @@
-// @ts-nocheck
 import React, {
+  ReactNode,
   FunctionComponent,
   useState,
   useEffect,
-  ReactElement,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
@@ -98,7 +97,7 @@ const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  const extendedReactQuestions: Array<ReactElement> = children.map(
+  const extendedReactQuestions: Array<ReactNode> = children.map(
     (child, index) =>
       child({
         setResponse: setResponse(setResponses)(index),
