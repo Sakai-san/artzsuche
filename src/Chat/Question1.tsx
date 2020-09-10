@@ -29,7 +29,7 @@ const Question1: FunctionComponent<IQuestionProps> = ({
   };
 
   const onKeyPressHandler = (event: any) => {
-    if (event.key === "Enter" && isInputValid) {
+    if (event.key === "13" && isInputValid) {
       setResponse?.(enteredZip.current);
     }
   };
