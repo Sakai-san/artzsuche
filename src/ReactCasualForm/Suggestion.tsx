@@ -4,7 +4,7 @@ import VisibilityTransition from "./VisibilityTransition";
 import Response from "./Response";
 import useFocus from "./useFocus";
 
-import { ISuggestionProps } from "./ReactCasualFormTypes";
+import { ISuggestionProps } from "./types";
 
 const Suggestion: FunctionComponent<ISuggestionProps> = ({
   response,

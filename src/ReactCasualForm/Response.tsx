@@ -3,7 +3,7 @@ import Paper from "@material-ui/core/Paper";
 import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import { Theme, makeStyles } from "@material-ui/core";
 
-import { IResponseProps } from "./ReactCasualFormTypes";
+import { IResponseProps } from "./types";
 
 const useStyles = makeStyles((theme: Theme) => ({
   response: {

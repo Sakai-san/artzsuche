@@ -13,8 +13,8 @@ import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import Typist from "react-typist";
 
-import ReactCasualForm from "./Chat/ReactCasualForm";
-import Suggestion from "./Chat/Suggestion";
+import ReactCasualForm from "./ReactCasualForm";
+import Suggestion from "./ReactCasualForm/Suggestion";
 import { physiciansOperations } from "./ducks/physicians";
 import { cantonsOperations } from "./ducks/cantons";
 

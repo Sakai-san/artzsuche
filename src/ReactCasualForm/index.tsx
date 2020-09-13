@@ -11,7 +11,7 @@ import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import Suggestion from "./Suggestion";
 
-import { Response } from "./ReactCasualFormTypes";
+import { Response, IReactCasualFormProps } from "./types";
 
 import typingIndicator from "../giphy.gif";
 
@@ -79,15 +79,11 @@ const setResponse = (setResponses: Function) => (index: number) => (
 // all responses are not null, means the discussion is over
 const isDiscussionOver = (
   responses: Array<Response>,
-  children: ReactCasualFormProps["children"]
+  children: IReactCasualFormProps["children"]
 ) =>
   responses.filter((response) => response !== null).length === children.length;
 
-interface ReactCasualFormProps {
-  children: Array<(args: any) => ReactNode>;
-}
-
-const ReactCasualForm: FunctionComponent<ReactCasualFormProps> = ({
+const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   children,
 }) => {
   const classes = useStyles({});
