@@ -28,7 +28,7 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
             isHidden={response === null ? false : !!isBotTyping}
           >
             <span>
-              {children({
+              {children?.({
                 isValid,
                 inputedValue,
                 setInputedValue,
