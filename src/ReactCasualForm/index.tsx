@@ -11,7 +11,7 @@ import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import Suggestion from "./Suggestion";
 
-import { Response, IReactCasualFormProps } from "./types";
+import { Answer, IReactCasualFormProps } from "./types";
 
 import typingIndicator from "../giphy.gif";
 
@@ -63,32 +63,31 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const isUserEditing = (responses: Array<Response>) =>
-  responses.some((response) => response === null);
+const isUserEditing = (answers: Array<Answer>) =>
+  answers.some((answer) => answer === null);
 
-const setResponse = (setResponses: Function) => (index: number) => (
-  response: Response
+const setAnswer = (setAnswers: Function) => (index: number) => (
+  answer: Answer
 ) => {
-  setResponses((prevResponses: Array<Response>) =>
-    Object.assign([], prevResponses, {
-      [index]: response,
+  setAnswers((prevAnswers: Array<Answer>) =>
+    Object.assign([], prevAnswers, {
+      [index]: answer,
     })
   );
 };
 
-// all responses are not null, means the discussion is over
+// all answers are not null, means the discussion is over
 const isDiscussionOver = (
-  responses: Array<Response>,
+  answers: Array<Answer>,
   children: IReactCasualFormProps["children"]
-) =>
-  responses.filter((response) => response !== null).length === children.length;
+) => answers.filter((answer) => answer !== null).length === children.length;
 
 const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   children,
 }) => {
   const classes = useStyles({});
 
-  const [responses, setResponses] = useState<Array<Response>>([]);
+  const [answers, setAnswers] = useState<Array<Answer>>([]);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -96,8 +95,8 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   const extendedReactQuestions: Array<ReactNode> = children.map(
     (child, index) =>
       child({
-        setResponse: setResponse(setResponses)(index),
-        response: responses?.[index],
+        setAnswer: setAnswer(setAnswers)(index),
+        answer: answers?.[index],
         isBotTyping,
         setIsBotTyping,
       })
@@ -105,18 +104,15 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
 
   useEffect(() => {
     // current index is the last no not null related index in the array
-    const index = responses.reduce(
-      (acc, response) => (response ? acc + 1 : acc),
-      0
-    );
+    const index = answers.reduce((acc, answer) => (answer ? acc + 1 : acc), 0);
 
     setCurrentQuestionIndex(index);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [responses]);
+  }, [answers]);
 
   useEffect(() => {
     // bot is typing after switching to new question
-    if (!isDiscussionOver(responses, children) && !isUserEditing(responses)) {
+    if (!isDiscussionOver(answers, children) && !isUserEditing(answers)) {
       setIsBotTyping(true);
     } else {
       setIsBotTyping(false);
@@ -146,7 +142,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
           <img
             style={{
               visibility:
-                !isBotTyping && !isDiscussionOver(responses, children)
+                !isBotTyping && !isDiscussionOver(answers, children)
                   ? "visible"
                   : "hidden",
             }}
@@ -160,10 +156,10 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
         </div>
       </section>
       {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
-      {isDiscussionOver(responses, children) && (
+      {isDiscussionOver(answers, children) && (
         <Suggestion
-          response={null}
-          setResponse={() => null}
+          answer={null}
+          setAnswer={() => null}
           isBotTyping={isBotTyping}
         >
           {({ domRef }) => (

@@ -1,27 +1,27 @@
 import { ReactNode } from "react";
 
-export type Response = string | null;
+export type Answer = string | null;
 
 export interface IBase {
   setIsBotTyping: (arg: boolean) => void;
-  response: Response;
+  answer: Answer;
   isBotTyping: boolean;
-  setResponse: (response: Response) => void;
+  setAnswer: (answer: Answer) => void;
 }
 
 export interface ISuggestionProps
-  extends Partial<Omit<IBase, "setResponse">>,
-    Pick<IBase, "setResponse"> {
+  extends Partial<Omit<IBase, "setAnswer">>,
+    Pick<IBase, "setAnswer"> {
   className?: string;
   options?: any;
   children?: (args: any) => ReactNode;
   isValid?: (input: string | undefined) => boolean;
 }
 
-export type IResponseProps = Pick<IBase, "response" | "setResponse"> & {
+export type IAnswerProps = Pick<IBase, "answer" | "setAnswer"> & {
   setIsInputValid?: (args: any) => void;
 };
 
 export interface IReactCasualFormProps {
-  children: Array<(args: Base) => ReactNode>;
+  children: Array<(args: IBase) => ReactNode>;
 }

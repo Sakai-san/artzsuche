@@ -3,10 +3,10 @@ import Paper from "@material-ui/core/Paper";
 import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import { Theme, makeStyles } from "@material-ui/core";
 
-import { IResponseProps } from "./types";
+import { IAnswerProps } from "./types";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  response: {
+  answer: {
     display: "flex",
     alignItems: "flex-end",
     "&> svg": {
@@ -15,19 +15,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Response: FunctionComponent<IResponseProps> = ({
-  response,
-  setResponse,
+const Anwser: FunctionComponent<IAnswerProps> = ({
+  answer,
+  setAnswer,
   setIsInputValid,
 }) => {
   const classes = useStyles();
+
   return (
-    <div className={classes.response}>
-      <Paper style={{ padding: "20px" }}>{response}</Paper>
+    <div className={classes.answer}>
+      <Paper style={{ padding: "20px" }}>{answer}</Paper>
       <CreateRoundedIcon
         fontSize="small"
         onClick={(e) => {
-          setResponse?.(null);
+          setAnswer?.(null);
           // on editing reset to false (reinitialization)
           setIsInputValid?.(false);
         }}
@@ -36,4 +37,4 @@ const Response: FunctionComponent<IResponseProps> = ({
   );
 };
 
-export default Response;
+export default Anwser;

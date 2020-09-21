@@ -78,7 +78,7 @@ const App: FunctionComponent = () => {
 
       <ReactCasualForm>
         {[
-          ({ response, setResponse, isBotTyping, setIsBotTyping }) => (
+          ({ answer, setAnswer, isBotTyping, setIsBotTyping }) => (
             <section className={classes.question} key="question0">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -93,8 +93,8 @@ const App: FunctionComponent = () => {
                 </span>
               </Typist>
               <Suggestion
-                response={response}
-                setResponse={setResponse}
+                answer={answer}
+                setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
               >
                 {({ domRef }) => (
@@ -102,7 +102,7 @@ const App: FunctionComponent = () => {
                     options={cantons}
                     getOptionLabel={(option) => option}
                     style={{ width: 300 }}
-                    onChange={(e, value) => setResponse(value)}
+                    onChange={(e, value) => setAnswer(value)}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -116,7 +116,7 @@ const App: FunctionComponent = () => {
               </Suggestion>
             </section>
           ),
-          ({ response, setResponse, isBotTyping, setIsBotTyping }) => (
+          ({ answer, setAnswer, isBotTyping, setIsBotTyping }) => (
             <section className={classes.question} key="question1">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -128,8 +128,8 @@ const App: FunctionComponent = () => {
                 </span>
               </Typist>
               <Suggestion
-                response={response}
-                setResponse={setResponse}
+                answer={answer}
+                setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
                 isValid={(input: string | undefined) =>
                   !!(input?.length === 4 && !input.match("(-1|0).*"))
@@ -146,7 +146,7 @@ const App: FunctionComponent = () => {
                     onKeyPress={(event: any) => {
                       if (event.key === "Enter") {
                         if (isValid(inputedValue)) {
-                          setResponse?.(inputedValue);
+                          setAnswer?.(inputedValue);
                         }
                       }
                     }}
@@ -160,7 +160,7 @@ const App: FunctionComponent = () => {
               </Suggestion>
             </section>
           ),
-          ({ response, setResponse, isBotTyping, setIsBotTyping }) => (
+          ({ answer, setAnswer, isBotTyping, setIsBotTyping }) => (
             <section className={classes.question} key="question2">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -175,8 +175,8 @@ const App: FunctionComponent = () => {
                 </span>
               </Typist>
               <Suggestion
-                response={response}
-                setResponse={setResponse}
+                answer={answer}
+                setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
               >
                 {({ domRef }) => (
@@ -188,7 +188,7 @@ const App: FunctionComponent = () => {
                     }
                     style={{ width: 300 }}
                     onChange={(e, value) =>
-                      setResponse?.(
+                      setAnswer?.(
                         `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`
                       )
                     }
