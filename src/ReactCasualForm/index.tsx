@@ -163,17 +163,16 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
           isBotTyping={isBotTyping}
         >
           {({ domRef }) => (
-            <span ref={domRef}>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                endIcon={<SendIcon />}
-                onClick={(e) => setIsSubmitted(true)}
-              >
-                Send
-              </Button>
-            </span>
+            <Button
+              ref={domRef}
+              variant="contained"
+              color="primary"
+              size="large"
+              endIcon={<SendIcon />}
+              onClick={(e) => setIsSubmitted(true)}
+            >
+              Send
+            </Button>
           )}
         </Suggestion>
       )}
