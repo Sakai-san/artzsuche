@@ -151,7 +151,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
             alt="Typing indicator"
           />
           <Avatar alt="you" className={classes.orange}>
-            Du
+            You
           </Avatar>
         </div>
       </section>
