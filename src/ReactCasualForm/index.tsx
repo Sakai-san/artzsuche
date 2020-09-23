@@ -104,7 +104,10 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
 
   useEffect(() => {
     // current index is the last no not null related index in the array
-    const index = answers.reduce((acc, answer) => (answer ? acc + 1 : acc), 0);
+    const index = answers.reduce(
+      (acc, answer) => (answer !== null ? acc + 1 : acc),
+      0
+    );
 
     setCurrentQuestionIndex(index);
     // eslint-disable-next-line react-hooks/exhaustive-deps

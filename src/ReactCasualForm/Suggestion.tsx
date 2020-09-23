@@ -21,7 +21,7 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   return (
     <section className={className}>
       <div>
-        {answer ? (
+        {typeof answer === "string" ? (
           <Answer answer={answer} setAnswer={setAnswer} />
         ) : (
           <VisibilityTransition

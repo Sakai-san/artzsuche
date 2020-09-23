@@ -18,7 +18,8 @@ export interface ISuggestionProps
   isValid?: (input: string | undefined) => boolean;
 }
 
-export type IAnswerProps = Pick<IBase, "answer" | "setAnswer"> & {
+export type IAnswerProps = Pick<IBase, "setAnswer"> & {
+  answer: string;
   setIsInputValid?: (args: any) => void;
 };
 

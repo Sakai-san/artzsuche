@@ -122,6 +122,54 @@ const App: FunctionComponent = () => {
                 cursor={{ hideWhenDone: true }}
                 onTypingDone={() => setIsBotTyping?.(false)}
               >
+                <LocalHospitalOutlinedIcon
+                  fontSize="large"
+                  style={{ color: "#D52B1E" }}
+                />{" "}
+                <span style={{ fontSize: "18px" }}>
+                  Why do you apply to our company ?
+                </span>
+              </Typist>
+              <Suggestion
+                answer={answer}
+                setAnswer={setAnswer}
+                isBotTyping={isBotTyping}
+                isValid={(input: string | undefined) => true}
+              >
+                {({ isValid, inputedValue, setInputedValue, domRef }) => (
+                  <TextField
+                    helperText={
+                      isValid(inputedValue) && (
+                        <button
+                          onClick={(e) => {
+                            setAnswer?.(inputedValue || "");
+                          }}
+                        >
+                          continue
+                        </button>
+                      )
+                    }
+                    onChange={(event: any) =>
+                      setInputedValue(event.target.value)
+                    }
+                    error={!isValid(inputedValue)}
+                    label="Why you apply"
+                    type="text"
+                    multiline={true}
+                    variant="outlined"
+                    ref={domRef}
+                  />
+                )}
+              </Suggestion>
+            </section>
+          ),
+
+          ({ answer, setAnswer, isBotTyping, setIsBotTyping }) => (
+            <section className={classes.question} key="question2">
+              <Typist
+                cursor={{ hideWhenDone: true }}
+                onTypingDone={() => setIsBotTyping?.(false)}
+              >
                 <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
                 <span style={{ fontSize: "18px" }}>
                   Was ist die Postleitzahl deines Wohnortes ?
@@ -161,7 +209,7 @@ const App: FunctionComponent = () => {
             </section>
           ),
           ({ answer, setAnswer, isBotTyping, setIsBotTyping }) => (
-            <section className={classes.question} key="question2">
+            <section className={classes.question} key="question3">
               <Typist
                 cursor={{ hideWhenDone: true }}
                 onTypingDone={() => setIsBotTyping?.(false)}
