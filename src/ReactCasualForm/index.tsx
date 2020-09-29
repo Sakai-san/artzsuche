@@ -11,7 +11,7 @@ import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import Suggestion from "./Suggestion";
 
-import { Answer, IReactCasualFormProps } from "./types";
+import { Answer, IReactCasualFormProps, AnswerObject } from "./types";
 
 import typingIndicator from "../giphy.gif";
 
@@ -63,31 +63,35 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const isUserEditing = (answers: Array<Answer>) =>
-  answers.some((answer) => answer === null);
+const isUserEditing = (answers: Array<AnswerObject>) =>
+  answers.some((answer) => answer.isEditing);
 
 const setAnswer = (setAnswers: Function) => (index: number) => (
-  answer: Answer
+  content: Answer,
+  isEditing: boolean = false
 ) => {
-  setAnswers((prevAnswers: Array<Answer>) =>
+  setAnswers((prevAnswers: Array<AnswerObject>) =>
     Object.assign([], prevAnswers, {
-      [index]: answer,
+      [index]: { content, isEditing },
     })
   );
 };
 
 // all answers are not null, means the discussion is over
 const isDiscussionOver = (
-  answers: Array<Answer>,
+  answers: Array<AnswerObject>,
   children: IReactCasualFormProps["children"]
-) => answers.filter((answer) => answer !== null).length === children.length;
+) =>
+  answers.filter((answer) => answer.content !== null).length ===
+  children.length;
 
 const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   children,
 }) => {
   const classes = useStyles({});
 
-  const [answers, setAnswers] = useState<Array<Answer>>([]);
+  const [hasError, setHasError] = useState<boolean>(false);
+  const [answers, setAnswers] = useState<Array<AnswerObject>>([]);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -95,8 +99,10 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   const extendedReactQuestions: Array<ReactNode> = children.map(
     (child, index) =>
       child({
+        setHasError,
         setAnswer: setAnswer(setAnswers)(index),
-        answer: answers?.[index],
+        answer: answers?.[index]?.content,
+        isEditing: answers?.[index]?.isEditing,
         isBotTyping,
         setIsBotTyping,
       })
@@ -105,7 +111,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   useEffect(() => {
     // current index is the last no not null related index in the array
     const index = answers.reduce(
-      (acc, answer) => (answer !== null ? acc + 1 : acc),
+      (acc, answer) => (answer.content !== null ? acc + 1 : acc),
       0
     );
 

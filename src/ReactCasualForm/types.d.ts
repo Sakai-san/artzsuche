@@ -2,11 +2,18 @@ import { ReactNode } from "react";
 
 export type Answer = string | null;
 
+export interface AnswerObject {
+  content: Answer;
+  isEditing: boolean;
+}
+
 export interface IBase {
+  setHasError: (args: boolean) => void;
   setIsBotTyping: (arg: boolean) => void;
-  answer: Answer;
+  answer: AnswerObject["content"];
+  isEditing: AnswerObject["isEditing"];
   isBotTyping: boolean;
-  setAnswer: (answer: Answer) => void;
+  setAnswer: (answer: Answer, isEditing?: boolean) => void;
 }
 
 export interface ISuggestionProps
@@ -16,6 +23,7 @@ export interface ISuggestionProps
   options?: any;
   children?: (args: any) => ReactNode;
   isValid?: (input: string | undefined) => boolean;
+  onBlur?: any;
 }
 
 export type IAnswerProps = Pick<IBase, "setAnswer"> & {

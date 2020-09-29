@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { FunctionComponent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Theme, makeStyles } from "@material-ui/core";
@@ -78,7 +79,14 @@ const App: FunctionComponent = () => {
 
       <ReactCasualForm>
         {[
-          ({ answer, setAnswer, isBotTyping, setIsBotTyping }) => (
+          ({
+            setHasError,
+            answer,
+            isEditing,
+            setAnswer,
+            isBotTyping,
+            setIsBotTyping,
+          }) => (
             <section className={classes.question} key="question0">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -94,6 +102,7 @@ const App: FunctionComponent = () => {
               </Typist>
               <Suggestion
                 answer={answer}
+                isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
               >
@@ -116,7 +125,14 @@ const App: FunctionComponent = () => {
               </Suggestion>
             </section>
           ),
-          ({ answer, setAnswer, isBotTyping, setIsBotTyping }) => (
+          ({
+            setHasError,
+            answer,
+            isEditing,
+            setAnswer,
+            isBotTyping,
+            setIsBotTyping,
+          }) => (
             <section className={classes.question} key="question1">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -131,14 +147,27 @@ const App: FunctionComponent = () => {
                 </span>
               </Typist>
               <Suggestion
+                setHasError={setHasError}
                 answer={answer}
+                isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
-                isValid={(input: string | undefined) => true}
+                isValid={(input: string | undefined) =>
+                  !!(input && input?.length >= 4)
+                }
               >
-                {({ isValid, inputedValue, setInputedValue, domRef }) => (
+                {({
+                  isValid,
+                  inputedValue,
+                  setInputedValue,
+                  domRef,
+                  onBlur,
+                }) => (
                   <TextField
+                    value={inputedValue}
+                    // is not already set
                     helperText={
+                      !answer &&
                       isValid(inputedValue) && (
                         <button
                           onClick={(e) => {
@@ -158,13 +187,23 @@ const App: FunctionComponent = () => {
                     multiline={true}
                     variant="outlined"
                     ref={domRef}
+                    inputProps={{
+                      onBlur,
+                    }}
                   />
                 )}
               </Suggestion>
             </section>
           ),
 
-          ({ answer, setAnswer, isBotTyping, setIsBotTyping }) => (
+          ({
+            setHasError,
+            answer,
+            isEditing,
+            setAnswer,
+            isBotTyping,
+            setIsBotTyping,
+          }) => (
             <section className={classes.question} key="question2">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -177,6 +216,7 @@ const App: FunctionComponent = () => {
               </Typist>
               <Suggestion
                 answer={answer}
+                isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
                 isValid={(input: string | undefined) =>
@@ -208,7 +248,14 @@ const App: FunctionComponent = () => {
               </Suggestion>
             </section>
           ),
-          ({ answer, setAnswer, isBotTyping, setIsBotTyping }) => (
+          ({
+            setHasError,
+            answer,
+            isEditing,
+            setAnswer,
+            isBotTyping,
+            setIsBotTyping,
+          }) => (
             <section className={classes.question} key="question3">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -224,6 +271,7 @@ const App: FunctionComponent = () => {
               </Typist>
               <Suggestion
                 answer={answer}
+                isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
               >
