@@ -29,6 +29,8 @@ export interface ISuggestionProps
 export type IAnswerProps = Pick<IBase, "setAnswer"> & {
   answer: string;
   setIsInputValid?: (args: any) => void;
+  isValid: boolean;
+  setIsLocalEditing: Function;
 };
 
 export interface IReactCasualFormProps {

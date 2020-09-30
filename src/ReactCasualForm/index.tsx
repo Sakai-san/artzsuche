@@ -165,7 +165,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
         </div>
       </section>
       {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
-      {isDiscussionOver(answers, children) && (
+      {isDiscussionOver(answers, children) && !hasError && (
         <Suggestion
           answer={null}
           setAnswer={() => null}

@@ -7,39 +7,39 @@ import useFocus from "./useFocus";
 
 import { ISuggestionProps } from "./types";
 
-const tap = (f) => (mutation) => (value) => {
-  mutation(value);
-  f();
-};
-
 const Suggestion: FunctionComponent<ISuggestionProps> = ({
+  setHasError,
   answer,
   isEditing,
   setAnswer,
   className,
   isBotTyping,
   children,
-  isValid = (args: any) => null,
+  isValid = (args: any) => !!args,
 }) => {
   const domRef = useFocus([answer, isBotTyping]);
 
   const [inputedValue, setInputedValue] = useState<string | null>(null);
-  const [isBlurred, setIsBlurred] = useState<boolean>(false);
+  const [isLocalEditing, setIsLocalEditing] = useState<boolean>(false);
 
-  const onBlur = (isInputValid: Function) => (e: any) => {
-    if (isInputValid(answer)) {
-    } else {
+  const onBlur = (e: any) => {
+    console.log("loose the focus");
+    setIsLocalEditing(false);
+    if (!isValid(inputedValue)) {
       setHasError(true);
     }
   };
 
-  const onBlurDecoration = tap(onBlur(isValid))(isBlurred)(true);
-
   return (
     <section>
       <div>
-        {typeof answer === "string" && !isEditing ? (
-          <Answer answer={answer} setAnswer={setAnswer} />
+        {!isLocalEditing ? (
+          <Answer
+            answer={inputedValue}
+            isValid={isValid(inputedValue)}
+            setAnswer={setAnswer}
+            setIsLocalEditing={setIsLocalEditing}
+          />
         ) : (
           <VisibilityTransition
             isHidden={answer === null ? false : !!isBotTyping}
@@ -50,7 +50,7 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
                 inputedValue,
                 setInputedValue,
                 domRef,
-                onBlur: onBlurDecoration,
+                onBlur,
               })}
             </span>
           </VisibilityTransition>

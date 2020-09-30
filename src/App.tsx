@@ -105,8 +105,9 @@ const App: FunctionComponent = () => {
                 isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
+                setHasError={setHasError}
               >
-                {({ domRef }) => (
+                {({ domRef, onBlur }) => (
                   <Autocomplete
                     options={cantons}
                     getOptionLabel={(option) => option}
@@ -222,8 +223,15 @@ const App: FunctionComponent = () => {
                 isValid={(input: string | undefined) =>
                   !!(input?.length === 4 && !input.match("(-1|0).*"))
                 }
+                setHasError={setHasError}
               >
-                {({ isValid, inputedValue, setInputedValue, domRef }) => (
+                {({
+                  isValid,
+                  inputedValue,
+                  setInputedValue,
+                  domRef,
+                  onBlur,
+                }) => (
                   <TextField
                     helperText={
                       (isValid(inputedValue) && "Bitte schluss Enter") || ""
@@ -243,6 +251,9 @@ const App: FunctionComponent = () => {
                     type="number"
                     variant="outlined"
                     ref={domRef}
+                    inputProps={{
+                      onBlur,
+                    }}
                   />
                 )}
               </Suggestion>
@@ -274,8 +285,9 @@ const App: FunctionComponent = () => {
                 isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
+                setHasError={setHasError}
               >
-                {({ domRef }) => (
+                {({ domRef, onBlur }) => (
                   <Autocomplete
                     options={physicians}
                     getOptionLabel={(option) =>

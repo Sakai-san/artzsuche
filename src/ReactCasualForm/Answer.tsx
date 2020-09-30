@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import Paper from "@material-ui/core/Paper";
 import { green } from "@material-ui/core/colors";
 import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
+import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
 import { Theme, makeStyles } from "@material-ui/core";
 
@@ -26,6 +27,8 @@ const Anwser: FunctionComponent<IAnswerProps> = ({
   answer,
   setAnswer,
   setIsInputValid,
+  isValid,
+  setIsLocalEditing,
 }) => {
   const classes = useStyles();
 
@@ -38,10 +41,15 @@ const Anwser: FunctionComponent<IAnswerProps> = ({
           onClick={(e) => {
             setAnswer?.(answer, true);
             // on editing reset to false (reinitialization)
-            setIsInputValid?.(false);
+            //setIsInputValid?.(false);
+            setIsLocalEditing(true);
           }}
         />
-        <CheckIcon fontSize="large" style={{ color: green[500] }} />
+        {isValid ? (
+          <CheckIcon fontSize="large" style={{ color: green[500] }} />
+        ) : (
+          <ClearIcon fontSize="large" color="action" />
+        )}
       </div>
     </div>
   );
