@@ -113,7 +113,7 @@ const App: FunctionComponent = () => {
                     getOptionLabel={(option) => option}
                     style={{ width: 300 }}
                     onChange={(e, value) => setAnswer(value)}
-                    renderInput={(params) => (
+                    renderInput={({ onBlur, ...params }) => (
                       <TextField
                         {...params}
                         ref={domRef}
@@ -300,7 +300,7 @@ const App: FunctionComponent = () => {
                         `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`
                       )
                     }
-                    renderInput={(params) => (
+                    renderInput={({ onBlur, ...params }) => (
                       <TextField
                         {...params}
                         ref={domRef}

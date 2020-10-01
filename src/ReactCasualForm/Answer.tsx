@@ -42,7 +42,6 @@ const Anwser: FunctionComponent<IAnswerProps> = ({
             setAnswer?.(answer, true);
             // on editing reset to false (reinitialization)
             //setIsInputValid?.(false);
-            setIsLocalEditing(true);
           }}
         />
         {isValid ? (

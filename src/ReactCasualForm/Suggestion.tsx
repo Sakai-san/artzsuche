@@ -17,14 +17,14 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   children,
   isValid = (args: any) => !!args,
 }) => {
+  console.log("answer", answer);
   const domRef = useFocus([answer, isBotTyping]);
-
-  const [inputedValue, setInputedValue] = useState<string | null>(null);
-  const [isLocalEditing, setIsLocalEditing] = useState<boolean>(false);
+  const [inputedValue, setInputedValue] = useState<string | null>(answer);
 
   const onBlur = (e: any) => {
     console.log("loose the focus");
-    setIsLocalEditing(false);
+
+    setAnswer(answer, false);
     if (!isValid(inputedValue)) {
       setHasError(true);
     }
@@ -33,12 +33,11 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   return (
     <section>
       <div>
-        {!isLocalEditing ? (
+        {typeof answer === "string" && !isEditing ? (
           <Answer
-            answer={inputedValue}
-            isValid={isValid(inputedValue)}
+            answer={answer}
+            isValid={isValid(answer)}
             setAnswer={setAnswer}
-            setIsLocalEditing={setIsLocalEditing}
           />
         ) : (
           <VisibilityTransition
