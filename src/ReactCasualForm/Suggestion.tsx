@@ -17,14 +17,15 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   children,
   isValid = (args: any) => !!args,
 }) => {
-  console.log("answer", answer);
   const domRef = useFocus([answer, isBotTyping]);
   const [inputedValue, setInputedValue] = useState<string | null>(answer);
 
   const onBlur = (e: any) => {
     console.log("loose the focus");
+    const inputValue = e.target.value;
+    setInputedValue(inputValue);
 
-    setAnswer(answer, false);
+    setAnswer(inputedValue, false);
     if (!isValid(inputedValue)) {
       setHasError(true);
     }
@@ -43,15 +44,13 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
           <VisibilityTransition
             isHidden={answer === null ? false : !!isBotTyping}
           >
-            <span>
-              {children?.({
-                isValid,
-                inputedValue,
-                setInputedValue,
-                domRef,
-                onBlur,
-              })}
-            </span>
+            {children?.({
+              isValid,
+              inputedValue,
+              setInputedValue,
+              domRef,
+              onBlur,
+            })}
           </VisibilityTransition>
         )}
       </div>

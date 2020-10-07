@@ -113,12 +113,16 @@ const App: FunctionComponent = () => {
                     getOptionLabel={(option) => option}
                     style={{ width: 300 }}
                     onChange={(e, value) => setAnswer(value)}
-                    renderInput={({ onBlur, ...params }) => (
+                    renderInput={(params) => (
                       <TextField
                         {...params}
                         ref={domRef}
                         label="Wähle bitte deinen Kanton"
                         variant="outlined"
+                        inputProps={{
+                          ...params.inputProps,
+                          onBlur,
+                        }}
                       />
                     )}
                   />
@@ -300,12 +304,16 @@ const App: FunctionComponent = () => {
                         `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`
                       )
                     }
-                    renderInput={({ onBlur, ...params }) => (
+                    renderInput={(params) => (
                       <TextField
                         {...params}
                         ref={domRef}
                         label="Suche nach einem/er Artz/in"
                         variant="outlined"
+                        inputProps={{
+                          ...params.inputProps,
+                          onBlur,
+                        }}
                       />
                     )}
                   />
