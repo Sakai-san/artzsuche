@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 
 import VisibilityTransition from "./VisibilityTransition";
 import Answer from "./Answer";
@@ -20,21 +20,25 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   const domRef = useFocus([answer, isBotTyping]);
   const [inputedValue, setInputedValue] = useState<string | null>(answer);
 
+  useEffect(() => {
+    if (!isValid(inputedValue)) {
+      setHasError?.(true);
+    } else {
+      setHasError?.(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputedValue]);
+
   const onBlur = (e: any) => {
-    console.log("loose the focus");
     const inputValue = e.target.value;
     setInputedValue(inputValue);
-
     setAnswer(inputedValue, false);
-    if (!isValid(inputedValue)) {
-      setHasError(true);
-    }
   };
 
   return (
     <section>
       <div>
-        {typeof answer === "string" && !isEditing ? (
+        {inputedValue !== undefined && !isEditing ? (
           <Answer
             answer={answer}
             isValid={isValid(answer)}

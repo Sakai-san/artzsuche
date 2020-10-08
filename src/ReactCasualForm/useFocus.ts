@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 
-const FOCUSABLE_ELEMENTS = ["BUTTON", "INPUT", "TEXTAREA", "SELECT"];
+// const FOCUSABLE_ELEMENTS = ["BUTTON", "INPUT", "TEXTAREA", "SELECT"];
+const FOCUSABLE_ELEMENTS = ["INPUT", "TEXTAREA", "SELECT"];
 
 const useFocus = (dependencyArray?: any[]) => {
   const domRef = useRef<null | HTMLElement>(null);

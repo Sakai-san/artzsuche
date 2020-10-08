@@ -26,9 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Anwser: FunctionComponent<IAnswerProps> = ({
   answer,
   setAnswer,
-  setIsInputValid,
   isValid,
-  setIsLocalEditing,
 }) => {
   const classes = useStyles();
 
@@ -40,8 +38,6 @@ const Anwser: FunctionComponent<IAnswerProps> = ({
           fontSize="small"
           onClick={(e) => {
             setAnswer?.(answer, true);
-            // on editing reset to false (reinitialization)
-            //setIsInputValid?.(false);
           }}
         />
         {isValid ? (

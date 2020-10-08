@@ -106,6 +106,9 @@ const App: FunctionComponent = () => {
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
                 setHasError={setHasError}
+                isValid={(input: string | undefined) =>
+                  !!(input && input?.length >= 1)
+                }
               >
                 {({ domRef, onBlur }) => (
                   <Autocomplete
@@ -130,6 +133,7 @@ const App: FunctionComponent = () => {
               </Suggestion>
             </section>
           ),
+
           ({
             setHasError,
             answer,
@@ -152,7 +156,6 @@ const App: FunctionComponent = () => {
                 </span>
               </Typist>
               <Suggestion
-                setHasError={setHasError}
                 answer={answer}
                 isEditing={isEditing}
                 setAnswer={setAnswer}
@@ -160,6 +163,7 @@ const App: FunctionComponent = () => {
                 isValid={(input: string | undefined) =>
                   !!(input && input?.length >= 4)
                 }
+                setHasError={setHasError}
               >
                 {({
                   isValid,
@@ -263,6 +267,7 @@ const App: FunctionComponent = () => {
               </Suggestion>
             </section>
           ),
+
           ({
             setHasError,
             answer,
@@ -290,6 +295,9 @@ const App: FunctionComponent = () => {
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
                 setHasError={setHasError}
+                isValid={(input: string | undefined) =>
+                  !!(input && input?.length >= 1)
+                }
               >
                 {({ domRef, onBlur }) => (
                   <Autocomplete

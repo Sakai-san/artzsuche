@@ -96,6 +96,8 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
+  console.log("answers", answers);
+
   const extendedReactQuestions: Array<ReactNode> = children.map(
     (child, index) =>
       child({
@@ -167,7 +169,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
       {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
       {isDiscussionOver(answers, children) && !hasError && (
         <Suggestion
-          answer={null}
+          answer={undefined}
           setAnswer={() => null}
           isBotTyping={isBotTyping}
         >
