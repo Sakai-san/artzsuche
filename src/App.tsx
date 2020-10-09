@@ -115,7 +115,7 @@ const App: FunctionComponent = () => {
                     options={cantons}
                     getOptionLabel={(option) => option}
                     style={{ width: 300 }}
-                    onChange={(e, value) => setAnswer(value)}
+                    onChange={(e, value) => setAnswer(value, false)}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -165,22 +165,16 @@ const App: FunctionComponent = () => {
                 }
                 setHasError={setHasError}
               >
-                {({
-                  isValid,
-                  inputedValue,
-                  setInputedValue,
-                  domRef,
-                  onBlur,
-                }) => (
+                {({ isValid, setInputedValue, domRef, onBlur }) => (
                   <TextField
-                    value={inputedValue}
+                    value={answer}
                     // is not already set
                     helperText={
                       !answer &&
                       isValid(inputedValue) && (
                         <button
                           onClick={(e) => {
-                            setAnswer?.(inputedValue || "");
+                            setAnswer(answer, false);
                           }}
                         >
                           continue
@@ -188,7 +182,7 @@ const App: FunctionComponent = () => {
                       )
                     }
                     onChange={(event: any) =>
-                      setInputedValue(event.target.value)
+                      setAnswer(event.target.value, true)
                     }
                     error={!isValid(inputedValue)}
                     label="Why you apply"
@@ -233,25 +227,17 @@ const App: FunctionComponent = () => {
                 }
                 setHasError={setHasError}
               >
-                {({
-                  isValid,
-                  inputedValue,
-                  setInputedValue,
-                  domRef,
-                  onBlur,
-                }) => (
+                {({ isValid, inputedValue, domRef, onBlur }) => (
                   <TextField
                     helperText={
-                      (isValid(inputedValue) && "Bitte schluss Enter") || ""
+                      (isValid(answer) && "Bitte schluss Enter") || ""
                     }
                     onChange={(event: any) =>
-                      setInputedValue(event.target.value)
+                      setAnswer(event.target.value, true)
                     }
                     onKeyPress={(event: any) => {
                       if (event.key === "Enter") {
-                        if (isValid(inputedValue)) {
-                          setAnswer?.(inputedValue);
-                        }
+                        setAnswer?.(answer, false);
                       }
                     }}
                     error={!isValid(inputedValue)}
@@ -309,7 +295,8 @@ const App: FunctionComponent = () => {
                     style={{ width: 300 }}
                     onChange={(e, value) =>
                       setAnswer?.(
-                        `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`
+                        `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
+                        false
                       )
                     }
                     renderInput={(params) => (

@@ -63,6 +63,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+const doTriggerNextQuestion = (
+  currentIndex: number,
+  setCurrentQuestionIndex: Function,
+  setAnswers: Function
+) => null;
+
 const isUserEditing = (answers: Array<AnswerObject>) =>
   answers.some((answer) => answer.isEditing);
 

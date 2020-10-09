@@ -8,7 +8,6 @@ import useFocus from "./useFocus";
 import { ISuggestionProps } from "./types";
 
 const Suggestion: FunctionComponent<ISuggestionProps> = ({
-  setHasError,
   answer,
   isEditing,
   setAnswer,
@@ -18,27 +17,15 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   isValid = (args: any) => !!args,
 }) => {
   const domRef = useFocus([answer, isBotTyping]);
-  const [inputedValue, setInputedValue] = useState<string | null>(answer);
-
-  useEffect(() => {
-    if (!isValid(inputedValue)) {
-      setHasError?.(true);
-    } else {
-      setHasError?.(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputedValue]);
 
   const onBlur = (e: any) => {
-    const inputValue = e.target.value;
-    setInputedValue(inputValue);
-    setAnswer(inputedValue, false);
+    setAnswer(e.target.value, false);
   };
 
   return (
     <section>
       <div>
-        {inputedValue !== undefined && !isEditing ? (
+        {!isEditing ? (
           <Answer
             answer={answer}
             isValid={isValid(answer)}
