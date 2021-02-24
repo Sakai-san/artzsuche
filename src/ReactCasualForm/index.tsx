@@ -116,7 +116,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
       })
   );
 
-  useEffect(() => {
+  /*useEffect(() => {
     // current index is the last no not null related index in the array
     const index = answers.reduce(
       (acc, answer) => (answer.content ? acc + 1 : acc),
@@ -125,7 +125,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
 
     setCurrentQuestionIndex(index);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [answers]);
+  }, [answers]);*/
 
   useEffect(() => {
     // bot is typing after switching to new question
@@ -136,6 +136,11 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuestionIndex]);
+
+  const next = () => {
+    setCurrentQuestionIndex( (currentIndex) => currentIndex + 1 );
+    setIsBotTyping(true);
+  }
 
   return (
     <div
@@ -173,6 +178,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
         </div>
       </section>
       {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
+      <button onClick={next}>next -></button>
       {isDiscussionOver(answers, children) && !hasError && (
         <Suggestion
           answer={undefined}
