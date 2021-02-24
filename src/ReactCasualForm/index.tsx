@@ -102,7 +102,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  console.log("answers", answers);
+  console.log("answers", JSON.stringify(answers));
 
   const extendedReactQuestions: Array<ReactNode> = children.map(
     (child, index) =>
@@ -119,6 +119,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   useEffect(() => {
     // current index is the last no not null related index in the array
     const index = answers.reduce(
+      //  (acc, answer) => (answer.content !== null ? acc + 1 : acc),
       (acc, answer) => (answer.content ? acc + 1 : acc),
       0
     );
