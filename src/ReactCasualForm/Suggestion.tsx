@@ -19,13 +19,16 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   const domRef = useFocus([answer, isBotTyping]);
 
   const onBlur = (e: any) => {
+    return null;
     setAnswer(e.target.value, false);
   };
+
+  console.log("isBotTyping", isBotTyping);
 
   return (
     <section>
       <div>
-        {!isEditing && answer && !isBotTyping ? (
+        {!isEditing && answer !== undefined ? (
           <Answer
             answer={answer}
             isValid={isValid(answer)}

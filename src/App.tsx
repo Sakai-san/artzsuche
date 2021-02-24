@@ -113,12 +113,7 @@ const App: FunctionComponent = () => {
                     options={cantons}
                     getOptionLabel={(option) => option}
                     style={{ width: 300 }}
-                    onChange={(e, value) =>
-                      setAnswer(
-                        value,
-                        console.log("setAnswer1", value) || false
-                      )
-                    }
+                    onChange={(e, value) => setAnswer(value, false)}
                     renderInput={(params) => (
                       <TextField
                         {...params}
