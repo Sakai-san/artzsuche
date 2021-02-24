@@ -25,20 +25,18 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   return (
     <section>
       <div>
-        {!isEditing ? (
+        {!isEditing && answer && !isBotTyping ? (
           <Answer
             answer={answer}
             isValid={isValid(answer)}
             setAnswer={setAnswer}
           />
         ) : (
-          <VisibilityTransition
-            isHidden={answer === null ? false : !!isBotTyping}
-          >
+          <VisibilityTransition isHidden={!!isBotTyping}>
             {children?.({
               isValid,
-              inputedValue,
-              setInputedValue,
+              inputedValue: answer,
+              setInputedValue: setAnswer,
               domRef,
               onBlur,
             })}
@@ -50,38 +48,3 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
 };
 
 export default Suggestion;
-
-/*
-
-
-const Suggestion: FunctionComponent<ISuggestionProps> = ({
-  answer,
-  setAnswer,
-  className,
-  isBotTyping,
-  children,
-  isValid,
-}) => {
-  const domRef = useFocus([answer, isBotTyping]);
-
-  const [inputedValue, setInputedValue] = useState<string | null>(null);
-
-  return (
-    <section className={className}>
-      <div>
-        <span>
-          {children?.({
-            isValid,
-            inputedValue,
-            setInputedValue,
-            domRef,
-          })}
-        </span>
-      </div>
-    </section>
-  );
-};
-
-export default Suggestion;
-
-*/

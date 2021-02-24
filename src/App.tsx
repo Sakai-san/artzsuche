@@ -106,11 +106,9 @@ const App: FunctionComponent = () => {
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
                 setHasError={setHasError}
-                isValid={(input: string | undefined) =>
-                  !!(input && input?.length >= 1)
-                }
+                isValid={(input: string | undefined) => input?.length >= 1}
               >
-                {({ domRef, onBlur }) => (
+                {({ isValid, setInputedValue, domRef, onBlur }) => (
                   <Autocomplete
                     options={cantons}
                     getOptionLabel={(option) => option}
@@ -165,7 +163,13 @@ const App: FunctionComponent = () => {
                 }
                 setHasError={setHasError}
               >
-                {({ isValid, setInputedValue, domRef, onBlur }) => (
+                {({
+                  isValid,
+                  inputedValue,
+                  setInputedValue,
+                  domRef,
+                  onBlur,
+                }) => (
                   <TextField
                     value={answer}
                     // is not already set
@@ -230,14 +234,14 @@ const App: FunctionComponent = () => {
                 {({ isValid, inputedValue, domRef, onBlur }) => (
                   <TextField
                     helperText={
-                      (isValid(answer) && "Bitte schluss Enter") || ""
+                      (isValid(inputedValue) && "Bitte schluss Enter") || ""
                     }
                     onChange={(event: any) =>
                       setAnswer(event.target.value, true)
                     }
                     onKeyPress={(event: any) => {
                       if (event.key === "Enter") {
-                        setAnswer?.(answer, false);
+                        setAnswer?.(inputedValue, false);
                       }
                     }}
                     error={!isValid(inputedValue)}
