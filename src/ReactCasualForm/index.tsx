@@ -94,7 +94,6 @@ const setAnswer = (setAnswers: SetAnswers) => (index: number) => (
 const submit = (answsers: Array<AnswerObject>, url: string) => (
   e: SyntheticEvent
 ): void => {
-  alert("salut thomas");
   e.preventDefault();
   fetch(url, {
     method: "post",
