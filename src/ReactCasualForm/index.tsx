@@ -69,6 +69,16 @@ const doTriggerNextQuestion = (
   setAnswers: Function
 ) => null;
 
+
+const resetEditing = (setAnswers: Function) => {
+    setAnswers( (prevAnswers: Array<AnswerObject>) => 
+      prevAnswers.map( (prevAnswer) => ({
+        ...prevAnswer,
+        isEditing: false,
+      }))
+    );
+};
+
 const isUserEditing = (answers: Array<AnswerObject>) =>
   answers.some((answer) => answer.isEditing);
 
@@ -138,10 +148,9 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   }, [currentQuestionIndex]);
 */
   const next = () => {
+    resetEditing(setAnswers);
     setCurrentQuestionIndex( (currentIndex) => currentIndex + 1 );
-    if( !isDiscussionOver(answers, children )
-    // && !isUserEditing(answers)
-    ){
+    if( !isDiscussionOver(answers, children ) ){
       setIsBotTyping(true);
     }
     else{
