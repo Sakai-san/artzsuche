@@ -87,7 +87,8 @@ const setAnswer = (setAnswers: Function) => (index: number) => (
   isEditing: boolean = false
 ) => {
   setAnswers((prevAnswers: Array<AnswerObject>) =>
-    Object.assign([], prevAnswers, {
+      // update element in array without side-effect of array
+     Object.assign([], prevAnswers, {
       [index]: { content, isEditing },
     })
   );
