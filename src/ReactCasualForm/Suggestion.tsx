@@ -15,6 +15,7 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   isBotTyping,
   children,
   isValid = (args: any) => !!args,
+  setHasError,
 }) => {
   const domRef = useFocus([answer, isBotTyping]);
 
@@ -40,6 +41,7 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
               setInputedValue: setAnswer,
               domRef,
               onBlur,
+              setHasError,
             })}
           </VisibilityTransition>
         )}

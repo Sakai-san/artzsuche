@@ -128,6 +128,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
   console.log("answers", JSON.stringify(answers));
+  console.log("error", hasError);
 
   const extendedReactQuestions: Array<ReactNode> = children.map(
     (child, index) =>

@@ -186,9 +186,12 @@ const App: FunctionComponent = () => {
                         </button>
                       )
                     }
-                    onChange={(event: any) =>
-                      setAnswer(event.target.value, true)
-                    }
+                    onChange={(event: any) => {
+                      setAnswer(event.target.value, true);
+                      isValid &&
+                        setHasError &&
+                        setHasError(!isValid(event.target.value));
+                    }}
                     error={!isValid(inputedValue)}
                     label="Why you apply"
                     type="text"
