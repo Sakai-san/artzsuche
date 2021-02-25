@@ -139,7 +139,9 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
 */
   const next = () => {
     setCurrentQuestionIndex( (currentIndex) => currentIndex + 1 );
-    if( !isDiscussionOver(answers, children ) && !isUserEditing(answers)){
+    if( !isDiscussionOver(answers, children )
+    // && !isUserEditing(answers)
+    ){
       setIsBotTyping(true);
     }
     else{
