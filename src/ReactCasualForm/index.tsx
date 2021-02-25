@@ -4,6 +4,7 @@ import React, {
   useState,
   Dispatch,
   SetStateAction,
+  SyntheticEvent,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
@@ -88,6 +89,23 @@ const setAnswer = (setAnswers: SetAnswers) => (index: number) => (
       [index]: { content, isEditing },
     })
   );
+};
+
+const submit = (answsers: Array<AnswerObject>, url: string) => (
+  e: SyntheticEvent
+): void => {
+  e.preventDefault();
+  fetch(url, {
+    method: "post",
+    body: JSON.stringify(
+      Object.values(answsers).reduce(
+        (acc, answer, index) => ({ ...acc, [index]: answer.content }),
+        {}
+      )
+    ),
+  })
+    .then((response) => console.log("done", response))
+    .catch((e) => console.error("something went wrong", e));
 };
 
 // all answers are not undefined, means the discussion is over
@@ -185,7 +203,10 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
               color="primary"
               size="large"
               endIcon={<SendIcon />}
-              onClick={(e) => setIsSubmitted(true)}
+              onSubmit={
+                //(e) => {setIsSubmitted(true);
+                submit(answers, "/exmaple.com/artzsuche")
+              }
             >
               Send
             </Button>
