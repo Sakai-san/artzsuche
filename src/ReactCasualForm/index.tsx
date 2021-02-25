@@ -64,15 +64,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-type SetAnswers = Dispatch<SetStateAction<Array<AnswerObject>>>
+type SetAnswers = Dispatch<SetStateAction<Array<AnswerObject>>>;
 
 const resetEditing = (setAnswers: SetAnswers) => {
-    setAnswers( (prevAnswers) => 
-      prevAnswers.map( (prevAnswer) => ({
-        ...prevAnswer,
-        isEditing: false,
-      }))
-    );
+  setAnswers((prevAnswers) =>
+    prevAnswers.map((prevAnswer) => ({
+      ...prevAnswer,
+      isEditing: false,
+    }))
+  );
 };
 
 const isUserEditing = (answers: Array<AnswerObject>) =>
@@ -83,8 +83,8 @@ const setAnswer = (setAnswers: SetAnswers) => (index: number) => (
   isEditing: boolean = false
 ) => {
   setAnswers((prevAnswers) =>
-      // update element in array without side-effect of array
-     Object.assign([], prevAnswers, {
+    // update element in array without side-effect of array
+    Object.assign([], prevAnswers, {
       [index]: { content, isEditing },
     })
   );
@@ -94,7 +94,8 @@ const setAnswer = (setAnswers: SetAnswers) => (index: number) => (
 const isDiscussionOver = (
   answers: Array<AnswerObject>,
   children: IReactCasualFormProps["children"]
-) => answers.filter((answer) => answer.content !== undefined).length ===
+) =>
+  answers.filter((answer) => answer.content !== undefined).length ===
   children.length;
 
 const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
@@ -124,14 +125,13 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
 
   const next = () => {
     resetEditing(setAnswers);
-    setCurrentQuestionIndex( (currentIndex) => currentIndex + 1 );
-    if( !isDiscussionOver(answers, children ) ){
+    setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
+    if (!isDiscussionOver(answers, children)) {
       setIsBotTyping(true);
-    }
-    else{
+    } else {
       setIsBotTyping(false);
     }
-  }
+  };
 
   return (
     <div
@@ -169,7 +169,9 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
         </div>
       </section>
       {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
-      {children.length - currentQuestionIndex !== 1 && <button onClick={next}>next -></button>}
+      {children.length - currentQuestionIndex !== 1 && (
+        <button onClick={next}>{"next ->"}</button>
+      )}
       {isDiscussionOver(answers, children) && !hasError && (
         <Suggestion
           answer={undefined}

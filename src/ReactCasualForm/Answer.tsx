@@ -36,9 +36,7 @@ const Anwser: FunctionComponent<IAnswerProps> = ({
       <div className={classes.icons}>
         <CreateRoundedIcon
           fontSize="small"
-          onClick={(e) => {
-            setAnswer?.(answer, true);
-          }}
+          onClick={(e) => setAnswer?.(answer, true)}
         />
         {isValid ? (
           <CheckIcon fontSize="large" style={{ color: green[500] }} />
