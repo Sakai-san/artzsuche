@@ -2,7 +2,8 @@ import React, {
   ReactNode,
   FunctionComponent,
   useState,
-  useEffect,
+  Dispatch,
+  SetStateAction,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
@@ -63,15 +64,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const doTriggerNextQuestion = (
-  currentIndex: number,
-  setCurrentQuestionIndex: Function,
-  setAnswers: Function
-) => null;
+type SetAnswers = Dispatch<SetStateAction<Array<AnswerObject>>>
 
-
-const resetEditing = (setAnswers: Function) => {
-    setAnswers( (prevAnswers: Array<AnswerObject>) => 
+const resetEditing = (setAnswers: SetAnswers) => {
+    setAnswers( (prevAnswers) => 
       prevAnswers.map( (prevAnswer) => ({
         ...prevAnswer,
         isEditing: false,
@@ -82,11 +78,11 @@ const resetEditing = (setAnswers: Function) => {
 const isUserEditing = (answers: Array<AnswerObject>) =>
   answers.some((answer) => answer.isEditing);
 
-const setAnswer = (setAnswers: Function) => (index: number) => (
+const setAnswer = (setAnswers: SetAnswers) => (index: number) => (
   content: Answer,
   isEditing: boolean = false
 ) => {
-  setAnswers((prevAnswers: Array<AnswerObject>) =>
+  setAnswers((prevAnswers) =>
       // update element in array without side-effect of array
      Object.assign([], prevAnswers, {
       [index]: { content, isEditing },
@@ -126,28 +122,6 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
       })
   );
 
-  /*useEffect(() => {
-    // current index is the last no not null related index in the array
-    const index = answers.reduce(
-      (acc, answer) => (answer.content ? acc + 1 : acc),
-      0
-    );
-
-    setCurrentQuestionIndex(index);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [answers]);*/
-
-  /*
-  useEffect(() => {
-    // bot is typing after switching to new question
-    if (!isDiscussionOver(answers, children) && !isUserEditing(answers)) {
-      setIsBotTyping(true);
-    } else {
-      setIsBotTyping(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentQuestionIndex]);
-*/
   const next = () => {
     resetEditing(setAnswers);
     setCurrentQuestionIndex( (currentIndex) => currentIndex + 1 );
