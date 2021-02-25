@@ -23,8 +23,6 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
     setAnswer(e.target.value, false);
   };
 
-  console.log("isBotTyping", isBotTyping);
-
   return (
     <section>
       <div>

@@ -87,8 +87,7 @@ const setAnswer = (setAnswers: Function) => (index: number) => (
 const isDiscussionOver = (
   answers: Array<AnswerObject>,
   children: IReactCasualFormProps["children"]
-) =>
-  answers.filter((answer) => answer.content !== null).length ===
+) => answers.filter((answer) => answer.content !== undefined).length ===
   children.length;
 
 const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
@@ -127,6 +126,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [answers]);*/
 
+  /*
   useEffect(() => {
     // bot is typing after switching to new question
     if (!isDiscussionOver(answers, children) && !isUserEditing(answers)) {
@@ -136,10 +136,15 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuestionIndex]);
-
+*/
   const next = () => {
     setCurrentQuestionIndex( (currentIndex) => currentIndex + 1 );
-    setIsBotTyping(true);
+    if( !isDiscussionOver(answers, children ) && !isUserEditing(answers)){
+      setIsBotTyping(true);
+    }
+    else{
+      setIsBotTyping(false);
+    }
   }
 
   return (
