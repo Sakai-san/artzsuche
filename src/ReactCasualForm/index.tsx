@@ -152,7 +152,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
   };
 
   return (
-    <form
+    <div
       className={`${classes.content} ${
         isSumitted ? classes.contentHidden : classes.contentVisible
       }`}
@@ -213,7 +213,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
           )}
         </Suggestion>
       )}
-    </form>
+    </div>
   );
 };
 
