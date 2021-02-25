@@ -94,6 +94,7 @@ const setAnswer = (setAnswers: SetAnswers) => (index: number) => (
 const submit = (answsers: Array<AnswerObject>, url: string) => (
   e: SyntheticEvent
 ): void => {
+  alert("salut thomas");
   e.preventDefault();
   fetch(url, {
     method: "post",
@@ -191,27 +192,18 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
         <button onClick={next}>{"next ->"}</button>
       )}
       {isDiscussionOver(answers, children) && !hasError && (
-        <Suggestion
-          answer={undefined}
-          setAnswer={() => null}
-          isBotTyping={isBotTyping}
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          endIcon={<SendIcon />}
+          onClick={
+            //(e) => {setIsSubmitted(true);
+            submit(answers, "/exmaple.com/artzsuche")
+          }
         >
-          {({ domRef }) => (
-            <Button
-              ref={domRef}
-              variant="contained"
-              color="primary"
-              size="large"
-              endIcon={<SendIcon />}
-              onSubmit={
-                //(e) => {setIsSubmitted(true);
-                submit(answers, "/exmaple.com/artzsuche")
-              }
-            >
-              Send
-            </Button>
-          )}
-        </Suggestion>
+          Send
+        </Button>
       )}
     </div>
   );
