@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FunctionComponent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Theme, makeStyles } from "@material-ui/core";
@@ -106,7 +105,9 @@ const App: FunctionComponent = () => {
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
                 setHasError={setHasError}
-                isValid={(input: string | undefined) => input?.length >= 1}
+                isValid={(input: string | undefined) =>
+                  input ? input.length >= 1 : false
+                }
               >
                 {({ isValid, setInputedValue, domRef, onBlur }) => (
                   <Autocomplete
