@@ -90,7 +90,7 @@ const setAnswer = (setAnswers: SetAnswers) => (index: number) => (
   );
 };
 
-// all answers are not null, means the discussion is over
+// all answers are not undefined, means the discussion is over
 const isDiscussionOver = (
   answers: Array<AnswerObject>,
   children: IReactCasualFormProps["children"]
