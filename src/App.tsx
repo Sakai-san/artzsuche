@@ -109,7 +109,7 @@ const App: FunctionComponent = () => {
                   input ? input.length >= 1 : false
                 }
               >
-                {({ isValid, setInputedValue, domRef, onBlur }) => (
+                {({ domRef, onBlur }) => (
                   <Autocomplete
                     options={cantons}
                     getOptionLabel={(option) => option}
@@ -164,13 +164,7 @@ const App: FunctionComponent = () => {
                 }
                 setHasError={setHasError}
               >
-                {({
-                  isValid,
-                  inputedValue,
-                  setInputedValue,
-                  domRef,
-                  onBlur,
-                }) => (
+                {({ isValid, inputedValue, domRef, onBlur, setHasError }) => (
                   <TextField
                     value={answer}
                     // is not already set
@@ -188,9 +182,7 @@ const App: FunctionComponent = () => {
                     }
                     onChange={(event: any) => {
                       setAnswer(event.target.value, true);
-                      isValid &&
-                        setHasError &&
-                        setHasError(!isValid(event.target.value));
+                      setHasError(!isValid(event.target.value));
                     }}
                     error={!isValid(inputedValue)}
                     label="Why you apply"
@@ -198,9 +190,7 @@ const App: FunctionComponent = () => {
                     multiline={true}
                     variant="outlined"
                     ref={domRef}
-                    inputProps={{
-                      onBlur,
-                    }}
+                    inputProps={{ onBlur }}
                   />
                 )}
               </Suggestion>
