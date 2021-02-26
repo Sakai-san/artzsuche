@@ -221,7 +221,7 @@ const App: FunctionComponent = () => {
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
                 isValid={(input: string | undefined) =>
-                  !!(input?.length === 4 && !input.match("(-1|0).*"))
+                  !!(input?.length === 4 && input.match(/^[1-9][0-9]{3}$/))
                 }
                 setHasError={setHasError}
               >
