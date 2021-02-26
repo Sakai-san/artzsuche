@@ -75,17 +75,21 @@ const resetEditing = (setAnswers: SetAnswers) => {
   );
 };
 
+const hasError = (answers: Array<AnswerObject>) =>
+  answers.some((answer) => !answer.isValid);
+
 const isUserEditing = (answers: Array<AnswerObject>) =>
   answers.some((answer) => answer.isEditing);
 
 const setAnswer = (setAnswers: SetAnswers) => (index: number) => (
   content: Answer,
+  isValid: boolean,
   isEditing: boolean = false
 ) => {
   setAnswers((prevAnswers) =>
     // update element in array without side-effect of array
     Object.assign([], prevAnswers, {
-      [index]: { content, isEditing },
+      [index]: { content, isValid, isEditing },
     })
   );
 };
@@ -120,19 +124,16 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
 }) => {
   const classes = useStyles({});
 
-  const [hasError, setHasError] = useState<boolean>(false);
   const [answers, setAnswers] = useState<Array<AnswerObject>>([]);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
   console.log("answers", JSON.stringify(answers));
-  console.log("error", hasError);
 
   const extendedReactQuestions: Array<ReactNode> = children.map(
     (child, index) =>
       child({
-        setHasError,
         setAnswer: setAnswer(setAnswers)(index),
         answer: answers?.[index]?.content,
         isEditing: answers?.[index]?.isEditing,
@@ -190,7 +191,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
       {children.length - currentQuestionIndex !== 1 && (
         <button onClick={next}>{"next ->"}</button>
       )}
-      {isDiscussionOver(answers, children) && !hasError && (
+      {isDiscussionOver(answers, children) && !hasError(answers) && (
         <Button
           variant="contained"
           color="primary"

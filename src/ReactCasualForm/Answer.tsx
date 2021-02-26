@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const Anwser: FunctionComponent<IAnswerProps> = ({
   answer,
   setAnswer,
-  isValid,
+  doValidation,
 }) => {
   const classes = useStyles();
 
@@ -36,9 +36,9 @@ const Anwser: FunctionComponent<IAnswerProps> = ({
       <div className={classes.icons}>
         <CreateRoundedIcon
           fontSize="small"
-          onClick={(e) => setAnswer?.(answer, true)}
+          onClick={(e) => setAnswer?.(answer, doValidation(answer), true)}
         />
-        {isValid ? (
+        {doValidation(answer) ? (
           <CheckIcon fontSize="large" style={{ color: green[500] }} />
         ) : (
           <ClearIcon fontSize="large" color="action" />

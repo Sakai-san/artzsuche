@@ -78,14 +78,7 @@ const App: FunctionComponent = () => {
 
       <ReactCasualForm>
         {[
-          ({
-            setHasError,
-            answer,
-            isEditing,
-            setAnswer,
-            isBotTyping,
-            setIsBotTyping,
-          }) => (
+          ({ answer, isEditing, setAnswer, isBotTyping, setIsBotTyping }) => (
             <section className={classes.question} key="question0">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -104,17 +97,18 @@ const App: FunctionComponent = () => {
                 isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
-                setHasError={setHasError}
-                isValid={(input: string | undefined) =>
+                doValidation={(input: string | undefined) =>
                   input ? input.length >= 1 : false
                 }
               >
-                {({ domRef, onBlur }) => (
+                {({ domRef, onBlur, doValidation }) => (
                   <Autocomplete
                     options={cantons}
                     getOptionLabel={(option) => option}
                     style={{ width: 300 }}
-                    onChange={(e, value) => setAnswer(value, false)}
+                    onChange={(e, value) =>
+                      setAnswer(value, doValidation(value), false)
+                    }
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -133,14 +127,7 @@ const App: FunctionComponent = () => {
             </section>
           ),
 
-          ({
-            setHasError,
-            answer,
-            isEditing,
-            setAnswer,
-            isBotTyping,
-            setIsBotTyping,
-          }) => (
+          ({ answer, isEditing, setAnswer, isBotTyping, setIsBotTyping }) => (
             <section className={classes.question} key="question1">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -159,32 +146,34 @@ const App: FunctionComponent = () => {
                 isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
-                isValid={(input: string | undefined) =>
+                doValidation={(input: string | undefined) =>
                   !!(input && input?.length >= 4)
                 }
-                setHasError={setHasError}
               >
-                {({ isValid, inputedValue, domRef, onBlur, setHasError }) => (
+                {({ doValidation, inputedValue, domRef, onBlur }) => (
                   <TextField
                     value={answer}
                     // is not already set
                     helperText={
                       !answer &&
-                      isValid(inputedValue) && (
+                      doValidation(inputedValue) && (
                         <button
-                          onClick={(e) => {
-                            setAnswer(answer, false);
+                          onClick={(event) => {
+                            setAnswer(answer, true, false);
                           }}
                         >
                           continue
                         </button>
                       )
                     }
-                    onChange={(event: any) => {
-                      setAnswer(event.target.value, true);
-                      setHasError(!isValid(event.target.value));
-                    }}
-                    error={!isValid(inputedValue)}
+                    onChange={(event: any) =>
+                      setAnswer(
+                        event.target.value,
+                        doValidation(event.target.value),
+                        true
+                      )
+                    }
+                    error={!doValidation(inputedValue)}
                     label="Why you apply"
                     type="text"
                     multiline={true}
@@ -197,14 +186,7 @@ const App: FunctionComponent = () => {
             </section>
           ),
 
-          ({
-            setHasError,
-            answer,
-            isEditing,
-            setAnswer,
-            isBotTyping,
-            setIsBotTyping,
-          }) => (
+          ({ answer, isEditing, setAnswer, isBotTyping, setIsBotTyping }) => (
             <section className={classes.question} key="question2">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -220,26 +202,29 @@ const App: FunctionComponent = () => {
                 isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
-                isValid={(input: string | undefined) =>
+                doValidation={(input: string | undefined) =>
                   !!(input && input.match(/^[1-9][0-9]{3}$/))
                 }
-                setHasError={setHasError}
               >
-                {({ isValid, inputedValue, domRef, onBlur }) => (
+                {({ doValidation, inputedValue, domRef, onBlur }) => (
                   <TextField
                     helperText={
-                      (isValid(inputedValue) && "Bitte schluss Enter") || ""
+                      (doValidation(inputedValue) && "Bitte schluss Enter") ||
+                      ""
                     }
                     onChange={(event: any) => {
-                      setAnswer(event.target.value, true);
-                      setHasError(!isValid(event.target.value));
+                      setAnswer(
+                        event.target.value,
+                        doValidation(event.target.value),
+                        true
+                      );
                     }}
                     onKeyPress={(event: any) => {
                       if (event.key === "Enter") {
                         setAnswer?.(inputedValue, false);
                       }
                     }}
-                    error={!isValid(inputedValue)}
+                    error={!doValidation(inputedValue)}
                     label="PLZ"
                     type="number"
                     variant="outlined"
@@ -251,14 +236,7 @@ const App: FunctionComponent = () => {
             </section>
           ),
 
-          ({
-            setHasError,
-            answer,
-            isEditing,
-            setAnswer,
-            isBotTyping,
-            setIsBotTyping,
-          }) => (
+          ({ answer, isEditing, setAnswer, isBotTyping, setIsBotTyping }) => (
             <section className={classes.question} key="question3">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -277,12 +255,11 @@ const App: FunctionComponent = () => {
                 isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
-                setHasError={setHasError}
-                isValid={(input: string | undefined) =>
+                doValidation={(input: string | undefined) =>
                   !!(input && input?.length >= 1)
                 }
               >
-                {({ domRef, onBlur }) => (
+                {({ domRef, onBlur, doValidation }) => (
                   <Autocomplete
                     options={physicians}
                     getOptionLabel={(option) =>
@@ -293,6 +270,7 @@ const App: FunctionComponent = () => {
                     onChange={(e, value) =>
                       setAnswer?.(
                         `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
+                        doValidation(value),
                         false
                       )
                     }

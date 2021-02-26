@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FunctionComponent } from "react";
 
 import VisibilityTransition from "./VisibilityTransition";
 import Answer from "./Answer";
@@ -14,8 +14,7 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   className,
   isBotTyping,
   children,
-  isValid = (args: any) => true,
-  setHasError,
+  doValidation = (...args: any) => true,
 }) => {
   const domRef = useFocus([answer, isBotTyping]);
 
@@ -30,18 +29,17 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
         {!isEditing && answer !== undefined ? (
           <Answer
             answer={answer}
-            isValid={isValid(answer)}
+            doValidation={doValidation}
             setAnswer={setAnswer}
           />
         ) : (
           <VisibilityTransition isHidden={!!isBotTyping}>
             {children?.({
-              isValid,
+              doValidation,
               inputedValue: answer,
               setInputedValue: setAnswer,
               domRef,
               onBlur,
-              setHasError,
             })}
           </VisibilityTransition>
         )}

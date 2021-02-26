@@ -5,15 +5,15 @@ export type Answer = string | null;
 export interface AnswerObject {
   content: Answer;
   isEditing: boolean;
+  isValid: boolean;
 }
 
 export interface IBase {
-  setHasError: (args: boolean) => void;
   setIsBotTyping: (arg: boolean) => void;
   answer: AnswerObject["content"];
   isEditing: AnswerObject["isEditing"];
   isBotTyping: boolean;
-  setAnswer: (answer: Answer, isEditing?: boolean) => void;
+  setAnswer: (answer: Answer, isValid: boolean, isEditing?: boolean) => void;
 }
 
 export interface ISuggestionProps
@@ -22,15 +22,13 @@ export interface ISuggestionProps
   className?: string;
   options?: any;
   children?: (args: any) => ReactNode;
-  isValid?: (input: string | undefined) => boolean;
   onBlur?: any;
+  doValidation?: (...args: any) => boolean;
 }
 
 export type IAnswerProps = Pick<IBase, "setAnswer"> & {
   answer: string;
-  setIsInputValid?: (args: any) => void;
-  isValid: boolean;
-  setIsLocalEditing: Function;
+  doValidation: (...args: any) => boolean;
 };
 
 export interface IReactCasualFormProps {
