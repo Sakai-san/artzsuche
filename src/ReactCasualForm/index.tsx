@@ -96,7 +96,7 @@ const submit = (answsers: Array<AnswerObject>, url: string) => (
 ): void => {
   e.preventDefault();
   fetch(url, {
-    method: "post",
+    method: "POST",
     body: JSON.stringify(
       Object.values(answsers).reduce(
         (acc, answer, index) => ({ ...acc, [index]: answer.content }),
