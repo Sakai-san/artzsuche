@@ -34,3 +34,14 @@ export type IAnswerProps = Pick<IBase, "setAnswer"> & {
 export interface IReactCasualFormProps {
   children: Array<(args: IBase) => ReactNode>;
 }
+
+/*
+
+ TODO's:
+  - click on edit, then set answer to undefined, because currently keep the previous value
+  - set the color of invalid input to red
+  - check if resetEditing is up-to-date when next() is not called (last field)
+  - Theming to be passed as option to the library
+  - Click outside of input -> not edit mode
+
+*/
