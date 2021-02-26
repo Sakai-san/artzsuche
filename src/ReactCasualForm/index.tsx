@@ -11,7 +11,6 @@ import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
-import Suggestion from "./Suggestion";
 
 import { Answer, IReactCasualFormProps, AnswerObject } from "./types";
 

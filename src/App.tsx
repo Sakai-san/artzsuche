@@ -221,7 +221,7 @@ const App: FunctionComponent = () => {
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
                 isValid={(input: string | undefined) =>
-                  !!(input?.length === 4 && input.match(/^[1-9][0-9]{3}$/))
+                  !!(input && input.match(/^[1-9][0-9]{3}$/))
                 }
                 setHasError={setHasError}
               >
@@ -230,9 +230,10 @@ const App: FunctionComponent = () => {
                     helperText={
                       (isValid(inputedValue) && "Bitte schluss Enter") || ""
                     }
-                    onChange={(event: any) =>
-                      setAnswer(event.target.value, true)
-                    }
+                    onChange={(event: any) => {
+                      setAnswer(event.target.value, true);
+                      setHasError(!isValid(event.target.value));
+                    }}
                     onKeyPress={(event: any) => {
                       if (event.key === "Enter") {
                         setAnswer?.(inputedValue, false);

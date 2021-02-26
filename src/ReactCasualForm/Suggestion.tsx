@@ -14,7 +14,7 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   className,
   isBotTyping,
   children,
-  isValid = (args: any) => !!args,
+  isValid = (args: any) => true,
   setHasError,
 }) => {
   const domRef = useFocus([answer, isBotTyping]);
