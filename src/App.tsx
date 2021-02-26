@@ -255,9 +255,7 @@ const App: FunctionComponent = () => {
                 isEditing={isEditing}
                 setAnswer={setAnswer}
                 isBotTyping={isBotTyping}
-                doValidation={(input: string | undefined) =>
-                  !!(input && input?.length >= 1)
-                }
+                doValidation={(input: string | undefined) => !!input}
               >
                 {({ domRef, onBlur, doValidation }) => (
                   <Autocomplete
