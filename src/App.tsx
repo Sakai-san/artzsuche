@@ -244,9 +244,7 @@ const App: FunctionComponent = () => {
                     type="number"
                     variant="outlined"
                     ref={domRef}
-                    inputProps={{
-                      onBlur,
-                    }}
+                    inputProps={{ onBlur }}
                   />
                 )}
               </Suggestion>
