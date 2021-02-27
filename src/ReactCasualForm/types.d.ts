@@ -1,6 +1,6 @@
 import { ReactNode, ReactElement, MutableRefObject } from "react";
 
-export type Answer = string | null;
+export type Answer = string | undefined | null;
 
 export interface AnswerObject {
   content: Answer;
@@ -31,7 +31,7 @@ export type IAnswerProps = Pick<RenderProps, "setAnswer" | "answer"> & {
 };
 
 export interface IReactCasualFormProps {
-  children: Array<(args: IBase) => JSX.Element>;
+  children: Array<(args: RenderProps) => JSX.Element>;
 }
 
 /*
