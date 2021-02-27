@@ -78,7 +78,7 @@ const App: FunctionComponent = () => {
 
       <ReactCasualForm>
         {[
-          ({ answer, isEditing, setAnswer, isBotTyping, setIsBotTyping }) => (
+          ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
             <section className={classes.question} key="question0">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -127,7 +127,7 @@ const App: FunctionComponent = () => {
             </section>
           ),
 
-          ({ answer, isEditing, setAnswer, isBotTyping, setIsBotTyping }) => (
+          ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
             <section className={classes.question} key="question1">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -186,7 +186,7 @@ const App: FunctionComponent = () => {
             </section>
           ),
 
-          ({ answer, isEditing, setAnswer, isBotTyping, setIsBotTyping }) => (
+          ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
             <section className={classes.question} key="question2">
               <Typist
                 cursor={{ hideWhenDone: true }}
@@ -235,7 +235,7 @@ const App: FunctionComponent = () => {
             </section>
           ),
 
-          ({ answer, isEditing, setAnswer, isBotTyping, setIsBotTyping }) => (
+          ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
             <section className={classes.question} key="question3">
               <Typist
                 cursor={{ hideWhenDone: true }}
