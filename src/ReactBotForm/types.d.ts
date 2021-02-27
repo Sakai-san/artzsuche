@@ -1,4 +1,5 @@
 import { ReactNode, ReactElement, MutableRefObject } from "react";
+import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 
 export type Answer = string | undefined | null;
 
@@ -31,7 +32,7 @@ export type IAnswerProps = Pick<RenderProps, "setAnswer" | "answer"> & {
 };
 
 export interface ReactBotFormOptions {
-  theme: PaletteOptions;
+  theme?: PaletteOptions;
 }
 
 export interface ReactBotFormProps {
