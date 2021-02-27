@@ -131,15 +131,14 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
 
   console.log("answers", JSON.stringify(answers));
 
-  const extendedReactQuestions: Array<ReactNode> = children.map(
-    (child, index) =>
-      child({
-        setAnswer: setAnswer(setAnswers)(index),
-        answer: answers?.[index]?.content,
-        isEditing: answers?.[index]?.isEditing,
-        isBotTyping,
-        setIsBotTyping,
-      })
+  const extendedReactQuestions = children.map((child, index) =>
+    child({
+      setAnswer: setAnswer(setAnswers)(index),
+      answer: answers?.[index]?.content,
+      isEditing: answers?.[index]?.isEditing,
+      isBotTyping,
+      setIsBotTyping,
+    })
   );
 
   const next = () => {

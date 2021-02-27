@@ -1,6 +1,4 @@
-// @ts-nocheck
 import React, { FunctionComponent } from "react";
-
 import VisibilityTransition from "./VisibilityTransition";
 import Answer from "./Answer";
 import useFocus from "./useFocus";
@@ -36,8 +34,8 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
           <VisibilityTransition isHidden={!!isBotTyping}>
             {children?.({
               doValidation,
-              inputedValue: answer,
-              setInputedValue: setAnswer,
+              answer,
+              setAnswer,
               domRef,
               onBlur,
             })}

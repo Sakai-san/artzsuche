@@ -150,13 +150,13 @@ const App: FunctionComponent = () => {
                   !!(input && input?.length >= 4)
                 }
               >
-                {({ doValidation, inputedValue, domRef, onBlur }) => (
+                {({ doValidation, answer, domRef, onBlur }) => (
                   <TextField
                     value={answer}
                     // is not already set
                     helperText={
                       !answer &&
-                      doValidation(inputedValue) && (
+                      doValidation(answer) && (
                         <button
                           onClick={(event) => {
                             setAnswer(answer, true, false);
@@ -173,7 +173,7 @@ const App: FunctionComponent = () => {
                         true
                       )
                     }
-                    error={!doValidation(inputedValue)}
+                    error={!doValidation(answer)}
                     label="Why you apply"
                     type="text"
                     multiline={true}
@@ -206,11 +206,10 @@ const App: FunctionComponent = () => {
                   !!(input && input.match(/^[1-9][0-9]{3}$/))
                 }
               >
-                {({ doValidation, inputedValue, domRef, onBlur }) => (
+                {({ doValidation, answer, domRef, onBlur }) => (
                   <TextField
                     helperText={
-                      (doValidation(inputedValue) && "Bitte schluss Enter") ||
-                      ""
+                      (doValidation(answer) && "Bitte schluss Enter") || ""
                     }
                     onChange={(event: any) => {
                       setAnswer(
@@ -221,10 +220,10 @@ const App: FunctionComponent = () => {
                     }}
                     onKeyPress={(event: any) => {
                       if (event.key === "Enter") {
-                        setAnswer?.(inputedValue, false);
+                        setAnswer?.(answer, false);
                       }
                     }}
-                    error={!doValidation(inputedValue)}
+                    error={!doValidation(answer)}
                     label="PLZ"
                     type="number"
                     variant="outlined"

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, ReactElement, MutableRefObject } from "react";
 
 export type Answer = string | null;
 
@@ -20,19 +20,18 @@ export interface ISuggestionProps
   extends Partial<Omit<IBase, "setAnswer">>,
     Pick<IBase, "setAnswer"> {
   className?: string;
-  options?: any;
-  children?: (args: any) => ReactNode;
+  children?: (args: any) => any;
   onBlur?: any;
   doValidation?: (...args: any) => boolean;
+  domRef?: MutableRefObject<HTMLElement | null>;
 }
 
-export type IAnswerProps = Pick<IBase, "setAnswer"> & {
-  answer: string;
+export type IAnswerProps = Pick<IBase, "setAnswer" | "answer"> & {
   doValidation: (...args: any) => boolean;
 };
 
 export interface IReactCasualFormProps {
-  children: Array<(args: IBase) => ReactNode>;
+  children: Array<(args: IBase) => JSX.Element>;
 }
 
 /*
