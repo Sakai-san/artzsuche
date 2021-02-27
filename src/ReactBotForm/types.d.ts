@@ -19,6 +19,7 @@ export interface RenderProps {
 
 export interface ISuggestionProps
   extends Partial<Omit<RenderProps, "setAnswer">>,
+    // setAnswer is not optional
     Pick<RenderProps, "setAnswer"> {
   className?: string;
   children?: (args: any) => any;
