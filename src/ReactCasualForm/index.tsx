@@ -83,7 +83,7 @@ const isUserEditing = (answers: Array<AnswerObject>) =>
 
 const setAnswerFactory = (setAnswers: SetAnswers) => (index: number) => (
   content: Answer,
-  isValid: boolean,
+  isValid: boolean = true,
   isEditing: boolean = false
 ) => {
   setAnswers((prevAnswers) =>
@@ -133,11 +133,11 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
 
   const extendedReactQuestions = children.map((child, index) =>
     child({
-      setAnswer: setAnswerFactory(setAnswers)(index),
       answer: answers?.[index]?.content,
-      isEditing: answers?.[index]?.isEditing,
+      setAnswer: setAnswerFactory(setAnswers)(index),
       isBotTyping,
       setIsBotTyping,
+      isEditing: answers?.[index]?.isEditing,
     })
   );
 

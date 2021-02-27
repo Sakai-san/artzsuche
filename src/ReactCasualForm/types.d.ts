@@ -8,17 +8,17 @@ export interface AnswerObject {
   isValid: boolean;
 }
 
-export interface IBase {
-  setIsBotTyping: (arg: boolean) => void;
+export interface RenderProps {
   answer: AnswerObject["content"];
-  isEditing: AnswerObject["isEditing"];
+  setAnswer: (answer: Answer, isValid?: boolean, isEditing?: boolean) => void;
   isBotTyping: boolean;
-  setAnswer: (answer: Answer, isValid: boolean, isEditing?: boolean) => void;
+  setIsBotTyping: (arg: boolean) => void;
+  isEditing: AnswerObject["isEditing"];
 }
 
 export interface ISuggestionProps
-  extends Partial<Omit<IBase, "setAnswer">>,
-    Pick<IBase, "setAnswer"> {
+  extends Partial<Omit<RenderProps, "setAnswer">>,
+    Pick<RenderProps, "setAnswer"> {
   className?: string;
   children?: (args: any) => any;
   onBlur?: any;
@@ -26,7 +26,7 @@ export interface ISuggestionProps
   domRef?: MutableRefObject<HTMLElement | null>;
 }
 
-export type IAnswerProps = Pick<IBase, "setAnswer" | "answer"> & {
+export type IAnswerProps = Pick<RenderProps, "setAnswer" | "answer"> & {
   doValidation: (...args: any) => boolean;
 };
 
