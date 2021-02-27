@@ -30,12 +30,16 @@ export type IAnswerProps = Pick<RenderProps, "setAnswer" | "answer"> & {
   doValidation: (...args: any) => boolean;
 };
 
-export interface IReactCasualFormProps {
+export interface ReactBotFormOptions {
+  theme: PaletteOptions;
+}
+
+export interface ReactBotFormProps {
+  options?: ReactBotFormOptions;
   children: Array<(args: RenderProps) => JSX.Element>;
 }
 
 /*
-
  TODO's:
   - click on edit, then set answer to undefined, because currently keep the previous value
   - set the color of invalid input to red

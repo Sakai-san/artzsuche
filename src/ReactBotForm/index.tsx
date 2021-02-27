@@ -12,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 
-import { Answer, IReactCasualFormProps, AnswerObject } from "./types";
+import { Answer, ReactBotFormProps, AnswerObject } from "./types";
 
 import typingIndicator from "../giphy.gif";
 
@@ -114,12 +114,12 @@ const submit = (answsers: Array<AnswerObject>, url: string) => (
 // all answers are not undefined, means the discussion is over
 const isDiscussionOver = (
   answers: Array<AnswerObject>,
-  children: IReactCasualFormProps["children"]
+  children: ReactBotFormProps["children"]
 ) =>
   answers.filter((answer) => answer.content !== undefined).length ===
   children.length;
 
-const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
+const ReactCasualForm: FunctionComponent<ReactBotFormProps> = ({
   children,
 }) => {
   const classes = useStyles({});

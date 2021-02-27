@@ -13,8 +13,8 @@ import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import Typist from "react-typist";
 
-import ReactCasualForm from "./ReactCasualForm";
-import Suggestion from "./ReactCasualForm/Suggestion";
+import ReactBotForm from "./ReactBotForm";
+import Suggestion from "./ReactBotForm/Suggestion";
 import { physiciansOperations } from "./ducks/physicians";
 import { cantonsOperations } from "./ducks/cantons";
 
@@ -76,7 +76,7 @@ const App: FunctionComponent = () => {
         </Toolbar>
       </AppBar>
 
-      <ReactCasualForm>
+      <ReactBotForm>
         {[
           ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
             <section className={classes.question} key="question0">
@@ -289,7 +289,7 @@ const App: FunctionComponent = () => {
             </section>
           ),
         ]}
-      </ReactCasualForm>
+      </ReactBotForm>
     </div>
   );
 };
