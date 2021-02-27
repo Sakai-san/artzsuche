@@ -81,13 +81,13 @@ const hasError = (answers: Array<AnswerObject>) =>
 const isUserEditing = (answers: Array<AnswerObject>) =>
   answers.some((answer) => answer.isEditing);
 
-const setAnswer = (setAnswers: SetAnswers) => (index: number) => (
+const setAnswerFactory = (setAnswers: SetAnswers) => (index: number) => (
   content: Answer,
   isValid: boolean,
   isEditing: boolean = false
 ) => {
   setAnswers((prevAnswers) =>
-    // update element in array without side-effect of array
+    // update element in array without side-effect in array
     Object.assign([], prevAnswers, {
       [index]: { content, isValid, isEditing },
     })
@@ -133,7 +133,7 @@ const ReactCasualForm: FunctionComponent<IReactCasualFormProps> = ({
 
   const extendedReactQuestions = children.map((child, index) =>
     child({
-      setAnswer: setAnswer(setAnswers)(index),
+      setAnswer: setAnswerFactory(setAnswers)(index),
       answer: answers?.[index]?.content,
       isEditing: answers?.[index]?.isEditing,
       isBotTyping,
