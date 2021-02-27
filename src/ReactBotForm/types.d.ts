@@ -1,4 +1,4 @@
-import { ReactNode, ReactElement, MutableRefObject } from "react";
+import { ReactNode, ReactElement } from "react";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 
 export type Answer = string | undefined | null;
@@ -17,15 +17,10 @@ export interface RenderProps {
   isEditing: AnswerObject["isEditing"];
 }
 
-export interface ISuggestionProps
-  extends Partial<Omit<RenderProps, "setAnswer">>,
-    // setAnswer is not optional
-    Pick<RenderProps, "setAnswer"> {
+export interface ISuggestionProps extends Omit<RenderProps, "setIsBotTyping"> {
   className?: string;
   children?: (args: any) => any;
-  onBlur?: any;
   doValidation?: (...args: any) => boolean;
-  domRef?: MutableRefObject<HTMLElement | null>;
 }
 
 export type IAnswerProps = Pick<RenderProps, "setAnswer" | "answer"> & {

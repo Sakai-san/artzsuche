@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const App: FunctionComponent = () => {
   const classes = useStyles({});
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -217,11 +216,6 @@ const App: FunctionComponent = () => {
                         doValidation(event.target.value),
                         true
                       );
-                    }}
-                    onKeyPress={(event: any) => {
-                      if (event.key === "Enter") {
-                        setAnswer?.(answer, false);
-                      }
                     }}
                     error={!doValidation(answer)}
                     label="PLZ"

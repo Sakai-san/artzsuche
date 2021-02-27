@@ -7,11 +7,11 @@ import { ISuggestionProps } from "./types";
 
 const Suggestion: FunctionComponent<ISuggestionProps> = ({
   answer,
-  isEditing,
   setAnswer,
-  className,
   isBotTyping,
   children,
+  isEditing,
+  className,
   doValidation = (...args: any) => true,
 }) => {
   const domRef = useFocus([answer, isBotTyping]);
