@@ -151,8 +151,6 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
     }
   };
 
-  const thomas = () => "hello thomas";
-
   return (
     <div
       className={`${classes.content} ${
@@ -188,9 +186,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
           </Avatar>
         </div>
       </section>
-      <ReactBotFormContext.Provider
-        value={{ isBotTyping, setIsBotTyping, thomas }}
-      >
+      <ReactBotFormContext.Provider value={{ isBotTyping, setIsBotTyping }}>
         {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
       </ReactBotFormContext.Provider>
       {children.length - currentQuestionIndex !== 1 && (
