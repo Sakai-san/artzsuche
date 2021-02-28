@@ -1,18 +1,19 @@
-import React, { FunctionComponent } from "react";
+// @ts-nocheck
+import React, { FunctionComponent, useContext } from "react";
 import Typist from "react-typist";
+import { ReactBotFormContext } from "./Context";
 
-import { QuestionProps } from "./types";
+const Question: FunctionComponent<{}> = ({ children }) => {
+  const { setIsBotTyping } = useContext(ReactBotFormContext);
 
-const Question: FunctionComponent<QuestionProps> = ({
-  setIsBotTyping,
-  children,
-}) => (
-  <Typist
-    cursor={{ hideWhenDone: true }}
-    onTypingDone={() => setIsBotTyping(false)}
-  >
-    {children}
-  </Typist>
-);
+  return (
+    <Typist
+      cursor={{ hideWhenDone: true }}
+      onTypingDone={() => setIsBotTyping(false)}
+    >
+      {children}
+    </Typist>
+  );
+};
 
 export default Question;

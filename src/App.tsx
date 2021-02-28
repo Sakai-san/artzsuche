@@ -21,7 +21,6 @@ import { cantonsOperations } from "./ducks/cantons";
 import { IPhysician } from "./ducks/physicians/types";
 import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
-import { ReactBotFormElement } from "./ReactBotForm/types";
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
@@ -77,189 +76,170 @@ const App: FunctionComponent = () => {
       </AppBar>
 
       <ReactBotForm>
-        {[
-          (element: ReactBotFormElement) => (
-            <section className={classes.question} key="question0">
-              <Question setIsBotTyping={element.setIsBotTyping}>
-                <LocalHospitalRoundedIcon
-                  fontSize="large"
-                  style={{ color: "#D52B1E" }}
-                />{" "}
-                <span style={{ fontSize: "18px" }}>
-                  Im welchem Kanton wohnst du ?
-                </span>
-              </Question>
-              <Response
-                {...element}
-                doValidation={(input: string | undefined) =>
-                  input ? input.length >= 1 : false
+        <section className={classes.question}>
+          <Question>
+            <LocalHospitalRoundedIcon
+              fontSize="large"
+              style={{ color: "#D52B1E" }}
+            />{" "}
+            <span style={{ fontSize: "18px" }}>
+              Im welchem Kanton wohnst du ?
+            </span>
+          </Question>
+          <Response
+            doValidation={(input: string | undefined) =>
+              input ? input.length >= 1 : false
+            }
+          >
+            {({ domRef, onBlur, doValidation, setAnswer }) => (
+              <Autocomplete
+                options={cantons}
+                getOptionLabel={(option) => option}
+                style={{ width: 300 }}
+                onChange={(e, value) =>
+                  setAnswer(value, doValidation(value), false)
                 }
-              >
-                {({ domRef, onBlur, doValidation }) => (
-                  <Autocomplete
-                    options={cantons}
-                    getOptionLabel={(option) => option}
-                    style={{ width: 300 }}
-                    onChange={(e, value) =>
-                      element.setAnswer(value, doValidation(value), false)
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        ref={domRef}
-                        label="Wähle bitte deinen Kanton"
-                        variant="outlined"
-                        inputProps={{
-                          ...params.inputProps,
-                          onBlur,
-                        }}
-                      />
-                    )}
-                  />
-                )}
-              </Response>
-            </section>
-          ),
-
-          (element: ReactBotFormElement) => (
-            <section className={classes.question} key="question1">
-              <Question setIsBotTyping={element.setIsBotTyping}>
-                <LocalHospitalOutlinedIcon
-                  fontSize="large"
-                  style={{ color: "#D52B1E" }}
-                />{" "}
-                <span style={{ fontSize: "18px" }}>
-                  Why do you apply to our company ?
-                </span>
-              </Question>
-              <Response
-                {...element}
-                doValidation={(input: string | undefined) =>
-                  !!(input && input?.length >= 4)
-                }
-              >
-                {({ doValidation, answer, domRef, onBlur }) => (
+                renderInput={(params) => (
                   <TextField
-                    value={answer}
-                    // is not already set
-                    helperText={
-                      !answer &&
-                      doValidation(answer) && (
-                        <button
-                          onClick={(event) => {
-                            element.setAnswer(answer, true, false);
-                          }}
-                        >
-                          continue
-                        </button>
-                      )
-                    }
-                    onChange={(event: any) =>
-                      element.setAnswer(
-                        event.target.value,
-                        doValidation(event.target.value),
-                        true
-                      )
-                    }
-                    error={!doValidation(answer)}
-                    label="Why you apply"
-                    type="text"
-                    multiline={true}
-                    variant="outlined"
+                    {...params}
                     ref={domRef}
-                    inputProps={{ onBlur }}
-                  />
-                )}
-              </Response>
-            </section>
-          ),
-
-          (element: ReactBotFormElement) => (
-            <section className={classes.question} key="question2">
-              <Question setIsBotTyping={element.setIsBotTyping}>
-                <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
-                <span style={{ fontSize: "18px" }}>
-                  Was ist die Postleitzahl deines Wohnortes ?
-                </span>
-              </Question>
-              <Response
-                {...element}
-                doValidation={(input: string | undefined) =>
-                  !!(input && input.match(/^[1-9][0-9]{3}$/))
-                }
-              >
-                {({ doValidation, answer, domRef, onBlur }) => (
-                  <TextField
-                    helperText={
-                      (doValidation(answer) && "Bitte schluss Enter") || ""
-                    }
-                    onChange={(event: any) => {
-                      element.setAnswer(
-                        event.target.value,
-                        doValidation(event.target.value),
-                        true
-                      );
+                    label="Wähle bitte deinen Kanton"
+                    variant="outlined"
+                    inputProps={{
+                      ...params.inputProps,
+                      onBlur,
                     }}
-                    error={!doValidation(answer)}
-                    label="PLZ"
-                    type="number"
-                    variant="outlined"
+                  />
+                )}
+              />
+            )}
+          </Response>
+        </section>
+        <section className={classes.question}>
+          <Question>
+            <LocalHospitalOutlinedIcon
+              fontSize="large"
+              style={{ color: "#D52B1E" }}
+            />{" "}
+            <span style={{ fontSize: "18px" }}>
+              Why do you apply to our company ?
+            </span>
+          </Question>
+          <Response
+            doValidation={(input: string | undefined) =>
+              !!(input && input?.length >= 4)
+            }
+          >
+            {({ doValidation, answer, domRef, onBlur, setAnswer }) => (
+              <TextField
+                value={answer}
+                // is not already set
+                helperText={
+                  !answer &&
+                  doValidation(answer) && (
+                    <button
+                      onClick={(event) => {
+                        setAnswer(answer, true, false);
+                      }}
+                    >
+                      continue
+                    </button>
+                  )
+                }
+                onChange={(event: any) =>
+                  setAnswer(
+                    event.target.value,
+                    doValidation(event.target.value),
+                    true
+                  )
+                }
+                error={!doValidation(answer)}
+                label="Why you apply"
+                type="text"
+                multiline={true}
+                variant="outlined"
+                ref={domRef}
+                inputProps={{ onBlur }}
+              />
+            )}
+          </Response>
+        </section>
+        <section className={classes.question}>
+          <Question>
+            <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
+            <span style={{ fontSize: "18px" }}>
+              Was ist die Postleitzahl deines Wohnortes ?
+            </span>
+          </Question>
+          <Response
+            doValidation={(input: string | undefined) =>
+              !!(input && input.match(/^[1-9][0-9]{3}$/))
+            }
+          >
+            {({ doValidation, answer, domRef, onBlur, setAnswer }) => (
+              <TextField
+                helperText={
+                  (doValidation(answer) && "Bitte schluss Enter") || ""
+                }
+                onChange={(event: any) => {
+                  setAnswer(
+                    event.target.value,
+                    doValidation(event.target.value),
+                    true
+                  );
+                }}
+                error={!doValidation(answer)}
+                label="PLZ"
+                type="number"
+                variant="outlined"
+                ref={domRef}
+                inputProps={{ onBlur }}
+              />
+            )}
+          </Response>
+        </section>
+        <section className={classes.question}>
+          <Question>
+            <LocalHospitalOutlinedIcon
+              fontSize="large"
+              style={{ color: "#D52B1E" }}
+            />{" "}
+            <span style={{ fontSize: "18px" }}>
+              Wähle einen Artz / eine Artzin ?
+            </span>
+          </Question>
+          <Response doValidation={(input: string | undefined) => !!input}>
+            {({ domRef, onBlur, doValidation, setAnswer }) => (
+              <Autocomplete
+                options={physicians}
+                getOptionLabel={(option) =>
+                  `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
+                  ""
+                }
+                style={{ width: 300 }}
+                onChange={(e, value) =>
+                  setAnswer?.(
+                    `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
+                    doValidation(value),
+                    false
+                  )
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
                     ref={domRef}
-                    inputProps={{ onBlur }}
+                    label="Suche nach einem/er Artz/in"
+                    variant="outlined"
+                    inputProps={{
+                      ...params.inputProps,
+                      onBlur,
+                    }}
                   />
                 )}
-              </Response>
-            </section>
-          ),
-
-          (element: ReactBotFormElement) => (
-            <section className={classes.question} key="question3">
-              <Question setIsBotTyping={element.setIsBotTyping}>
-                <LocalHospitalOutlinedIcon
-                  fontSize="large"
-                  style={{ color: "#D52B1E" }}
-                />{" "}
-                <span style={{ fontSize: "18px" }}>
-                  Wähle einen Artz / eine Artzin ?
-                </span>
-              </Question>
-              <Response
-                {...element}
-                doValidation={(input: string | undefined) => !!input}
-              >
-                {({ domRef, onBlur, doValidation }) => (
-                  <Autocomplete
-                    options={physicians}
-                    getOptionLabel={(option) =>
-                      `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
-                      ""
-                    }
-                    style={{ width: 300 }}
-                    onChange={(e, value) =>
-                      element.setAnswer?.(
-                        `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
-                        doValidation(value),
-                        false
-                      )
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        ref={domRef}
-                        label="Suche nach einem/er Artz/in"
-                        variant="outlined"
-                        inputProps={{
-                          ...params.inputProps,
-                          onBlur,
-                        }}
-                      />
-                    )}
-                  />
-                )}
-              </Response>
-            </section>
-          ),
-        ]}
+              />
+            )}
+          </Response>
+        </section>
       </ReactBotForm>
     </div>
   );

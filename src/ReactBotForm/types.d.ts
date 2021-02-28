@@ -1,4 +1,3 @@
-import { ReactNode, ReactElement } from "react";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 
 export type Answer = string | undefined | null;
@@ -9,23 +8,13 @@ export interface AnswerObject {
   isValid: boolean;
 }
 
-export interface ReactBotFormElement {
-  answer: AnswerObject["content"];
-  setAnswer: (answer: Answer, isValid?: boolean, isEditing?: boolean) => void;
-  isBotTyping: boolean;
-  setIsBotTyping: (arg: boolean) => void;
-  isEditing: AnswerObject["isEditing"];
-}
-
-export interface ResponseProps extends ReactBotFormElement {
+export interface ResponseProps {
   className?: string;
   children?: (args: any) => any;
   doValidation?: (...args: any) => boolean;
 }
 
-export type QuestionProps = Pick<ReactBotFormElement, "setIsBotTyping">;
-
-export type IAnswerProps = Pick<ReactBotFormElement, "setAnswer" | "answer"> & {
+export type IAnswerProps = {
   doValidation: (...args: any) => boolean;
 };
 
@@ -35,7 +24,7 @@ export interface ReactBotFormOptions {
 
 export interface ReactBotFormProps {
   options?: ReactBotFormOptions;
-  children: Array<(args: ReactBotFormElement) => JSX.Element>;
+  children: Array<JSX.Element>;
 }
 
 /*

@@ -1,10 +1,12 @@
-import React, { FunctionComponent } from "react";
+// @ts-nocheck
+import React, { FunctionComponent, useContext } from "react";
 import Paper from "@material-ui/core/Paper";
 import { green } from "@material-ui/core/colors";
 import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
 import { Theme, makeStyles } from "@material-ui/core";
+import { ReactBotFormChildContext } from "./Context";
 
 import { IAnswerProps } from "./types";
 
@@ -23,12 +25,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Anwser: FunctionComponent<IAnswerProps> = ({
-  answer,
-  setAnswer,
-  doValidation,
-}) => {
+const Anwser: FunctionComponent<IAnswerProps> = ({ doValidation }) => {
   const classes = useStyles();
+  const { answer, setAnswer } = useContext(ReactBotFormChildContext);
 
   return (
     <div className={classes.answer}>

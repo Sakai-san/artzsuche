@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React, {
-  ReactNode,
   FunctionComponent,
   useState,
   Dispatch,
@@ -12,7 +11,7 @@ import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
-import { ReactBotFormContext } from "./ReactBotFormContext";
+import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 
 import { Answer, ReactBotFormProps, AnswerObject } from "./types";
 
@@ -131,15 +130,18 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
 
   console.log("answers", JSON.stringify(answers));
 
-  const extendedReactQuestions = children.map((child, index) =>
-    child({
-      answer: answers?.[index]?.content,
-      setAnswer: setAnswerFactory(setAnswers)(index),
-      isBotTyping,
-      setIsBotTyping,
-      isEditing: answers?.[index]?.isEditing,
-    })
-  );
+  const contextInChildren = children.map((child, index) => (
+    <ReactBotFormChildContext.Provider
+      key={index}
+      value={{
+        answer: answers?.[index]?.content,
+        setAnswer: setAnswerFactory(setAnswers)(index),
+        isEditing: answers?.[index]?.isEditing,
+      }}
+    >
+      {child}
+    </ReactBotFormChildContext.Provider>
+  ));
 
   const next = () => {
     resetEditing(setAnswers);
@@ -186,8 +188,13 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
           </Avatar>
         </div>
       </section>
-      <ReactBotFormContext.Provider value={{ isBotTyping, setIsBotTyping }}>
-        {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
+      <ReactBotFormContext.Provider
+        value={{
+          isBotTyping,
+          setIsBotTyping,
+        }}
+      >
+        {contextInChildren.slice(0, currentQuestionIndex + 1)}
       </ReactBotFormContext.Provider>
       {children.length - currentQuestionIndex !== 1 && (
         <button onClick={next}>{"next ->"}</button>
