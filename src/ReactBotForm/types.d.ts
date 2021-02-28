@@ -17,8 +17,7 @@ export interface ReactBotFormElement {
   isEditing: AnswerObject["isEditing"];
 }
 
-export interface ResponseProps
-  extends Omit<ReactBotFormElement, "setIsBotTyping"> {
+export interface ResponseProps extends ReactBotFormElement {
   className?: string;
   children?: (args: any) => any;
   doValidation?: (...args: any) => boolean;
