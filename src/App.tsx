@@ -11,10 +11,10 @@ import ForumIcon from "@material-ui/icons/Forum";
 import LocalHospitalOutlinedIcon from "@material-ui/icons/LocalHospitalOutlined";
 import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
-import Typist from "react-typist";
 
 import ReactBotForm from "./ReactBotForm";
-import Suggestion from "./ReactBotForm/Suggestion";
+import Question from "./ReactBotForm/Question";
+import Response from "./ReactBotForm/Response";
 import { physiciansOperations } from "./ducks/physicians";
 import { cantonsOperations } from "./ducks/cantons";
 
@@ -79,10 +79,7 @@ const App: FunctionComponent = () => {
         {[
           ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
             <section className={classes.question} key="question0">
-              <Typist
-                cursor={{ hideWhenDone: true }}
-                onTypingDone={() => setIsBotTyping?.(false)}
-              >
+              <Question setIsBotTyping={setIsBotTyping}>
                 <LocalHospitalRoundedIcon
                   fontSize="large"
                   style={{ color: "#D52B1E" }}
@@ -90,8 +87,8 @@ const App: FunctionComponent = () => {
                 <span style={{ fontSize: "18px" }}>
                   Im welchem Kanton wohnst du ?
                 </span>
-              </Typist>
-              <Suggestion
+              </Question>
+              <Response
                 answer={answer}
                 isEditing={isEditing}
                 setAnswer={setAnswer}
@@ -122,16 +119,13 @@ const App: FunctionComponent = () => {
                     )}
                   />
                 )}
-              </Suggestion>
+              </Response>
             </section>
           ),
 
           ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
             <section className={classes.question} key="question1">
-              <Typist
-                cursor={{ hideWhenDone: true }}
-                onTypingDone={() => setIsBotTyping?.(false)}
-              >
+              <Question setIsBotTyping={setIsBotTyping}>
                 <LocalHospitalOutlinedIcon
                   fontSize="large"
                   style={{ color: "#D52B1E" }}
@@ -139,8 +133,8 @@ const App: FunctionComponent = () => {
                 <span style={{ fontSize: "18px" }}>
                   Why do you apply to our company ?
                 </span>
-              </Typist>
-              <Suggestion
+              </Question>
+              <Response
                 answer={answer}
                 isEditing={isEditing}
                 setAnswer={setAnswer}
@@ -181,22 +175,19 @@ const App: FunctionComponent = () => {
                     inputProps={{ onBlur }}
                   />
                 )}
-              </Suggestion>
+              </Response>
             </section>
           ),
 
           ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
             <section className={classes.question} key="question2">
-              <Typist
-                cursor={{ hideWhenDone: true }}
-                onTypingDone={() => setIsBotTyping?.(false)}
-              >
+              <Question setIsBotTyping={setIsBotTyping}>
                 <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
                 <span style={{ fontSize: "18px" }}>
                   Was ist die Postleitzahl deines Wohnortes ?
                 </span>
-              </Typist>
-              <Suggestion
+              </Question>
+              <Response
                 answer={answer}
                 isEditing={isEditing}
                 setAnswer={setAnswer}
@@ -225,16 +216,13 @@ const App: FunctionComponent = () => {
                     inputProps={{ onBlur }}
                   />
                 )}
-              </Suggestion>
+              </Response>
             </section>
           ),
 
           ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
             <section className={classes.question} key="question3">
-              <Typist
-                cursor={{ hideWhenDone: true }}
-                onTypingDone={() => setIsBotTyping?.(false)}
-              >
+              <Question setIsBotTyping={setIsBotTyping}>
                 <LocalHospitalOutlinedIcon
                   fontSize="large"
                   style={{ color: "#D52B1E" }}
@@ -242,8 +230,8 @@ const App: FunctionComponent = () => {
                 <span style={{ fontSize: "18px" }}>
                   Wähle einen Artz / eine Artzin ?
                 </span>
-              </Typist>
-              <Suggestion
+              </Question>
+              <Response
                 answer={answer}
                 isEditing={isEditing}
                 setAnswer={setAnswer}
@@ -279,7 +267,7 @@ const App: FunctionComponent = () => {
                     )}
                   />
                 )}
-              </Suggestion>
+              </Response>
             </section>
           ),
         ]}

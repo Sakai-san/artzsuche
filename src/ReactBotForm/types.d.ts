@@ -17,11 +17,13 @@ export interface RenderProps {
   isEditing: AnswerObject["isEditing"];
 }
 
-export interface ISuggestionProps extends Omit<RenderProps, "setIsBotTyping"> {
+export interface ResponseProps extends Omit<RenderProps, "setIsBotTyping"> {
   className?: string;
   children?: (args: any) => any;
   doValidation?: (...args: any) => boolean;
 }
+
+export type QuestionProps = Pick<RenderProps, "setIsBotTyping">;
 
 export type IAnswerProps = Pick<RenderProps, "setAnswer" | "answer"> & {
   doValidation: (...args: any) => boolean;

@@ -3,9 +3,9 @@ import VisibilityTransition from "./VisibilityTransition";
 import Answer from "./Answer";
 import useFocus from "./useFocus";
 
-import { ISuggestionProps } from "./types";
+import { ResponseProps } from "./types";
 
-const Suggestion: FunctionComponent<ISuggestionProps> = ({
+const Response: FunctionComponent<ResponseProps> = ({
   answer,
   setAnswer,
   isBotTyping,
@@ -46,4 +46,4 @@ const Suggestion: FunctionComponent<ISuggestionProps> = ({
   );
 };
 
-export default Suggestion;
+export default Response;
