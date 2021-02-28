@@ -21,6 +21,7 @@ import { cantonsOperations } from "./ducks/cantons";
 import { IPhysician } from "./ducks/physicians/types";
 import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
+import { ReactBotFormElement } from "./ReactBotForm/types";
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
@@ -77,9 +78,9 @@ const App: FunctionComponent = () => {
 
       <ReactBotForm>
         {[
-          ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
+          (element: ReactBotFormElement) => (
             <section className={classes.question} key="question0">
-              <Question setIsBotTyping={setIsBotTyping}>
+              <Question setIsBotTyping={element.setIsBotTyping}>
                 <LocalHospitalRoundedIcon
                   fontSize="large"
                   style={{ color: "#D52B1E" }}
@@ -89,10 +90,7 @@ const App: FunctionComponent = () => {
                 </span>
               </Question>
               <Response
-                answer={answer}
-                isEditing={isEditing}
-                setAnswer={setAnswer}
-                isBotTyping={isBotTyping}
+                {...element}
                 doValidation={(input: string | undefined) =>
                   input ? input.length >= 1 : false
                 }
@@ -103,7 +101,7 @@ const App: FunctionComponent = () => {
                     getOptionLabel={(option) => option}
                     style={{ width: 300 }}
                     onChange={(e, value) =>
-                      setAnswer(value, doValidation(value), false)
+                      element.setAnswer(value, doValidation(value), false)
                     }
                     renderInput={(params) => (
                       <TextField
@@ -123,9 +121,9 @@ const App: FunctionComponent = () => {
             </section>
           ),
 
-          ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
+          (element: ReactBotFormElement) => (
             <section className={classes.question} key="question1">
-              <Question setIsBotTyping={setIsBotTyping}>
+              <Question setIsBotTyping={element.setIsBotTyping}>
                 <LocalHospitalOutlinedIcon
                   fontSize="large"
                   style={{ color: "#D52B1E" }}
@@ -135,10 +133,7 @@ const App: FunctionComponent = () => {
                 </span>
               </Question>
               <Response
-                answer={answer}
-                isEditing={isEditing}
-                setAnswer={setAnswer}
-                isBotTyping={isBotTyping}
+                {...element}
                 doValidation={(input: string | undefined) =>
                   !!(input && input?.length >= 4)
                 }
@@ -152,7 +147,7 @@ const App: FunctionComponent = () => {
                       doValidation(answer) && (
                         <button
                           onClick={(event) => {
-                            setAnswer(answer, true, false);
+                            element.setAnswer(answer, true, false);
                           }}
                         >
                           continue
@@ -160,7 +155,7 @@ const App: FunctionComponent = () => {
                       )
                     }
                     onChange={(event: any) =>
-                      setAnswer(
+                      element.setAnswer(
                         event.target.value,
                         doValidation(event.target.value),
                         true
@@ -179,19 +174,16 @@ const App: FunctionComponent = () => {
             </section>
           ),
 
-          ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
+          (element: ReactBotFormElement) => (
             <section className={classes.question} key="question2">
-              <Question setIsBotTyping={setIsBotTyping}>
+              <Question setIsBotTyping={element.setIsBotTyping}>
                 <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
                 <span style={{ fontSize: "18px" }}>
                   Was ist die Postleitzahl deines Wohnortes ?
                 </span>
               </Question>
               <Response
-                answer={answer}
-                isEditing={isEditing}
-                setAnswer={setAnswer}
-                isBotTyping={isBotTyping}
+                {...element}
                 doValidation={(input: string | undefined) =>
                   !!(input && input.match(/^[1-9][0-9]{3}$/))
                 }
@@ -202,7 +194,7 @@ const App: FunctionComponent = () => {
                       (doValidation(answer) && "Bitte schluss Enter") || ""
                     }
                     onChange={(event: any) => {
-                      setAnswer(
+                      element.setAnswer(
                         event.target.value,
                         doValidation(event.target.value),
                         true
@@ -220,9 +212,9 @@ const App: FunctionComponent = () => {
             </section>
           ),
 
-          ({ answer, setAnswer, isBotTyping, setIsBotTyping, isEditing }) => (
+          (element: ReactBotFormElement) => (
             <section className={classes.question} key="question3">
-              <Question setIsBotTyping={setIsBotTyping}>
+              <Question setIsBotTyping={element.setIsBotTyping}>
                 <LocalHospitalOutlinedIcon
                   fontSize="large"
                   style={{ color: "#D52B1E" }}
@@ -232,10 +224,7 @@ const App: FunctionComponent = () => {
                 </span>
               </Question>
               <Response
-                answer={answer}
-                isEditing={isEditing}
-                setAnswer={setAnswer}
-                isBotTyping={isBotTyping}
+                {...element}
                 doValidation={(input: string | undefined) => !!input}
               >
                 {({ domRef, onBlur, doValidation }) => (
@@ -247,7 +236,7 @@ const App: FunctionComponent = () => {
                     }
                     style={{ width: 300 }}
                     onChange={(e, value) =>
-                      setAnswer?.(
+                      element.setAnswer?.(
                         `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
                         doValidation(value),
                         false

@@ -9,7 +9,7 @@ export interface AnswerObject {
   isValid: boolean;
 }
 
-export interface RenderProps {
+export interface ReactBotFormElement {
   answer: AnswerObject["content"];
   setAnswer: (answer: Answer, isValid?: boolean, isEditing?: boolean) => void;
   isBotTyping: boolean;
@@ -17,15 +17,16 @@ export interface RenderProps {
   isEditing: AnswerObject["isEditing"];
 }
 
-export interface ResponseProps extends Omit<RenderProps, "setIsBotTyping"> {
+export interface ResponseProps
+  extends Omit<ReactBotFormElement, "setIsBotTyping"> {
   className?: string;
   children?: (args: any) => any;
   doValidation?: (...args: any) => boolean;
 }
 
-export type QuestionProps = Pick<RenderProps, "setIsBotTyping">;
+export type QuestionProps = Pick<ReactBotFormElement, "setIsBotTyping">;
 
-export type IAnswerProps = Pick<RenderProps, "setAnswer" | "answer"> & {
+export type IAnswerProps = Pick<ReactBotFormElement, "setAnswer" | "answer"> & {
   doValidation: (...args: any) => boolean;
 };
 
@@ -35,7 +36,7 @@ export interface ReactBotFormOptions {
 
 export interface ReactBotFormProps {
   options?: ReactBotFormOptions;
-  children: Array<(args: RenderProps) => JSX.Element>;
+  children: Array<(args: ReactBotFormElement) => JSX.Element>;
 }
 
 /*
