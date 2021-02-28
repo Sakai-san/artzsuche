@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, {
   ReactNode,
   FunctionComponent,
@@ -11,6 +12,7 @@ import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
+import { ReactBotFormContext } from "./ReactBotFormContext";
 
 import { Answer, ReactBotFormProps, AnswerObject } from "./types";
 
@@ -119,9 +121,7 @@ const isDiscussionOver = (
   answers.filter((answer) => answer.content !== undefined).length ===
   children.length;
 
-const ReactCasualForm: FunctionComponent<ReactBotFormProps> = ({
-  children,
-}) => {
+const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
   const classes = useStyles({});
 
   const [answers, setAnswers] = useState<Array<AnswerObject>>([]);
@@ -150,6 +150,8 @@ const ReactCasualForm: FunctionComponent<ReactBotFormProps> = ({
       setIsBotTyping(false);
     }
   };
+
+  const thomas = () => "hello thomas";
 
   return (
     <div
@@ -186,7 +188,11 @@ const ReactCasualForm: FunctionComponent<ReactBotFormProps> = ({
           </Avatar>
         </div>
       </section>
-      {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
+      <ReactBotFormContext.Provider
+        value={{ isBotTyping, setIsBotTyping, thomas }}
+      >
+        {extendedReactQuestions.slice(0, currentQuestionIndex + 1)}
+      </ReactBotFormContext.Provider>
       {children.length - currentQuestionIndex !== 1 && (
         <button onClick={next}>{"next ->"}</button>
       )}
@@ -208,4 +214,4 @@ const ReactCasualForm: FunctionComponent<ReactBotFormProps> = ({
   );
 };
 
-export default ReactCasualForm;
+export default ReactBotForm;

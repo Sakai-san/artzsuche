@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import VisibilityTransition from "./VisibilityTransition";
 import Answer from "./Answer";
+import { ReactBotFormContext } from "./ReactBotFormContext";
 import useFocus from "./useFocus";
 
 import { ResponseProps } from "./types";
@@ -14,6 +15,7 @@ const Response: FunctionComponent<ResponseProps> = ({
   className,
   doValidation = (...args: any) => true,
 }) => {
+  const context = useContext(ReactBotFormContext);
   const domRef = useFocus([answer, isBotTyping]);
 
   const onBlur = (e: any) => {
@@ -24,6 +26,10 @@ const Response: FunctionComponent<ResponseProps> = ({
   return (
     <section>
       <div>
+        {
+          // @ts-ignore
+          context?.thomas?.()
+        }
         {!isEditing && answer !== undefined ? (
           <Answer
             answer={answer}
