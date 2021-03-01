@@ -177,7 +177,12 @@ const App: FunctionComponent = () => {
           >
             {({ doValidation, answer, domRef, onBlur, setAnswer }) => (
               <TextField
-                helperText={(!doValidation(answer) && "4 digits") || ""}
+                helperText={
+                  (answer !== undefined &&
+                    !doValidation(answer) &&
+                    "4 digits") ||
+                  ""
+                }
                 onChange={(event: any) => {
                   setAnswer(
                     event.target.value,
