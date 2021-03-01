@@ -112,7 +112,7 @@ const submit = (inputs: Array<Response>, url: string) => (
     .catch((e) => console.error("something went wrong", e));
 };
 
-// not all inputs are undefined, means the discussion is over
+// none of the inputs are undefined, means the discussion is over
 const isDiscussionOver = (
   inputs: Array<Response>,
   children: ReactBotFormProps["children"]
