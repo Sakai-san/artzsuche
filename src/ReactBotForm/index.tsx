@@ -13,7 +13,7 @@ import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 
-import { Input, ReactBotFormProps, InputObject } from "./types";
+import { Input, ReactBotFormProps, Response } from "./types";
 
 import typingIndicator from "../giphy.gif";
 
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-type SetInputs = Dispatch<SetStateAction<Array<InputObject>>>;
+type SetInputs = Dispatch<SetStateAction<Array<Response>>>;
 
 const resetEditing = (setInputs: SetInputs) => {
   setInputs((prevInputs) =>
@@ -76,26 +76,26 @@ const resetEditing = (setInputs: SetInputs) => {
   );
 };
 
-const hasError = (inputs: Array<InputObject>) =>
-  inputs.some((input) => !input.isValid);
+const hasError = (inputs: Array<Response>) =>
+  inputs.some((element) => !element.isValid);
 
-const isUserEditing = (inputs: Array<InputObject>) =>
+const isUserEditing = (inputs: Array<Response>) =>
   inputs.some((input) => inputs.isEditing);
 
 const setInputFactory = (setInputs: SetInputs) => (index: number) => (
-  content: Input,
+  input: Input,
   isValid: boolean = true,
   isEditing: boolean = false
 ) => {
   setInputs((prevInputs) =>
     // update element in array without side-effect in array
     Object.assign([], prevInputs, {
-      [index]: { content, isValid, isEditing },
+      [index]: { input, isValid, isEditing },
     })
   );
 };
 
-const submit = (inputs: Array<InputObject>, url: string) => (
+const submit = (inputs: Array<Response>, url: string) => (
   e: SyntheticEvent
 ): void => {
   e.preventDefault();
@@ -103,7 +103,7 @@ const submit = (inputs: Array<InputObject>, url: string) => (
     method: "POST",
     body: JSON.stringify(
       Object.values(inputs).reduce(
-        (acc, input, index) => ({ ...acc, [index]: input.content }),
+        (acc, element, index) => ({ ...acc, [index]: element.input }),
         {}
       )
     ),
@@ -114,16 +114,16 @@ const submit = (inputs: Array<InputObject>, url: string) => (
 
 // not all inputs are undefined, means the discussion is over
 const isDiscussionOver = (
-  inputs: Array<InputObject>,
+  inputs: Array<Response>,
   children: ReactBotFormProps["children"]
 ) =>
-  inputs.filter((input) => input.content !== undefined).length ===
+  inputs.filter((element) => element.input !== undefined).length ===
   children.length;
 
 const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
   const classes = useStyles({});
 
-  const [inputs, setInputs] = useState<Array<InputObject>>([]);
+  const [inputs, setInputs] = useState<Array<Response>>([]);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -134,7 +134,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
     <ReactBotFormChildContext.Provider
       key={index}
       value={{
-        input: inputs?.[index]?.content,
+        input: inputs?.[index]?.input,
         setInput: setInputFactory(setInputs)(index),
         isEditing: inputs?.[index]?.isEditing,
       }}

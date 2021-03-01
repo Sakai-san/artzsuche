@@ -3,8 +3,8 @@ import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 
 export type Input = string | undefined | null;
 
-export interface InputObject {
-  content: Input;
+export interface Response {
+  input: Input;
   isEditing: boolean;
   isValid: boolean;
 }
@@ -13,7 +13,7 @@ export interface ResponseProps {
   className?: string;
   children: (args: {
     doValidation: (...args: any) => boolean;
-    input: InputObject["content"];
+    input: Response["input"];
     setInput: (input: Input, isValid?: boolean, isEditing?: boolean) => void;
     domRef: any | MutableRefObject<HTMLElement | null>;
     onBlur: () => void;
