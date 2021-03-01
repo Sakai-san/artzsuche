@@ -232,7 +232,7 @@ const App: FunctionComponent = () => {
                   )
                 }
                 error={!doValidation(answer)}
-                label="Why you apply"
+                label="Pains you suffer from"
                 type="text"
                 multiline={true}
                 variant="outlined"
