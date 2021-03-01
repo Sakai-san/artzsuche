@@ -26,13 +26,11 @@ const Write: FunctionComponent<WriteProps> = ({
   children,
   doValidation,
 }) => {
-  const context = useContext(ReactBotFormChildContext);
+  const { answer, setAnswer } = useContext(ReactBotFormChildContext);
   const ref = useRef();
   const classes = useStyles();
 
-  useOutsideClick(ref, () =>
-    context?.setAnswer?.(context?.answer, doValidation(context?.answer), false)
-  );
+  useOutsideClick(ref, () => setAnswer?.(answer, doValidation(answer), false));
 
   return (
     <div
@@ -43,8 +41,8 @@ const Write: FunctionComponent<WriteProps> = ({
     >
       {children?.({
         doValidation,
-        answer: context?.answer,
-        setAnswer: context?.setAnswer,
+        answer,
+        setAnswer,
       })}
     </div>
   );
