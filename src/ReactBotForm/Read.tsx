@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { FunctionComponent, useContext } from "react";
 import Paper from "@material-ui/core/Paper";
-import { green } from "@material-ui/core/colors";
+import { green, red } from "@material-ui/core/colors";
 import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
@@ -39,7 +39,7 @@ const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
         {doValidation(input) ? (
           <CheckIcon fontSize="large" style={{ color: green[500] }} />
         ) : (
-          <ClearIcon fontSize="large" color="action" />
+          <ClearIcon fontSize="large" style={{ color: red[500] }} />
         )}
       </div>
     </div>
