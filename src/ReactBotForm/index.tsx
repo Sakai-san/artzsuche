@@ -13,7 +13,7 @@ import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 
-import { Answer, ReactBotFormProps, AnswerObject } from "./types";
+import { Input, ReactBotFormProps, InputObject } from "./types";
 
 import typingIndicator from "../giphy.gif";
 
@@ -65,45 +65,45 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-type SetAnswers = Dispatch<SetStateAction<Array<AnswerObject>>>;
+type SetInputs = Dispatch<SetStateAction<Array<InputObject>>>;
 
-const resetEditing = (setAnswers: SetAnswers) => {
-  setAnswers((prevAnswers) =>
-    prevAnswers.map((prevAnswer) => ({
-      ...prevAnswer,
+const resetEditing = (setInputs: SetInputs) => {
+  setInputs((prevInputs) =>
+    prevInputs.map((prevInput) => ({
+      ...prevInput,
       isEditing: false,
     }))
   );
 };
 
-const hasError = (answers: Array<AnswerObject>) =>
-  answers.some((answer) => !answer.isValid);
+const hasError = (inputs: Array<InputObject>) =>
+  inputs.some((input) => !input.isValid);
 
-const isUserEditing = (answers: Array<AnswerObject>) =>
-  answers.some((answer) => answer.isEditing);
+const isUserEditing = (inputs: Array<InputObject>) =>
+  inputs.some((input) => inputs.isEditing);
 
-const setAnswerFactory = (setAnswers: SetAnswers) => (index: number) => (
-  content: Answer,
+const setInputFactory = (setInputs: SetInputs) => (index: number) => (
+  content: Input,
   isValid: boolean = true,
   isEditing: boolean = false
 ) => {
-  setAnswers((prevAnswers) =>
+  setInputs((prevInputs) =>
     // update element in array without side-effect in array
-    Object.assign([], prevAnswers, {
+    Object.assign([], prevInputs, {
       [index]: { content, isValid, isEditing },
     })
   );
 };
 
-const submit = (answsers: Array<AnswerObject>, url: string) => (
+const submit = (inputs: Array<InputObject>, url: string) => (
   e: SyntheticEvent
 ): void => {
   e.preventDefault();
   fetch(url, {
     method: "POST",
     body: JSON.stringify(
-      Object.values(answsers).reduce(
-        (acc, answer, index) => ({ ...acc, [index]: answer.content }),
+      Object.values(inputs).reduce(
+        (acc, input, index) => ({ ...acc, [index]: input.content }),
         {}
       )
     ),
@@ -112,31 +112,31 @@ const submit = (answsers: Array<AnswerObject>, url: string) => (
     .catch((e) => console.error("something went wrong", e));
 };
 
-// all answers are not undefined, means the discussion is over
+// not all inputs are undefined, means the discussion is over
 const isDiscussionOver = (
-  answers: Array<AnswerObject>,
+  inputs: Array<InputObject>,
   children: ReactBotFormProps["children"]
 ) =>
-  answers.filter((answer) => answer.content !== undefined).length ===
+  inputs.filter((input) => input.content !== undefined).length ===
   children.length;
 
 const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
   const classes = useStyles({});
 
-  const [answers, setAnswers] = useState<Array<AnswerObject>>([]);
+  const [inputs, setInputs] = useState<Array<InputObject>>([]);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  console.log("answers", JSON.stringify(answers));
+  console.log("inputs", JSON.stringify(inputs));
 
   const contextInChildren = children.map((child, index) => (
     <ReactBotFormChildContext.Provider
       key={index}
       value={{
-        answer: answers?.[index]?.content,
-        setAnswer: setAnswerFactory(setAnswers)(index),
-        isEditing: answers?.[index]?.isEditing,
+        input: inputs?.[index]?.content,
+        setInputs: setInputFactory(setInputs)(index),
+        isEditing: inputs?.[index]?.isEditing,
       }}
     >
       {child}
@@ -144,9 +144,9 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
   ));
 
   const next = () => {
-    resetEditing(setAnswers);
+    resetEditing(setInputs);
     setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
-    if (!isDiscussionOver(answers, children)) {
+    if (!isDiscussionOver(inputs, children)) {
       setIsBotTyping(true);
     } else {
       setIsBotTyping(false);
@@ -175,7 +175,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
           <img
             style={{
               visibility:
-                !isBotTyping && !isDiscussionOver(answers, children)
+                !isBotTyping && !isDiscussionOver(inputs, children)
                   ? "visible"
                   : "hidden",
             }}
@@ -199,7 +199,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
       {children.length - currentQuestionIndex !== 1 && (
         <button onClick={next}>{"next ->"}</button>
       )}
-      {isDiscussionOver(answers, children) && !hasError(answers) && (
+      {isDiscussionOver(inputs, children) && !hasError(inputs) && (
         <Button
           variant="contained"
           color="primary"
@@ -207,7 +207,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
           endIcon={<SendIcon />}
           onClick={
             //(e) => {setIsSubmitted(true);
-            submit(answers, "/exmaple.com/artzsuche")
+            submit(inputs, "/exmaple.com/artzsuche")
           }
         >
           Send

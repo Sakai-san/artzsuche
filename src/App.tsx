@@ -91,13 +91,13 @@ const App: FunctionComponent = () => {
               input ? input.length >= 1 : false
             }
           >
-            {({ domRef, onBlur, doValidation, setAnswer }) => (
+            {({ domRef, onBlur, doValidation, setInput }) => (
               <Autocomplete
                 options={cantons}
                 getOptionLabel={(option) => option}
                 style={{ width: 300 }}
                 onChange={(e, value) =>
-                  setAnswer(value, doValidation(value), false)
+                  setInput(value, doValidation(value), false)
                 }
                 renderInput={(params) => (
                   <TextField
@@ -127,22 +127,20 @@ const App: FunctionComponent = () => {
               !!(input && input.match(/^[1-9][0-9]{3}$/))
             }
           >
-            {({ doValidation, answer, domRef, onBlur, setAnswer }) => (
+            {({ doValidation, input, domRef, onBlur, setInput }) => (
               <TextField
                 helperText={
-                  (answer !== undefined &&
-                    !doValidation(answer) &&
-                    "4 digits") ||
+                  (input !== undefined && !doValidation(input) && "4 digits") ||
                   ""
                 }
                 onChange={(event: any) => {
-                  setAnswer(
+                  setInput(
                     event.target.value,
                     doValidation(event.target.value),
                     true
                   );
                 }}
-                error={!doValidation(answer)}
+                error={!doValidation(input)}
                 label="PLZ"
                 type="number"
                 variant="outlined"
@@ -163,7 +161,7 @@ const App: FunctionComponent = () => {
             </span>
           </Question>
           <Response doValidation={(input: string | undefined) => !!input}>
-            {({ domRef, onBlur, doValidation, setAnswer }) => (
+            {({ domRef, onBlur, doValidation, setInput }) => (
               <Autocomplete
                 options={physicians}
                 getOptionLabel={(option) =>
@@ -172,7 +170,7 @@ const App: FunctionComponent = () => {
                 }
                 style={{ width: 300 }}
                 onChange={(e, value) =>
-                  setAnswer(
+                  setInput(
                     `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
                     doValidation(value),
                     false
@@ -209,23 +207,23 @@ const App: FunctionComponent = () => {
               !!(input && input?.length >= 4)
             }
           >
-            {({ doValidation, answer, domRef, onBlur, setAnswer }) => (
+            {({ doValidation, input, domRef, onBlur, setInput }) => (
               <TextField
-                value={answer}
+                value={input}
                 helperText={
-                  (answer !== undefined &&
-                    !doValidation(answer) &&
+                  (input !== undefined &&
+                    !doValidation(input) &&
                     "Please enter some text") ||
                   ""
                 }
                 onChange={(event: any) =>
-                  setAnswer(
+                  setInput(
                     event.target.value,
                     doValidation(event.target.value),
                     true
                   )
                 }
-                error={!doValidation(answer)}
+                error={!doValidation(input)}
                 label="Pains you suffer from"
                 type="text"
                 multiline={true}

@@ -1,10 +1,10 @@
 import { MutableRefObject } from "react";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 
-export type Answer = string | undefined | null;
+export type Input = string | undefined | null;
 
-export interface AnswerObject {
-  content: Answer;
+export interface InputObject {
+  content: Input;
   isEditing: boolean;
   isValid: boolean;
 }
@@ -13,17 +13,22 @@ export interface ResponseProps {
   className?: string;
   children: (args: {
     doValidation: (...args: any) => boolean;
-    answer: AnswerObject["content"];
-    setAnswer: (answer: Answer, isValid?: boolean, isEditing?: boolean) => void;
+    input: InputObject["content"];
+    setInput: (input: Input, isValid?: boolean, isEditing?: boolean) => void;
     domRef: any | MutableRefObject<HTMLElement | null>;
     onBlur: () => void;
   }) => JSX.Element;
   doValidation?: (...args: any) => boolean;
 }
 
-export type AnswerProps = {
+export type ReadProps = {
   doValidation: (...args: any) => boolean;
 };
+
+export interface WriteProps {
+  isHidden: boolean;
+  children: (...args: any) => JSX.Element;
+}
 
 export interface ReactBotFormOptions {
   theme?: PaletteOptions;

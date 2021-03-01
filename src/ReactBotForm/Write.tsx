@@ -3,6 +3,7 @@ import React, { FunctionComponent, useContext, useRef } from "react";
 import { Theme, makeStyles } from "@material-ui/core";
 import useOutsideClick from "@rooks/use-outside-click";
 import { ReactBotFormChildContext } from "./Context";
+import { WriteProps } from "./types";
 
 const useStyles = makeStyles((theme: Theme) => ({
   inputElementVisible: {
@@ -16,21 +17,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface WriteProps {
-  isHidden: boolean;
-  children: (...args: any) => JSX.Element;
-}
-
 const Write: FunctionComponent<WriteProps> = ({
   isHidden,
   children,
   doValidation,
 }) => {
-  const { answer, setAnswer } = useContext(ReactBotFormChildContext);
+  const { input, setInput } = useContext(ReactBotFormChildContext);
   const ref = useRef();
   const classes = useStyles();
 
-  useOutsideClick(ref, () => setAnswer?.(answer, doValidation(answer), false));
+  useOutsideClick(ref, () => setInput?.(input, doValidation(input), false));
 
   return (
     <div
@@ -41,8 +37,8 @@ const Write: FunctionComponent<WriteProps> = ({
     >
       {children?.({
         doValidation,
-        answer,
-        setAnswer,
+        input,
+        setInput,
       })}
     </div>
   );

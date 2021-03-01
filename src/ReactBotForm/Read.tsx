@@ -7,11 +7,10 @@ import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
 import { Theme, makeStyles } from "@material-ui/core";
 import { ReactBotFormChildContext } from "./Context";
-
-import { AnswerProps } from "./types";
+import { ReadProps } from "./types";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  answer: {
+  input: {
     display: "flex",
     alignItems: "flex-end",
     "&> svg": {
@@ -25,19 +24,19 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Read: FunctionComponent<AnswerProps> = ({ doValidation }) => {
+const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
   const classes = useStyles();
-  const { answer, setAnswer } = useContext(ReactBotFormChildContext);
+  const { input, setInput } = useContext(ReactBotFormChildContext);
 
   return (
-    <div className={classes.answer}>
-      <Paper style={{ padding: "20px" }}>{answer}</Paper>
+    <div className={classes.input}>
+      <Paper style={{ padding: "20px" }}>{input}</Paper>
       <div className={classes.icons}>
         <CreateRoundedIcon
           fontSize="small"
-          onClick={(e) => setAnswer?.(answer, doValidation(answer), true)}
+          onClick={(e) => setInput?.(input, doValidation(input), true)}
         />
-        {doValidation(answer) ? (
+        {doValidation(input) ? (
           <CheckIcon fontSize="large" style={{ color: green[500] }} />
         ) : (
           <ClearIcon fontSize="large" color="action" />

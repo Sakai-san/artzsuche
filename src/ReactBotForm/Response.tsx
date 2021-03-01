@@ -4,7 +4,6 @@ import Write from "./Write";
 import Read from "./Read";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 import useFocus from "./useFocus";
-
 import { ResponseProps } from "./types";
 
 const Response: FunctionComponent<ResponseProps> = ({
@@ -13,19 +12,19 @@ const Response: FunctionComponent<ResponseProps> = ({
   doValidation = (...args: any) => true,
 }) => {
   const { isBotTyping } = useContext(ReactBotFormContext);
-  const { answer, setAnswer, isEditing } = useContext(ReactBotFormChildContext);
+  const { input, setInput, isEditing } = useContext(ReactBotFormChildContext);
 
-  const domRef = useFocus([answer, isBotTyping]);
+  const domRef = useFocus([input, isBotTyping]);
 
   const onBlur = (e: any) => {
     return null;
-    setAnswer(e.target.value, false);
+    setInput(e.target.value, false);
   };
 
   return (
     <section>
       <div>
-        {!isEditing && answer !== undefined ? (
+        {!isEditing && input !== undefined ? (
           <Read doValidation={doValidation} />
         ) : (
           <Write doValidation={doValidation} isHidden={!!isBotTyping}>
