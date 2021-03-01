@@ -41,7 +41,6 @@ export interface ReactBotFormProps {
 
 /*
  TODO's:
-  - click on edit, then set answer to undefined, because currently keep the previous value
-  - check if resetEditing is up-to-date when next() is not called (last field)
+  - check if resetEditing is up-to-date when next() is not called, means last input field
   - Theming to be passed as option to the library
 */
