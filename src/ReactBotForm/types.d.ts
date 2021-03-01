@@ -36,7 +36,7 @@ export interface ReactBotFormProps {
 
 /*
  TODO's:
-  - click oustide the input, set isEditing to false
+
   - click on edit, then set answer to undefined, because currently keep the previous value
   - set the color of invalid input to red
   - check if resetEditing is up-to-date when next() is not called (last field)

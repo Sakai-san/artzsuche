@@ -6,6 +6,7 @@ import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
 import { Theme, makeStyles } from "@material-ui/core";
+import { ReactBotFormChildContext } from "./Context";
 
 import { AnswerProps } from "./types";
 
