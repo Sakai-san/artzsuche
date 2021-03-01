@@ -117,54 +117,6 @@ const App: FunctionComponent = () => {
         </section>
         <section className={classes.question}>
           <Question>
-            <LocalHospitalOutlinedIcon
-              fontSize="large"
-              style={{ color: "#D52B1E" }}
-            />
-            <span style={{ fontSize: "18px" }}>
-              Why do you apply to our company ?
-            </span>
-          </Question>
-          <Response
-            doValidation={(input: string | undefined) =>
-              !!(input && input?.length >= 4)
-            }
-          >
-            {({ doValidation, answer, domRef, onBlur, setAnswer }) => (
-              <TextField
-                value={answer}
-                helperText={
-                  !answer &&
-                  doValidation(answer) && (
-                    <button
-                      onClick={(event) => {
-                        setAnswer(answer, true, false);
-                      }}
-                    >
-                      continue
-                    </button>
-                  )
-                }
-                onChange={(event: any) =>
-                  setAnswer(
-                    event.target.value,
-                    doValidation(event.target.value),
-                    true
-                  )
-                }
-                error={!doValidation(answer)}
-                label="Why you apply"
-                type="text"
-                multiline={true}
-                variant="outlined"
-                ref={domRef}
-                inputProps={{ onBlur }}
-              />
-            )}
-          </Response>
-        </section>
-        <section className={classes.question}>
-          <Question>
             <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
             <span style={{ fontSize: "18px" }}>
               Was ist die Postleitzahl deines Wohnortes ?
@@ -238,6 +190,54 @@ const App: FunctionComponent = () => {
                     }}
                   />
                 )}
+              />
+            )}
+          </Response>
+        </section>
+        <section className={classes.question}>
+          <Question>
+            <LocalHospitalOutlinedIcon
+              fontSize="large"
+              style={{ color: "#D52B1E" }}
+            />
+            <span style={{ fontSize: "18px" }}>
+              Are there some pains you suffer from ?
+            </span>
+          </Question>
+          <Response
+            doValidation={(input: string | undefined) =>
+              !!(input && input?.length >= 4)
+            }
+          >
+            {({ doValidation, answer, domRef, onBlur, setAnswer }) => (
+              <TextField
+                value={answer}
+                helperText={
+                  !answer &&
+                  doValidation(answer) && (
+                    <button
+                      onClick={(event) => {
+                        setAnswer(answer, true, false);
+                      }}
+                    >
+                      continue
+                    </button>
+                  )
+                }
+                onChange={(event: any) =>
+                  setAnswer(
+                    event.target.value,
+                    doValidation(event.target.value),
+                    true
+                  )
+                }
+                error={!doValidation(answer)}
+                label="Why you apply"
+                type="text"
+                multiline={true}
+                variant="outlined"
+                ref={domRef}
+                inputProps={{ onBlur }}
               />
             )}
           </Response>
