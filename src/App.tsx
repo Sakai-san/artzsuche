@@ -172,7 +172,7 @@ const App: FunctionComponent = () => {
                 }
                 style={{ width: 300 }}
                 onChange={(e, value) =>
-                  setAnswer?.(
+                  setAnswer(
                     `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
                     doValidation(value),
                     false
@@ -213,16 +213,10 @@ const App: FunctionComponent = () => {
               <TextField
                 value={answer}
                 helperText={
-                  !answer &&
-                  doValidation(answer) && (
-                    <button
-                      onClick={(event) => {
-                        setAnswer(answer, true, false);
-                      }}
-                    >
-                      continue
-                    </button>
-                  )
+                  (answer !== undefined &&
+                    !doValidation(answer) &&
+                    "Please enter some text") ||
+                  ""
                 }
                 onChange={(event: any) =>
                   setAnswer(
