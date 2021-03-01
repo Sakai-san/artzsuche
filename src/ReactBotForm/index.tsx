@@ -135,7 +135,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
       key={index}
       value={{
         input: inputs?.[index]?.content,
-        setInputs: setInputFactory(setInputs)(index),
+        setInput: setInputFactory(setInputs)(index),
         isEditing: inputs?.[index]?.isEditing,
       }}
     >
