@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { FunctionComponent, useContext } from "react";
-import VisibilityTransition from "./VisibilityTransition";
-import Answer from "./Answer";
+import Write from "./Write";
+import Read from "./Read";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 import useFocus from "./useFocus";
 
@@ -26,17 +26,11 @@ const Response: FunctionComponent<ResponseProps> = ({
     <section>
       <div>
         {!isEditing && answer !== undefined ? (
-          <Answer doValidation={doValidation} />
+          <Read doValidation={doValidation} />
         ) : (
-          <VisibilityTransition isHidden={!!isBotTyping}>
-            {children?.({
-              doValidation,
-              answer,
-              setAnswer,
-              domRef,
-              onBlur,
-            })}
-          </VisibilityTransition>
+          <Write doValidation={doValidation} isHidden={!!isBotTyping}>
+            {children}
+          </Write>
         )}
       </div>
     </section>

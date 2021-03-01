@@ -6,9 +6,8 @@ import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
 import { Theme, makeStyles } from "@material-ui/core";
-import { ReactBotFormChildContext } from "./Context";
 
-import { IAnswerProps } from "./types";
+import { AnswerProps } from "./types";
 
 const useStyles = makeStyles((theme: Theme) => ({
   answer: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Anwser: FunctionComponent<IAnswerProps> = ({ doValidation }) => {
+const Read: FunctionComponent<AnswerProps> = ({ doValidation }) => {
   const classes = useStyles();
   const { answer, setAnswer } = useContext(ReactBotFormChildContext);
 
@@ -47,4 +46,4 @@ const Anwser: FunctionComponent<IAnswerProps> = ({ doValidation }) => {
   );
 };
 
-export default Anwser;
+export default Read;

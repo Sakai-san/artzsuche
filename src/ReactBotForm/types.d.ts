@@ -15,8 +15,8 @@ export interface ResponseProps {
     doValidation: (...args: any) => boolean;
     answer: AnswerObject["content"];
     setAnswer: (answer: Answer, isValid?: boolean, isEditing?: boolean) => void;
-    domRef: MutableRefObject<HTMLElement | null>;
-    onBlur: null;
+    domRef: any | MutableRefObject<HTMLElement | null>;
+    onBlur: () => void;
   }) => JSX.Element;
   doValidation?: (...args: any) => boolean;
 }
