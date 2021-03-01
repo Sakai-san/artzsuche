@@ -133,7 +133,6 @@ const App: FunctionComponent = () => {
             {({ doValidation, answer, domRef, onBlur, setAnswer }) => (
               <TextField
                 value={answer}
-                // is not already set
                 helperText={
                   !answer &&
                   doValidation(answer) && (
@@ -178,9 +177,7 @@ const App: FunctionComponent = () => {
           >
             {({ doValidation, answer, domRef, onBlur, setAnswer }) => (
               <TextField
-                helperText={
-                  (doValidation(answer) && "Bitte schluss Enter") || ""
-                }
+                helperText={(!doValidation(answer) && "4 digits") || ""}
                 onChange={(event: any) => {
                   setAnswer(
                     event.target.value,
