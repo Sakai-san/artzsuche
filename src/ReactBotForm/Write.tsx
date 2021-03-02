@@ -23,10 +23,13 @@ const Write: FunctionComponent<WriteProps> = ({
   doValidation,
 }) => {
   const { input, setInput } = useContext(ReactBotFormChildContext);
-  const ref = useRef();
   const classes = useStyles();
 
-  useOutsideClick(ref, () => setInput?.(input, doValidation(input), false));
+  const ref = useRef();
+  useOutsideClick(ref, () => {
+    setInput?.(input, doValidation(input), false);
+    console.log("useOutsideClick");
+  });
 
   return (
     <div

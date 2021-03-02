@@ -145,7 +145,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
   ));
 
   const next = () => {
-    resetEditing(setInputs);
+    // resetEditing(setInputs);
     setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
     if (!isDiscussionOver(inputs, children)) {
       setIsBotTyping(true);
