@@ -198,7 +198,15 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
         {contextInChildren.slice(0, currentQuestionIndex + 1)}
       </ReactBotFormContext.Provider>
       {children.length - currentQuestionIndex !== 1 && (
-        <button onClick={next}>{"next ->"}</button>
+        <Button
+          variant="outlined"
+          color="secondary"
+          size="large"
+          endIcon="->"
+          onClick={next}
+        >
+          Next question
+        </Button>
       )}
       {isDiscussionOver(inputs, children) && !hasError(inputs) && (
         <Button
