@@ -42,4 +42,7 @@ export interface ReactBotFormProps {
 /*
  TODO's:
   - Theming to be passed as option to the library
+  - test resetEditing in clickouside
+  - test moving around last field and see the value of isEditing
+  - test if clickoutide is called when clicking on the next button
 */
