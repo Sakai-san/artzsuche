@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { FunctionComponent, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Theme, makeStyles } from "@material-ui/core";
@@ -115,6 +116,7 @@ const App: FunctionComponent = () => {
             )}
           </Response>
         </section>
+
         <section className={classes.question}>
           <Question>
             <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
@@ -192,6 +194,7 @@ const App: FunctionComponent = () => {
             )}
           </Response>
         </section>
+
         <section className={classes.question}>
           <Question>
             <LocalHospitalOutlinedIcon

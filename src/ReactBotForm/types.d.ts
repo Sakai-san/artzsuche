@@ -41,6 +41,7 @@ export interface ReactBotFormProps {
 
 /*
  TODO's:
+ - Fix : setEditing independently of input
   - Theming to be passed as option to the library
   - test resetEditing in clickouside
   - test moving around last field and see the value of isEditing
