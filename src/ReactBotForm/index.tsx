@@ -99,6 +99,7 @@ const submit = (inputs: Array<Response>, url: string) => (
   e: SyntheticEvent
 ): void => {
   e.preventDefault();
+  console.log("click on submit", inputs);
   fetch(url, {
     method: "POST",
     body: JSON.stringify(

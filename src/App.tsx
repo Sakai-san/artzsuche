@@ -150,6 +150,8 @@ const App: FunctionComponent = () => {
             )}
           </Response>
         </section>
+
+        {/*
         <section className={classes.question}>
           <Question>
             <LocalHospitalOutlinedIcon
@@ -192,6 +194,7 @@ const App: FunctionComponent = () => {
             )}
           </Response>
         </section>
+
         <section className={classes.question}>
           <Question>
             <LocalHospitalOutlinedIcon
@@ -234,6 +237,7 @@ const App: FunctionComponent = () => {
             )}
           </Response>
         </section>
+        */}
       </ReactBotForm>
     </div>
   );
