@@ -41,6 +41,5 @@ export interface ReactBotFormProps {
 
 /*
  TODO's:
-  - check if resetEditing is up-to-date when next() is not called, means last input field
   - Theming to be passed as option to the library
 */
