@@ -8,15 +8,13 @@ export interface Response {
   isValid: boolean;
 }
 
-type SetInputs = Dispatch<SetStateAction<Array<Response>>>;
-
 export interface ResponseProps {
   className?: string;
   children: (args: {
     index: number | null;
     doValidation: (...args: any) => boolean;
     input: Response["input"];
-    setInput: (input: Input, isValid: boolean) => void;
+    setResponse: (input: Input, isValid: boolean) => void;
     responseInEdition: null | number;
     setResponseInEdition: Dispatch<SetStateAction<null | number>>;
     domRef: any | MutableRefObject<HTMLElement | null>;

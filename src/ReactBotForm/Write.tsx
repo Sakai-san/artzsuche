@@ -21,7 +21,7 @@ const Write: FunctionComponent<WriteProps> = ({
   children,
   doValidation,
 }) => {
-  const { response, setResponse, index } = useContext(ReactBotFormChildContext);
+  const { input, setResponse, index } = useContext(ReactBotFormChildContext);
   const { responseInEdition, setResponseInEdition } = useContext(
     ReactBotFormContext
   );
@@ -37,7 +37,7 @@ const Write: FunctionComponent<WriteProps> = ({
       {children?.({
         index,
         doValidation,
-        response,
+        input,
         setResponse,
         responseInEdition,
         setResponseInEdition,

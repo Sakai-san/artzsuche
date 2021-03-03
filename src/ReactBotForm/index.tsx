@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-type SetInputs = Dispatch<SetStateAction<Array<Response>>>;
+type SetReponses = Dispatch<SetStateAction<Array<Response>>>;
 
 const hasError = (inputs: Array<Response>) =>
   inputs.some((element) => !element.isValid);
@@ -73,11 +73,11 @@ const hasError = (inputs: Array<Response>) =>
 const isUserEditing = (inputs: Array<Response>) =>
   inputs.some((input) => inputs.isEditing);
 
-const setResponseFactory = (setInputs: SetInputs) => (index: number) => (
+const setResponseFactory = (setReponses: SetReponses) => (index: number) => (
   input: Input,
   isValid: boolean
 ) => {
-  setInputs((prevInputs) =>
+  setReponses((prevInputs) =>
     // update element in array without side-effect in array
     Object.assign([], prevInputs, {
       [index]: { ...prevInputs[index], input, isValid },
@@ -89,7 +89,7 @@ const submit = (responses: Array<Response>, url: string) => (
   e: SyntheticEvent
 ): void => {
   e.preventDefault();
-  console.log("click on submit", inputs);
+  console.log("click on submit", responses);
   fetch(url, {
     method: "POST",
     body: JSON.stringify(
