@@ -73,7 +73,7 @@ const hasError = (inputs: Array<Response>) =>
 const isUserEditing = (inputs: Array<Response>) =>
   inputs.some((input) => inputs.isEditing);
 
-const setInputFactory = (setInputs: SetInputs) => (index: number) => (
+const setResponseFactory = (setInputs: SetInputs) => (index: number) => (
   input: Input,
   isValid: boolean
 ) => {
@@ -85,7 +85,7 @@ const setInputFactory = (setInputs: SetInputs) => (index: number) => (
   );
 };
 
-const submit = (inputs: Array<Response>, url: string) => (
+const submit = (responses: Array<Response>, url: string) => (
   e: SyntheticEvent
 ): void => {
   e.preventDefault();
@@ -93,8 +93,8 @@ const submit = (inputs: Array<Response>, url: string) => (
   fetch(url, {
     method: "POST",
     body: JSON.stringify(
-      Object.values(inputs).reduce(
-        (acc, element, index) => ({ ...acc, [index]: element.input }),
+      responses.reduce(
+        (acc, response, index) => ({ ...acc, [index]: response.input }),
         {}
       )
     ),
@@ -105,10 +105,10 @@ const submit = (inputs: Array<Response>, url: string) => (
 
 // none of the inputs are undefined, means the discussion is over
 const isDiscussionOver = (
-  inputs: Array<Response>,
+  responses: Array<Response>,
   children: ReactBotFormProps["children"]
 ) =>
-  inputs.filter((element) => element.input !== undefined).length ===
+  responses.filter((response) => response.input !== undefined).length ===
   children.length;
 
 const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
@@ -117,7 +117,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
   const [responseInEdition, setResponseInEdition] = useState<null | number>(
     null
   );
-  const [inputs, setInputs] = useState<Array<Response>>([]);
+  const [responses, setResponses] = useState<Array<Response>>([]);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -127,8 +127,8 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
       key={index}
       value={{
         index,
-        input: inputs?.[index]?.input,
-        setInput: setInputFactory(setInputs)(index),
+        input: responses?.[index]?.input,
+        setResponse: setResponseFactory(setResponses)(index),
       }}
     >
       {child}
@@ -137,14 +137,14 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
 
   const next = () => {
     setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
-    if (!isDiscussionOver(inputs, children)) {
+    if (!isDiscussionOver(responses, children)) {
       setIsBotTyping(true);
     } else {
       setIsBotTyping(false);
     }
   };
 
-  console.log("inputs", JSON.stringify(inputs));
+  console.log("inputs", JSON.stringify(responses));
 
   return (
     <div
@@ -168,7 +168,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
           <img
             style={{
               visibility:
-                !isBotTyping && !isDiscussionOver(inputs, children)
+                !isBotTyping && !isDiscussionOver(responses, children)
                   ? "visible"
                   : "hidden",
             }}
@@ -202,7 +202,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
           Next question
         </Button>
       )}
-      {isDiscussionOver(inputs, children) && !hasError(inputs) && (
+      {isDiscussionOver(responses, children) && !hasError(responses) && (
         <Button
           variant="contained"
           color="primary"
@@ -210,7 +210,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
           endIcon={<SendIcon />}
           onClick={
             //(e) => {setIsSubmitted(true);
-            submit(inputs, "/exmaple.com/artzsuche")
+            submit(responses, "/exmaple.com/artzsuche")
           }
         >
           Send

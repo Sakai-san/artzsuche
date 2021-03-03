@@ -96,7 +96,7 @@ const App: FunctionComponent = () => {
               domRef,
               onBlur,
               doValidation,
-              setInput,
+              setResponse,
               index,
               setResponseInEdition,
             }) => (
@@ -106,9 +106,7 @@ const App: FunctionComponent = () => {
                 style={{ width: 300 }}
                 onFocus={() => setResponseInEdition(index)}
                 onBlur={() => setResponseInEdition(null)}
-                onChange={(e, value) => {
-                  setInput(value, doValidation(value));
-                }}
+                onChange={(e, value) => setResponse(value, doValidation(value))}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -145,7 +143,7 @@ const App: FunctionComponent = () => {
               setResponseInEdition,
               domRef,
               onBlur,
-              setInput,
+              setResponse,
             }) => (
               <TextField
                 onFocus={() => setResponseInEdition(index)}
@@ -155,7 +153,10 @@ const App: FunctionComponent = () => {
                   ""
                 }
                 onChange={(event: any) =>
-                  setInput(event.target.value, doValidation(event.target.value))
+                  setResponse(
+                    event.target.value,
+                    doValidation(event.target.value)
+                  )
                 }
                 error={!doValidation(input)}
                 label="PLZ"
@@ -183,7 +184,7 @@ const App: FunctionComponent = () => {
               domRef,
               onBlur,
               doValidation,
-              setInput,
+              setResponse,
               index,
               setResponseInEdition,
             }) => (
@@ -197,7 +198,7 @@ const App: FunctionComponent = () => {
                 }
                 style={{ width: 300 }}
                 onChange={(e, value) =>
-                  setInput(
+                  setResponse(
                     `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
                     doValidation(value)
                   )
@@ -239,7 +240,7 @@ const App: FunctionComponent = () => {
               input,
               domRef,
               onBlur,
-              setInput,
+              setResponse,
               index,
               setResponseInEdition,
             }) => (
@@ -254,7 +255,10 @@ const App: FunctionComponent = () => {
                 onFocus={() => setResponseInEdition(index)}
                 onBlur={() => setResponseInEdition(null)}
                 onChange={(event: any) =>
-                  setInput(event.target.value, doValidation(event.target.value))
+                  setResponse(
+                    event.target.value,
+                    doValidation(event.target.value)
+                  )
                 }
                 error={!doValidation(input)}
                 label="Pains you suffer from"

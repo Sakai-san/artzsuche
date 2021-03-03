@@ -12,13 +12,13 @@ const Response: FunctionComponent<ResponseProps> = ({
   doValidation = (...args: any) => true,
 }) => {
   const { responseInEdition, isBotTyping } = useContext(ReactBotFormContext);
-  const { input, setInput, index } = useContext(ReactBotFormChildContext);
+  const { input, setResponse, index } = useContext(ReactBotFormChildContext);
 
   const domRef = useFocus([input, isBotTyping]);
 
   const onBlur = (e: any) => {
     return null;
-    setInput(e.target.value, false);
+    setResponse(e.target.value, false);
   };
 
   return (

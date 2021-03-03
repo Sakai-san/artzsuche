@@ -26,18 +26,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
   const classes = useStyles();
-  const { input, index } = useContext(ReactBotFormChildContext);
+  const { response, index } = useContext(ReactBotFormChildContext);
   const { setResponseInEdition } = useContext(ReactBotFormContext);
 
   return (
     <div className={classes.input}>
-      <Paper style={{ padding: "20px" }}>{input}</Paper>
+      <Paper style={{ padding: "20px" }}>{response}</Paper>
       <div className={classes.icons}>
         <CreateRoundedIcon
           fontSize="small"
           onClick={(e) => setResponseInEdition(index)}
         />
-        {doValidation(input) ? (
+        {doValidation(response) ? (
           <CheckIcon fontSize="large" style={{ color: green[500] }} />
         ) : (
           <ClearIcon fontSize="large" style={{ color: red[500] }} />
