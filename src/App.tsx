@@ -252,12 +252,10 @@ const App: FunctionComponent = () => {
                 }
                 onFocus={() => setResponseInEdition(index)}
                 onBlur={() => setResponseInEdition(null)}
-                onChange={(event: any) =>
-                  setResponse(
-                    event.target.value,
-                    doValidation(event.target.value)
-                  )
-                }
+                onChange={(event: any) => {
+                  const value = event.target.value;
+                  setResponse(value, doValidation(value));
+                }}
                 error={!doValidation(input)}
                 label="Pains you suffer from"
                 type="text"
