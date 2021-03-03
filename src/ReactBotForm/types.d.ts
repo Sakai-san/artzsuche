@@ -8,6 +8,8 @@ export interface Response {
   isValid: boolean;
 }
 
+export type Responses = Record<number, Response>;
+
 export interface ResponseProps {
   className?: string;
   children: (args: {
