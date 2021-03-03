@@ -150,14 +150,12 @@ const App: FunctionComponent = () => {
                 onBlur={() => setResponseInEdition(null)}
                 helperText={
                   (input !== undefined && !doValidation(input) && "4 digits") ||
-                  ""
+                  " "
                 }
-                onChange={(event: any) =>
-                  setResponse(
-                    event.target.value,
-                    doValidation(event.target.value)
-                  )
-                }
+                onChange={(event: any) => {
+                  const value = event.target.value;
+                  setResponse(value, doValidation(value));
+                }}
                 error={!doValidation(input)}
                 label="PLZ"
                 type="number"
@@ -250,7 +248,7 @@ const App: FunctionComponent = () => {
                   (input !== undefined &&
                     !doValidation(input) &&
                     "Please enter some text") ||
-                  ""
+                  " "
                 }
                 onFocus={() => setResponseInEdition(index)}
                 onBlur={() => setResponseInEdition(null)}
