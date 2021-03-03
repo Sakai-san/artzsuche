@@ -92,14 +92,23 @@ const App: FunctionComponent = () => {
               input ? input.length >= 1 : false
             }
           >
-            {({ domRef, onBlur, doValidation, setInput }) => (
+            {({
+              domRef,
+              onBlur,
+              doValidation,
+              setInput,
+              index,
+              setResponseInEdition,
+            }) => (
               <Autocomplete
                 options={cantons}
                 getOptionLabel={(option) => option}
                 style={{ width: 300 }}
-                onChange={(e, value) =>
-                  setInput(value, doValidation(value), false)
-                }
+                onFocus={() => setResponseInEdition(index)}
+                onBlur={() => setResponseInEdition(null)}
+                onChange={(e, value) => {
+                  setInput(value, doValidation(value));
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -129,19 +138,25 @@ const App: FunctionComponent = () => {
               !!(input && input.match(/^[1-9][0-9]{3}$/))
             }
           >
-            {({ doValidation, input, domRef, onBlur, setInput }) => (
+            {({
+              doValidation,
+              input,
+              index,
+              setResponseInEdition,
+              domRef,
+              onBlur,
+              setInput,
+            }) => (
               <TextField
+                onFocus={() => setResponseInEdition(index)}
+                onBlur={() => setResponseInEdition(null)}
                 helperText={
                   (input !== undefined && !doValidation(input) && "4 digits") ||
                   ""
                 }
-                onChange={(event: any) => {
-                  setInput(
-                    event.target.value,
-                    doValidation(event.target.value),
-                    true
-                  );
-                }}
+                onChange={(event: any) =>
+                  setInput(event.target.value, doValidation(event.target.value))
+                }
                 error={!doValidation(input)}
                 label="PLZ"
                 type="number"
@@ -152,6 +167,7 @@ const App: FunctionComponent = () => {
             )}
           </Response>
         </section>
+
         <section className={classes.question}>
           <Question>
             <LocalHospitalOutlinedIcon
@@ -163,8 +179,17 @@ const App: FunctionComponent = () => {
             </span>
           </Question>
           <Response doValidation={(input: string | undefined) => !!input}>
-            {({ domRef, onBlur, doValidation, setInput }) => (
+            {({
+              domRef,
+              onBlur,
+              doValidation,
+              setInput,
+              index,
+              setResponseInEdition,
+            }) => (
               <Autocomplete
+                onFocus={() => setResponseInEdition(index)}
+                onBlur={() => setResponseInEdition(null)}
                 options={physicians}
                 getOptionLabel={(option) =>
                   `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
@@ -174,8 +199,7 @@ const App: FunctionComponent = () => {
                 onChange={(e, value) =>
                   setInput(
                     `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
-                    doValidation(value),
-                    false
+                    doValidation(value)
                   )
                 }
                 renderInput={(params) => (
@@ -210,7 +234,15 @@ const App: FunctionComponent = () => {
               !!(input && input?.length >= 4)
             }
           >
-            {({ doValidation, input, domRef, onBlur, setInput }) => (
+            {({
+              doValidation,
+              input,
+              domRef,
+              onBlur,
+              setInput,
+              index,
+              setResponseInEdition,
+            }) => (
               <TextField
                 value={input}
                 helperText={
@@ -219,12 +251,10 @@ const App: FunctionComponent = () => {
                     "Please enter some text") ||
                   ""
                 }
+                onFocus={() => setResponseInEdition(index)}
+                onBlur={() => setResponseInEdition(null)}
                 onChange={(event: any) =>
-                  setInput(
-                    event.target.value,
-                    doValidation(event.target.value),
-                    true
-                  )
+                  setInput(event.target.value, doValidation(event.target.value))
                 }
                 error={!doValidation(input)}
                 label="Pains you suffer from"

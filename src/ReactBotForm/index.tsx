@@ -67,15 +67,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 type SetInputs = Dispatch<SetStateAction<Array<Response>>>;
 
-const resetEditing = (setInputs: SetInputs) => {
-  setInputs((prevInputs) =>
-    prevInputs.map((prevInput) => ({
-      ...prevInput,
-      isEditing: false,
-    }))
-  );
-};
-
 const hasError = (inputs: Array<Response>) =>
   inputs.some((element) => !element.isValid);
 
@@ -84,13 +75,12 @@ const isUserEditing = (inputs: Array<Response>) =>
 
 const setInputFactory = (setInputs: SetInputs) => (index: number) => (
   input: Input,
-  isValid: boolean = true,
-  isEditing: boolean = false
+  isValid: boolean
 ) => {
   setInputs((prevInputs) =>
     // update element in array without side-effect in array
     Object.assign([], prevInputs, {
-      [index]: { input, isValid, isEditing },
+      [index]: { ...prevInputs[index], input, isValid },
     })
   );
 };
@@ -124,20 +114,21 @@ const isDiscussionOver = (
 const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
   const classes = useStyles({});
 
+  const [responseInEdition, setResponseInEdition] = useState<null | number>(
+    null
+  );
   const [inputs, setInputs] = useState<Array<Response>>([]);
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
   const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  console.log("inputs", JSON.stringify(inputs));
-
   const contextInChildren = children.map((child, index) => (
     <ReactBotFormChildContext.Provider
       key={index}
       value={{
+        index,
         input: inputs?.[index]?.input,
         setInput: setInputFactory(setInputs)(index),
-        isEditing: inputs?.[index]?.isEditing,
       }}
     >
       {child}
@@ -145,7 +136,6 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
   ));
 
   const next = () => {
-    // resetEditing(setInputs);
     setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
     if (!isDiscussionOver(inputs, children)) {
       setIsBotTyping(true);
@@ -153,6 +143,8 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
       setIsBotTyping(false);
     }
   };
+
+  console.log("inputs", JSON.stringify(inputs));
 
   return (
     <div
@@ -191,6 +183,8 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
       </section>
       <ReactBotFormContext.Provider
         value={{
+          responseInEdition,
+          setResponseInEdition,
           isBotTyping,
           setIsBotTyping,
         }}

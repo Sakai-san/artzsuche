@@ -1,20 +1,24 @@
-import { MutableRefObject } from "react";
+import { Dispatch, SetStateAction, MutableRefObject } from "react";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 
 export type Input = string | undefined | null;
 
 export interface Response {
   input: Input;
-  isEditing: boolean;
   isValid: boolean;
 }
+
+type SetInputs = Dispatch<SetStateAction<Array<Response>>>;
 
 export interface ResponseProps {
   className?: string;
   children: (args: {
+    index: number | null;
     doValidation: (...args: any) => boolean;
     input: Response["input"];
-    setInput: (input: Input, isValid?: boolean, isEditing?: boolean) => void;
+    setInput: (input: Input, isValid: boolean) => void;
+    responseInEdition: null | number;
+    setResponseInEdition: Dispatch<SetStateAction<null | number>>;
     domRef: any | MutableRefObject<HTMLElement | null>;
     onBlur: () => void;
   }) => JSX.Element;
@@ -41,9 +45,5 @@ export interface ReactBotFormProps {
 
 /*
  TODO's:
- - Fix : setEditing independently of input
   - Theming to be passed as option to the library
-  - test resetEditing in clickouside
-  - test moving around last field and see the value of isEditing
-  - test if clickoutide is called when clicking on the next button
 */

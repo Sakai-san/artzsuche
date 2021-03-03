@@ -11,8 +11,8 @@ const Response: FunctionComponent<ResponseProps> = ({
   className,
   doValidation = (...args: any) => true,
 }) => {
-  const { isBotTyping } = useContext(ReactBotFormContext);
-  const { input, setInput, isEditing } = useContext(ReactBotFormChildContext);
+  const { responseInEdition, isBotTyping } = useContext(ReactBotFormContext);
+  const { input, setInput, index } = useContext(ReactBotFormChildContext);
 
   const domRef = useFocus([input, isBotTyping]);
 
@@ -24,7 +24,7 @@ const Response: FunctionComponent<ResponseProps> = ({
   return (
     <section>
       <div>
-        {!isEditing && input !== undefined ? (
+        {responseInEdition !== index && input !== undefined ? (
           <Read doValidation={doValidation} />
         ) : (
           <Write doValidation={doValidation} isHidden={!!isBotTyping}>
