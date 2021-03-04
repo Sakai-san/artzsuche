@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   inputElementVisible: {
     visibility: "visible",
     opacity: 1,
-    transition: "opacity 2s ease-in",
+    transition: "opacity 0.2s ease-in",
   },
   inputElementHidden: {
     visibility: "hidden",
@@ -31,9 +31,7 @@ const Write: FunctionComponent<WriteProps> = ({
 
   const domRef = useFocus(
     // current response first rendering or edit
-    (currentQuestionIndex === index &&
-      responseInEdition === null &&
-      input === undefined) ||
+    (currentQuestionIndex === index && responseInEdition === null) ||
       responseInEdition === index
   );
 
