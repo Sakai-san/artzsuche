@@ -23,10 +23,19 @@ const Write: FunctionComponent<WriteProps> = ({
   doValidation,
 }) => {
   const { input, setResponse, index } = useContext(ReactBotFormChildContext);
-  const { responseInEdition, setResponseInEdition } = useContext(
-    ReactBotFormContext
+  const {
+    responseInEdition,
+    setResponseInEdition,
+    currentQuestionIndex,
+  } = useContext(ReactBotFormContext);
+
+  const domRef = useFocus(
+    // current response first rendering or edit
+    (currentQuestionIndex === index &&
+      responseInEdition === null &&
+      input === undefined) ||
+      responseInEdition === index
   );
-  const domRef = useFocus(responseInEdition === index);
 
   const classes = useStyles();
 

@@ -177,6 +177,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
           setResponseInEdition,
           isBotTyping,
           setIsBotTyping,
+          currentQuestionIndex,
         }}
       >
         {contextInChildren.slice(0, currentQuestionIndex + 1)}
