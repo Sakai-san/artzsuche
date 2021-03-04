@@ -20,7 +20,6 @@ export interface ResponseProps {
     responseInEdition: null | number;
     setResponseInEdition: Dispatch<SetStateAction<null | number>>;
     domRef: any | MutableRefObject<HTMLElement | null>;
-    onBlur: () => void;
   }) => JSX.Element;
   doValidation?: (...args: any) => boolean;
 }

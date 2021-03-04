@@ -13,7 +13,7 @@ import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 
-import { Input, ReactBotFormProps, Response, Responses } from "./types";
+import { Input, ReactBotFormProps, Responses } from "./types";
 
 import typingIndicator from "../giphy.gif";
 
@@ -138,8 +138,6 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
       setIsBotTyping(false);
     }
   };
-
-  //  console.log("inputs", JSON.stringify(responses));
 
   return (
     <div
