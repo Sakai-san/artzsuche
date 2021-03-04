@@ -1,30 +1,29 @@
 import { useRef, useEffect } from "react";
 
-// const FOCUSABLE_ELEMENTS = ["BUTTON", "INPUT", "TEXTAREA", "SELECT"];
 const FOCUSABLE_ELEMENTS = ["INPUT", "TEXTAREA", "SELECT"];
 
-const useFocus = (dependencyArray?: any[]) => {
+const useFocus = (enable: boolean) => {
   const domRef = useRef<null | HTMLElement>(null);
 
-  useEffect(
-    () => {
+  useEffect(() => {
+    if (enable) {
       if (
+        // parent
         domRef?.current?.tagName
           ?.toUpperCase?.()
           ?.match?.(new RegExp(`\\b${FOCUSABLE_ELEMENTS.join("|")}\\b`))
       ) {
         domRef?.current?.focus?.();
       } else {
+        // children
         const node = domRef?.current?.querySelector?.(
           FOCUSABLE_ELEMENTS.join(", ")
         ) as any;
 
         node?.focus?.();
       }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    dependencyArray ? [...dependencyArray] : []
-  );
+    }
+  });
 
   return domRef;
 };

@@ -94,13 +94,13 @@ const App: FunctionComponent = () => {
           >
             {({
               domRef,
-              onBlur,
               doValidation,
               setResponse,
               index,
               setResponseInEdition,
             }) => (
               <Autocomplete
+                ref={domRef}
                 options={cantons}
                 getOptionLabel={(option) => option}
                 style={{ width: 300 }}
@@ -110,12 +110,10 @@ const App: FunctionComponent = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    ref={domRef}
                     label="Wähle bitte deinen Kanton"
                     variant="outlined"
                     inputProps={{
                       ...params.inputProps,
-                      onBlur,
                     }}
                   />
                 )}
@@ -142,7 +140,6 @@ const App: FunctionComponent = () => {
               index,
               setResponseInEdition,
               domRef,
-              onBlur,
               setResponse,
             }) => (
               <TextField
@@ -161,7 +158,6 @@ const App: FunctionComponent = () => {
                 type="number"
                 variant="outlined"
                 ref={domRef}
-                inputProps={{ onBlur }}
               />
             )}
           </Response>
@@ -180,7 +176,6 @@ const App: FunctionComponent = () => {
           <Response doValidation={(input: string | undefined) => !!input}>
             {({
               domRef,
-              onBlur,
               doValidation,
               setResponse,
               index,
@@ -209,7 +204,6 @@ const App: FunctionComponent = () => {
                     variant="outlined"
                     inputProps={{
                       ...params.inputProps,
-                      onBlur,
                     }}
                   />
                 )}
@@ -237,7 +231,6 @@ const App: FunctionComponent = () => {
               doValidation,
               input,
               domRef,
-              onBlur,
               setResponse,
               index,
               setResponseInEdition,
@@ -262,7 +255,6 @@ const App: FunctionComponent = () => {
                 multiline={true}
                 variant="outlined"
                 ref={domRef}
-                inputProps={{ onBlur }}
               />
             )}
           </Response>

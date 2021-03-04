@@ -139,7 +139,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
     }
   };
 
-  console.log("inputs", JSON.stringify(responses));
+  //  console.log("inputs", JSON.stringify(responses));
 
   return (
     <div
