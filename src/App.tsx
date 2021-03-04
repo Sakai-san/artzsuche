@@ -182,6 +182,7 @@ const App: FunctionComponent = () => {
               setResponseInEdition,
             }) => (
               <Autocomplete
+                ref={domRef}
                 onFocus={() => setResponseInEdition(index)}
                 onBlur={() => setResponseInEdition(null)}
                 options={physicians}
@@ -199,7 +200,6 @@ const App: FunctionComponent = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    ref={domRef}
                     label="Suche nach einem/er Artz/in"
                     variant="outlined"
                     inputProps={{
