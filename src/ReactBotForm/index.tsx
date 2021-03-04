@@ -160,10 +160,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
         <div>
           <img
             style={{
-              visibility:
-                !isBotTyping && !isDiscussionOver(responses, children)
-                  ? "visible"
-                  : "hidden",
+              visibility: responseInEdition !== null ? "visible" : "hidden",
             }}
             className={classes.typing}
             src={typingIndicator}
