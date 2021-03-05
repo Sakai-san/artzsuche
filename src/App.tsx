@@ -91,9 +91,7 @@ const App: FunctionComponent = () => {
     isSumitted ? classes.contentHidden : classes.contentVisible
   }*/
 
-  return formResponses ? (
-    <div>Messi vielmals</div>
-  ) : (
+  return (
     <div>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
@@ -104,190 +102,200 @@ const App: FunctionComponent = () => {
         </Toolbar>
       </AppBar>
 
-      <ReactBotForm submitHandler={(responses) => setFormResponses(responses)}>
-        <section className={classes.question}>
-          <Question>
-            <LocalHospitalRoundedIcon
-              fontSize="large"
-              style={{ color: "#D52B1E" }}
-            />
-            <span style={{ fontSize: "18px" }}>
-              Im welchem Kanton wohnst du ?
-            </span>
-          </Question>
-          <Response
-            doValidation={(input: string | undefined) =>
-              input ? input.length >= 1 : false
-            }
-          >
-            {({
-              domRef,
-              doValidation,
-              setResponse,
-              index,
-              setResponseInEdition,
-            }) => (
-              <Autocomplete
-                ref={domRef}
-                options={cantons}
-                getOptionLabel={(option) => option}
-                style={{ width: 300 }}
-                onFocus={() => setResponseInEdition(index)}
-                onBlur={() => setResponseInEdition(null)}
-                onChange={(e, value) => setResponse(value, doValidation(value))}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Wähle bitte deinen Kanton"
-                    variant="outlined"
-                    inputProps={{
-                      ...params.inputProps,
-                    }}
-                  />
-                )}
+      {formResponses ? (
+        <div>Messi vielmals</div>
+      ) : (
+        <ReactBotForm
+          submitHandler={(responses) => setFormResponses(responses)}
+        >
+          <section className={classes.question}>
+            <Question>
+              <LocalHospitalRoundedIcon
+                fontSize="large"
+                style={{ color: "#D52B1E" }}
               />
-            )}
-          </Response>
-        </section>
+              <span style={{ fontSize: "18px" }}>
+                Im welchem Kanton wohnst du ?
+              </span>
+            </Question>
+            <Response
+              doValidation={(input: string | undefined) =>
+                input ? input.length >= 1 : false
+              }
+            >
+              {({
+                domRef,
+                doValidation,
+                setResponse,
+                index,
+                setResponseInEdition,
+              }) => (
+                <Autocomplete
+                  ref={domRef}
+                  options={cantons}
+                  getOptionLabel={(option) => option}
+                  style={{ width: 300 }}
+                  onFocus={() => setResponseInEdition(index)}
+                  onBlur={() => setResponseInEdition(null)}
+                  onChange={(e, value) =>
+                    setResponse(value, doValidation(value))
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Wähle bitte deinen Kanton"
+                      variant="outlined"
+                      inputProps={{
+                        ...params.inputProps,
+                      }}
+                    />
+                  )}
+                />
+              )}
+            </Response>
+          </section>
 
-        <section className={classes.question}>
-          <Question>
-            <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
-            <span style={{ fontSize: "18px" }}>
-              Was ist die Postleitzahl deines Wohnortes ?
-            </span>
-          </Question>
-          <Response
-            doValidation={(input: string | undefined) =>
-              !!(input && input.match(/^[1-9][0-9]{3}$/))
-            }
-          >
-            {({
-              doValidation,
-              input,
-              index,
-              setResponseInEdition,
-              domRef,
-              setResponse,
-            }) => (
-              <TextField
-                onFocus={() => setResponseInEdition(index)}
-                onBlur={() => setResponseInEdition(null)}
-                helperText={
-                  (input !== undefined && !doValidation(input) && "4 digits") ||
-                  " "
-                }
-                onChange={(event: any) => {
-                  const value = event.target.value;
-                  setResponse(value, doValidation(value));
-                }}
-                error={!doValidation(input)}
-                label="PLZ"
-                type="number"
-                variant="outlined"
-                ref={domRef}
-              />
-            )}
-          </Response>
-        </section>
+          <section className={classes.question}>
+            <Question>
+              <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
+              <span style={{ fontSize: "18px" }}>
+                Was ist die Postleitzahl deines Wohnortes ?
+              </span>
+            </Question>
+            <Response
+              doValidation={(input: string | undefined) =>
+                !!(input && input.match(/^[1-9][0-9]{3}$/))
+              }
+            >
+              {({
+                doValidation,
+                input,
+                index,
+                setResponseInEdition,
+                domRef,
+                setResponse,
+              }) => (
+                <TextField
+                  onFocus={() => setResponseInEdition(index)}
+                  onBlur={() => setResponseInEdition(null)}
+                  helperText={
+                    (input !== undefined &&
+                      !doValidation(input) &&
+                      "4 digits") ||
+                    " "
+                  }
+                  onChange={(event: any) => {
+                    const value = event.target.value;
+                    setResponse(value, doValidation(value));
+                  }}
+                  error={!doValidation(input)}
+                  label="PLZ"
+                  type="number"
+                  variant="outlined"
+                  ref={domRef}
+                />
+              )}
+            </Response>
+          </section>
 
-        <section className={classes.question}>
-          <Question>
-            <LocalHospitalOutlinedIcon
-              fontSize="large"
-              style={{ color: "#D52B1E" }}
-            />
-            <span style={{ fontSize: "18px" }}>
-              Wähle einen Artz / eine Artzin ?
-            </span>
-          </Question>
-          <Response doValidation={(input: string | undefined) => !!input}>
-            {({
-              domRef,
-              doValidation,
-              setResponse,
-              index,
-              setResponseInEdition,
-            }) => (
-              <Autocomplete
-                ref={domRef}
-                onFocus={() => setResponseInEdition(index)}
-                onBlur={() => setResponseInEdition(null)}
-                options={physicians}
-                getOptionLabel={(option) =>
-                  `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
-                  ""
-                }
-                style={{ width: 300 }}
-                onChange={(e, value) =>
-                  setResponse(
-                    `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
-                    doValidation(value)
-                  )
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Suche nach einem/er Artz/in"
-                    variant="outlined"
-                    inputProps={{
-                      ...params.inputProps,
-                    }}
-                  />
-                )}
+          <section className={classes.question}>
+            <Question>
+              <LocalHospitalOutlinedIcon
+                fontSize="large"
+                style={{ color: "#D52B1E" }}
               />
-            )}
-          </Response>
-        </section>
+              <span style={{ fontSize: "18px" }}>
+                Wähle einen Artz / eine Artzin ?
+              </span>
+            </Question>
+            <Response doValidation={(input: string | undefined) => !!input}>
+              {({
+                domRef,
+                doValidation,
+                setResponse,
+                index,
+                setResponseInEdition,
+              }) => (
+                <Autocomplete
+                  ref={domRef}
+                  onFocus={() => setResponseInEdition(index)}
+                  onBlur={() => setResponseInEdition(null)}
+                  options={physicians}
+                  getOptionLabel={(option) =>
+                    `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
+                    ""
+                  }
+                  style={{ width: 300 }}
+                  onChange={(e, value) =>
+                    setResponse(
+                      `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
+                      doValidation(value)
+                    )
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Suche nach einem/er Artz/in"
+                      variant="outlined"
+                      inputProps={{
+                        ...params.inputProps,
+                      }}
+                    />
+                  )}
+                />
+              )}
+            </Response>
+          </section>
 
-        <section className={classes.question}>
-          <Question>
-            <LocalHospitalOutlinedIcon
-              fontSize="large"
-              style={{ color: "#D52B1E" }}
-            />
-            <span style={{ fontSize: "18px" }}>
-              Are there some pains you suffer from ?
-            </span>
-          </Question>
-          <Response
-            doValidation={(input: string | undefined) =>
-              !!(input && input?.length >= 4)
-            }
-          >
-            {({
-              doValidation,
-              input,
-              domRef,
-              setResponse,
-              index,
-              setResponseInEdition,
-            }) => (
-              <TextField
-                value={input}
-                helperText={
-                  (input !== undefined &&
-                    !doValidation(input) &&
-                    "Please enter some text") ||
-                  " "
-                }
-                onFocus={() => setResponseInEdition(index)}
-                onBlur={() => setResponseInEdition(null)}
-                onChange={(event: any) => {
-                  const value = event.target.value;
-                  setResponse(value, doValidation(value));
-                }}
-                error={!doValidation(input)}
-                label="Pains you suffer from"
-                type="text"
-                multiline={true}
-                variant="outlined"
-                ref={domRef}
+          <section className={classes.question}>
+            <Question>
+              <LocalHospitalOutlinedIcon
+                fontSize="large"
+                style={{ color: "#D52B1E" }}
               />
-            )}
-          </Response>
-        </section>
-      </ReactBotForm>
+              <span style={{ fontSize: "18px" }}>
+                Are there some pains you suffer from ?
+              </span>
+            </Question>
+            <Response
+              doValidation={(input: string | undefined) =>
+                !!(input && input?.length >= 4)
+              }
+            >
+              {({
+                doValidation,
+                input,
+                domRef,
+                setResponse,
+                index,
+                setResponseInEdition,
+              }) => (
+                <TextField
+                  value={input}
+                  helperText={
+                    (input !== undefined &&
+                      !doValidation(input) &&
+                      "Please enter some text") ||
+                    " "
+                  }
+                  onFocus={() => setResponseInEdition(index)}
+                  onBlur={() => setResponseInEdition(null)}
+                  onChange={(event: any) => {
+                    const value = event.target.value;
+                    setResponse(value, doValidation(value));
+                  }}
+                  error={!doValidation(input)}
+                  label="Pains you suffer from"
+                  type="text"
+                  multiline={true}
+                  variant="outlined"
+                  ref={domRef}
+                />
+              )}
+            </Response>
+          </section>
+        </ReactBotForm>
+      )}
     </div>
   );
 };
