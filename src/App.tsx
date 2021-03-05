@@ -60,6 +60,13 @@ const useStyles = makeStyles((theme: Theme) => ({
       content: `Messi vielmals`,
     },
   },
+  completed: {
+    display: "flex",
+    width: "100vw",
+    height: "calc(100vh - 80px)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 }));
 
 const App: FunctionComponent = () => {
@@ -101,8 +108,8 @@ const App: FunctionComponent = () => {
         </Toolbar>
       </AppBar>
 
-      {formResponses ? (
-        <div>Messi vielmals for your time !</div>
+      {!formResponses ? (
+        <div className={classes.completed}>Messi vielmals for your time !</div>
       ) : (
         <ReactBotForm
           submitHandler={(responses) => setFormResponses(responses)}
