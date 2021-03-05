@@ -4,7 +4,6 @@ import React, {
   useState,
   Dispatch,
   SetStateAction,
-  SyntheticEvent,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
@@ -25,17 +24,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       padding: "5px",
       marginTop: "30px",
       borderRadius: "6px 6px",
-    },
-  },
-  contentVisible: {
-    opacity: 1,
-  },
-  contentHidden: {
-    opacity: 0,
-    transition: "opacity 2s ease-out",
-    "&:after": {
-      opacity: 1,
-      content: `Messi vielmals`,
     },
   },
   lanes: {
@@ -80,24 +68,6 @@ const setResponseFactory = (setReponses: SetReponses) => (index: number) => (
   }));
 };
 
-const submit = (responses: Responses, url: string) => (
-  e: SyntheticEvent
-): void => {
-  e.preventDefault();
-  console.log("click on submit", responses);
-  fetch(url, {
-    method: "POST",
-    body: JSON.stringify(
-      Object.entries(responses).reduce(
-        (acc, [key, value]) => ({ ...acc, [key]: value.input }),
-        {}
-      )
-    ),
-  })
-    .then((response) => console.log("done", response))
-    .catch((e) => console.error("something went wrong", e));
-};
-
 // none of the inputs are undefined, means the discussion is over
 const isDiscussionOver = (
   responses: Responses,
@@ -106,7 +76,10 @@ const isDiscussionOver = (
   Object.values(responses).filter((response) => response.input !== undefined)
     .length === children.length;
 
-const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
+const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
+  submitHandler,
+  children,
+}) => {
   const classes = useStyles({});
 
   const [responseInEdition, setResponseInEdition] = useState<null | number>(
@@ -114,7 +87,6 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
   );
   const [responses, setResponses] = useState<Responses>({});
   const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
-  const [isSumitted, setIsSubmitted] = useState<boolean>(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
   const contextInChildren = children.map((child, index) => (
@@ -140,11 +112,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
   };
 
   return (
-    <div
-      className={`${classes.content} ${
-        isSumitted ? classes.contentHidden : classes.contentVisible
-      }`}
-    >
+    <div className={classes.content}>
       <section className={classes.lanes}>
         <div>
           <img
@@ -199,9 +167,13 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({ children }) => {
           color="primary"
           size="large"
           endIcon={<SendIcon />}
-          onClick={
-            //(e) => {setIsSubmitted(true);
-            submit(responses, "/exmaple.com/artzsuche")
+          onClick={(e) =>
+            submitHandler(
+              Object.entries(responses).reduce(
+                (acc, [key, value]) => ({ ...acc, [key]: value.input }),
+                {}
+              )
+            )
           }
         >
           Send

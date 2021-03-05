@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Theme, makeStyles } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -22,6 +22,7 @@ import { cantonsOperations } from "./ducks/cantons";
 import { IPhysician } from "./ducks/physicians/types";
 import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
+import { Input } from "./ReactBotForm/types";
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
@@ -48,11 +49,28 @@ const useStyles = makeStyles((theme: Theme) => ({
       top: "6px",
     },
   },
+
+  formVisible: {
+    opacity: 1,
+  },
+  formHidden: {
+    opacity: 0,
+    transition: "opacity 2s ease-out",
+    "&:after": {
+      opacity: 1,
+      content: `Messi vielmals`,
+    },
+  },
 }));
 
 const App: FunctionComponent = () => {
   const classes = useStyles({});
   const dispatch = useDispatch();
+
+  const [formResponses, setFormResponses] = useState<null | Record<
+    string,
+    Input
+  >>(null);
 
   useEffect(() => {
     dispatch(physiciansOperations.fetchPhysicians());
@@ -60,12 +78,22 @@ const App: FunctionComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    console.log("formResponses", formResponses);
+  });
+
   const physicians: IPhysician[] = useSelector(
     (state: IReduxStore) => state.physicians
   );
   const cantons: ICanton[] = useSelector((state: IReduxStore) => state.cantons);
 
-  return (
+  /*${
+    isSumitted ? classes.contentHidden : classes.contentVisible
+  }*/
+
+  return formResponses ? (
+    <div>Messi vielmals</div>
+  ) : (
     <div>
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
@@ -76,7 +104,7 @@ const App: FunctionComponent = () => {
         </Toolbar>
       </AppBar>
 
-      <ReactBotForm>
+      <ReactBotForm submitHandler={(responses) => setFormResponses(responses)}>
         <section className={classes.question}>
           <Question>
             <LocalHospitalRoundedIcon

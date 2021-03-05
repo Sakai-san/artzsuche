@@ -8,7 +8,7 @@ export interface Response {
   isValid: boolean;
 }
 
-export type Responses = Record<number, Response>;
+export type Responses = Record<string, Response>;
 
 export interface ResponseProps {
   className?: string;
@@ -19,7 +19,7 @@ export interface ResponseProps {
     setResponse: (input: Input, isValid: boolean) => void;
     responseInEdition: null | number;
     setResponseInEdition: Dispatch<SetStateAction<null | number>>;
-    domRef: any | MutableRefObject<HTMLElement | null>;
+    domRef: MutableRefObject<HTMLElement | null>;
   }) => JSX.Element;
   doValidation?: (...args: any) => boolean;
 }
@@ -38,7 +38,7 @@ export interface ReactBotFormOptions {
 }
 
 export interface ReactBotFormProps {
-  options?: ReactBotFormOptions;
+  submitHandler: (responses: Record<string, Input>) => void;
   children: Array<JSX.Element>;
 }
 
