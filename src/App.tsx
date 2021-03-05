@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       top: "6px",
     },
   },
-
   formVisible: {
     opacity: 1,
   },
@@ -103,7 +102,7 @@ const App: FunctionComponent = () => {
       </AppBar>
 
       {formResponses ? (
-        <div>Messi vielmals</div>
+        <div>Messi vielmals for your time !</div>
       ) : (
         <ReactBotForm
           submitHandler={(responses) => setFormResponses(responses)}
