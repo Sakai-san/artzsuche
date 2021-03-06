@@ -10,7 +10,7 @@ const Response: FunctionComponent<ResponseProps> = ({
   className,
   doValidation = (...args: any) => true,
 }) => {
-  const { responseInEdition, isBotTyping } = useContext(ReactBotFormContext);
+  const { responseInEdition } = useContext(ReactBotFormContext);
   const { input, index } = useContext(ReactBotFormChildContext);
 
   return (
@@ -19,9 +19,7 @@ const Response: FunctionComponent<ResponseProps> = ({
         {responseInEdition !== index && input !== undefined ? (
           <Read doValidation={doValidation} />
         ) : (
-          <Write doValidation={doValidation} isHidden={!!isBotTyping}>
-            {children}
-          </Write>
+          <Write doValidation={doValidation}>{children}</Write>
         )}
       </div>
     </section>

@@ -12,6 +12,7 @@ export type Responses = Record<string, Response>;
 
 export interface ResponseProps {
   className?: string;
+  doValidation?: (...args: any) => boolean;
   children: (args: {
     index: number | null;
     doValidation: (...args: any) => boolean;
@@ -21,7 +22,6 @@ export interface ResponseProps {
     setResponseInEdition: Dispatch<SetStateAction<null | number>>;
     domRef: MutableRefObject<HTMLElement | null>;
   }) => JSX.Element;
-  doValidation?: (...args: any) => boolean;
 }
 
 export type ReadProps = {
@@ -29,7 +29,6 @@ export type ReadProps = {
 };
 
 export interface WriteProps {
-  isHidden: boolean;
   children: (...args: any) => JSX.Element;
 }
 

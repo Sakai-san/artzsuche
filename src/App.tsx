@@ -108,7 +108,7 @@ const App: FunctionComponent = () => {
         </Toolbar>
       </AppBar>
 
-      {!formResponses ? (
+      {formResponses ? (
         <div className={classes.completed}>Messi vielmals for your time !</div>
       ) : (
         <ReactBotForm
@@ -163,7 +163,7 @@ const App: FunctionComponent = () => {
 
           <section className={classes.question}>
             <Question>
-              <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />{" "}
+              <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
               <span style={{ fontSize: "18px" }}>
                 Was ist die Postleitzahl deines Wohnortes ?
               </span>

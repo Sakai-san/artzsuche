@@ -17,16 +17,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Write: FunctionComponent<WriteProps> = ({
-  isHidden,
-  children,
-  doValidation,
-}) => {
+const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
   const { input, setResponse, index } = useContext(ReactBotFormChildContext);
   const {
     responseInEdition,
     setResponseInEdition,
     currentQuestionIndex,
+    isBotTyping,
   } = useContext(ReactBotFormContext);
 
   const domRef = useFocus(
@@ -40,7 +37,7 @@ const Write: FunctionComponent<WriteProps> = ({
   return (
     <div
       className={
-        isHidden ? classes.inputElementHidden : classes.inputElementVisible
+        isBotTyping ? classes.inputElementHidden : classes.inputElementVisible
       }
     >
       {children?.({
