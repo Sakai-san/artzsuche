@@ -91,11 +91,8 @@ const isDiscussionOver2 = (
   isBotTyping: boolean
 ) => {
   return (
-    (Object.values(responses).filter((response) => response.input !== undefined)
-      .length === children.length ||
-      Object.values(responses).filter((response) => response.isValid).length ===
-        children.length) &&
-    !isBotTyping
+    Object.values(responses).filter((response) => response.isValid).length ===
+      children.length && !isBotTyping
   );
 };
 
