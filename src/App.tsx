@@ -93,10 +93,6 @@ const App: FunctionComponent = () => {
   );
   const cantons: ICanton[] = useSelector((state: IReduxStore) => state.cantons);
 
-  /*${
-    isSumitted ? classes.contentHidden : classes.contentVisible
-  }*/
-
   return (
     <div>
       <AppBar position="static">
