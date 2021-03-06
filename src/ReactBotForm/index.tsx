@@ -58,9 +58,18 @@ type SetReponses = Dispatch<SetStateAction<Responses>>;
 const hasError = (responses: Responses) =>
   Object.values(responses).some((response) => !response.isValid);
 
+const setIsValidFactory = (setReponses: SetReponses) => (index: number) => (
+  isValid: boolean
+) => {
+  setReponses((prevResponses) => ({
+    ...prevResponses,
+    [index]: { ...prevResponses[index], isValid },
+  }));
+};
+
 const setResponseFactory = (setReponses: SetReponses) => (index: number) => (
   input: Input,
-  isValid: boolean
+  isValid: boolean = true
 ) => {
   setReponses((prevResponses) => ({
     ...prevResponses,
@@ -75,6 +84,17 @@ const isDiscussionOver = (
 ) =>
   Object.values(responses).filter((response) => response.input !== undefined)
     .length === children.length;
+
+const isDiscussionOver2 = (
+  responses: Responses,
+  children: ReactBotFormProps["children"],
+  isBotTyping: boolean
+) => {
+  return (
+    Object.values(responses).filter((response) => response.isValid).length ===
+      children.length && !isBotTyping
+  );
+};
 
 const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
   submitHandler,
@@ -96,6 +116,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         index,
         input: responses?.[index]?.input,
         setResponse: setResponseFactory(setResponses)(index),
+        setIsValid: setIsValidFactory(setResponses)(index),
       }}
     >
       {child}
@@ -110,6 +131,8 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
       setIsBotTyping(false);
     }
   };
+
+  console.log("responses", JSON.stringify(responses));
 
   return (
     <div className={classes.content}>
@@ -161,24 +184,26 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
           Next question
         </Button>
       )}
-      {isDiscussionOver(responses, children) && !hasError(responses) && (
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          endIcon={<SendIcon />}
-          onClick={(e) =>
-            submitHandler(
-              Object.entries(responses).reduce(
-                (acc, [key, value]) => ({ ...acc, [key]: value.input }),
-                {}
+      {(isDiscussionOver(responses, children) ||
+        isDiscussionOver2(responses, children, isBotTyping)) &&
+        !hasError(responses) && (
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            endIcon={<SendIcon />}
+            onClick={(e) =>
+              submitHandler(
+                Object.entries(responses).reduce(
+                  (acc, [key, value]) => ({ ...acc, [key]: value.input }),
+                  {}
+                )
               )
-            )
-          }
-        >
-          Send
-        </Button>
-      )}
+            }
+          >
+            Send
+          </Button>
+        )}
     </div>
   );
 };

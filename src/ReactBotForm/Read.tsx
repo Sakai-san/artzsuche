@@ -37,7 +37,7 @@ const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
           fontSize="small"
           onClick={(e) => setResponseInEdition(index)}
         />
-        {doValidation(input) ? (
+        {!doValidation || doValidation?.(input) ? (
           <CheckIcon fontSize="large" style={{ color: green[500] }} />
         ) : (
           <ClearIcon fontSize="large" style={{ color: red[500] }} />

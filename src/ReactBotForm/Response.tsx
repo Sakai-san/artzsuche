@@ -8,7 +8,7 @@ import { ResponseProps } from "./types";
 const Response: FunctionComponent<ResponseProps> = ({
   children,
   className,
-  doValidation = (...args: any) => true,
+  doValidation,
 }) => {
   const { responseInEdition } = useContext(ReactBotFormContext);
   const { input, index } = useContext(ReactBotFormChildContext);

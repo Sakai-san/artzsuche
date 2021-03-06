@@ -15,17 +15,18 @@ export interface ResponseProps {
   doValidation?: (...args: any) => boolean;
   children: (args: {
     index: number | null;
-    doValidation: (...args: any) => boolean;
+    doValidation?: (...args: any) => boolean;
     input: Response["input"];
     setResponse: (input: Input, isValid: boolean) => void;
     responseInEdition: null | number;
     setResponseInEdition: Dispatch<SetStateAction<null | number>>;
     domRef: MutableRefObject<HTMLElement | null>;
+    setIsValid: (isValid: boolean) => void;
   }) => JSX.Element;
 }
 
 export type ReadProps = {
-  doValidation: (...args: any) => boolean;
+  doValidation?: (...args: any) => boolean;
 };
 
 export interface WriteProps {

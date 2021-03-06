@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import { Theme, makeStyles } from "@material-ui/core";
 import useFocus from "./useFocus";
 import { ReactBotFormChildContext, ReactBotFormContext } from "./Context";
@@ -18,7 +18,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
-  const { input, setResponse, index } = useContext(ReactBotFormChildContext);
+  const { input, setResponse, index, setIsValid } = useContext(
+    ReactBotFormChildContext
+  );
   const {
     responseInEdition,
     setResponseInEdition,
@@ -48,6 +50,7 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
         responseInEdition,
         setResponseInEdition,
         domRef,
+        setIsValid,
       })}
     </div>
   );

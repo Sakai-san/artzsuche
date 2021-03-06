@@ -256,6 +256,48 @@ const App: FunctionComponent = () => {
                 style={{ color: "#D52B1E" }}
               />
               <span style={{ fontSize: "18px" }}>
+                Do you have some kind of disability?
+              </span>
+            </Question>
+            <Response>
+              {({
+                input,
+                domRef,
+                setResponse,
+                index,
+                setResponseInEdition,
+                doValidation,
+                setIsValid,
+              }) => (
+                <TextField
+                  value={input}
+                  helperText={" "}
+                  onFocus={() => {
+                    !doValidation && setIsValid(true);
+                    setResponseInEdition(index);
+                  }}
+                  onBlur={() => setResponseInEdition(null)}
+                  onChange={(event: any) => {
+                    const value = event.target.value;
+                    setResponse(value);
+                  }}
+                  label="Pains you suffer from"
+                  type="text"
+                  multiline={true}
+                  variant="outlined"
+                  ref={domRef}
+                />
+              )}
+            </Response>
+          </section>
+
+          <section className={classes.question}>
+            <Question>
+              <LocalHospitalOutlinedIcon
+                fontSize="large"
+                style={{ color: "#D52B1E" }}
+              />
+              <span style={{ fontSize: "18px" }}>
                 Are there some pains you suffer from ?
               </span>
             </Question>
