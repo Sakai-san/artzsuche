@@ -91,8 +91,11 @@ const isDiscussionOver2 = (
   isBotTyping: boolean
 ) => {
   return (
-    Object.values(responses).filter((response) => response.isValid).length ===
-      children.length && !isBotTyping
+    (Object.values(responses).filter((response) => response.input !== undefined)
+      .length === children.length ||
+      Object.values(responses).filter((response) => response.isValid).length ===
+        children.length) &&
+    !isBotTyping
   );
 };
 
@@ -184,8 +187,8 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
           Next question
         </Button>
       )}
-      {(isDiscussionOver(responses, children) ||
-        isDiscussionOver2(responses, children, isBotTyping)) &&
+
+      {isDiscussionOver2(responses, children, isBotTyping) &&
         !hasError(responses) && (
           <Button
             variant="contained"

@@ -281,7 +281,7 @@ const App: FunctionComponent = () => {
                     const value = event.target.value;
                     setResponse(value);
                   }}
-                  label="Pains you suffer from"
+                  label="Disabilities"
                   type="text"
                   multiline={true}
                   variant="outlined"
