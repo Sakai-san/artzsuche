@@ -121,15 +121,8 @@ const App: FunctionComponent = () => {
                 input ? input.length >= 1 : false
               }
             >
-              {({
-                domRef,
-                doValidation,
-                setResponse,
-                index,
-                setResponseInEdition,
-              }) => (
+              {({ doValidation, setResponse, index, setResponseInEdition }) => (
                 <Autocomplete
-                  ref={domRef}
                   options={cantons}
                   getOptionLabel={(option) => option}
                   style={{ width: 300 }}
@@ -170,7 +163,6 @@ const App: FunctionComponent = () => {
                 input,
                 index,
                 setResponseInEdition,
-                domRef,
                 setResponse,
               }) => (
                 <TextField
@@ -190,7 +182,6 @@ const App: FunctionComponent = () => {
                   label="PLZ"
                   type="number"
                   variant="outlined"
-                  ref={domRef}
                 />
               )}
             </Response>
@@ -207,15 +198,8 @@ const App: FunctionComponent = () => {
               </span>
             </Question>
             <Response doValidation={(input: string | undefined) => !!input}>
-              {({
-                domRef,
-                doValidation,
-                setResponse,
-                index,
-                setResponseInEdition,
-              }) => (
+              {({ doValidation, setResponse, index, setResponseInEdition }) => (
                 <Autocomplete
-                  ref={domRef}
                   onFocus={() => setResponseInEdition(index)}
                   onBlur={() => setResponseInEdition(null)}
                   options={physicians}
@@ -263,7 +247,6 @@ const App: FunctionComponent = () => {
               {({
                 doValidation,
                 input,
-                domRef,
                 setResponse,
                 index,
                 setResponseInEdition,
@@ -287,7 +270,6 @@ const App: FunctionComponent = () => {
                   type="text"
                   multiline={true}
                   variant="outlined"
-                  ref={domRef}
                 />
               )}
             </Response>
@@ -304,7 +286,6 @@ const App: FunctionComponent = () => {
             <Response>
               {({
                 input,
-                domRef,
                 setResponse,
                 index,
                 setResponseInEdition,
@@ -324,7 +305,6 @@ const App: FunctionComponent = () => {
                   type="text"
                   multiline={true}
                   variant="outlined"
-                  ref={domRef}
                 />
               )}
             </Response>
