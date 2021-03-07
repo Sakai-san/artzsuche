@@ -4,17 +4,21 @@ import React, {
   useState,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import { Theme, makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
+import { PREFIX_DOM_ELEMENT_ID } from "./constants";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 
 import { Input, ReactBotFormProps, Responses } from "./types";
 
 import typingIndicator from "../giphy.gif";
+
+const FOCUSABLE_ELEMENTS = ["INPUT", "TEXTAREA", "SELECT"];
 
 const useStyles = makeStyles((theme: Theme) => ({
   content: {
@@ -132,7 +136,25 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
     }
   };
 
-  console.log("responses", JSON.stringify(responses));
+  // do focus
+  useEffect(() => {
+    if (!isBotTyping) {
+      const parentNode = document.querySelector(
+        `#${PREFIX_DOM_ELEMENT_ID}${
+          // first case on the first rendering and second case is on editing
+          responseInEdition === null ? currentQuestionIndex : responseInEdition
+        }`
+      );
+
+      // children
+      const node = parentNode?.querySelector?.(
+        FOCUSABLE_ELEMENTS.join(", ")
+      ) as any;
+
+      node?.focus?.();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [responseInEdition, isBotTyping]);
 
   return (
     <div className={classes.content}>
@@ -168,7 +190,6 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
           setResponseInEdition,
           isBotTyping,
           setIsBotTyping,
-          currentQuestionIndex,
         }}
       >
         {contextInChildren.slice(0, currentQuestionIndex + 1)}
@@ -185,7 +206,8 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         </Button>
       )}
 
-      {isDiscussionOver2(responses, children, isBotTyping) &&
+      {(isDiscussionOver ||
+        isDiscussionOver2(responses, children, isBotTyping)) &&
         !hasError(responses) && (
           <Button
             variant="contained"

@@ -84,10 +84,6 @@ const App: FunctionComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    console.log("formResponses", formResponses);
-  });
-
   const physicians: IPhysician[] = useSelector(
     (state: IReduxStore) => state.physicians
   );
@@ -323,10 +319,7 @@ const App: FunctionComponent = () => {
                     setResponseInEdition(index);
                   }}
                   onBlur={() => setResponseInEdition(null)}
-                  onChange={(event: any) => {
-                    const value = event.target.value;
-                    setResponse(value);
-                  }}
+                  onChange={(event: any) => setResponse(event.target.value)}
                   label="Something else"
                   type="text"
                   multiline={true}

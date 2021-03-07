@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, MutableRefObject } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 
 export type Input = string | undefined | null;
@@ -20,7 +20,6 @@ export interface ResponseProps {
     setResponse: (input: Input, isValid: boolean) => void;
     responseInEdition: null | number;
     setResponseInEdition: Dispatch<SetStateAction<null | number>>;
-    domRef: MutableRefObject<HTMLElement | null>;
     setIsValid: (isValid: boolean) => void;
   }) => JSX.Element;
 }
