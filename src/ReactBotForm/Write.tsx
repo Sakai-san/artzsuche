@@ -1,8 +1,8 @@
 // @ts-nocheck
 import React, { FunctionComponent, useContext } from "react";
 import { Theme, makeStyles } from "@material-ui/core";
+import useFocus from "./useFocus";
 import { ReactBotFormChildContext, ReactBotFormContext } from "./Context";
-import { PREFIX_DOM_ELEMENT_ID } from "./constants";
 import { WriteProps } from "./types";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -26,13 +26,14 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
   );
 
   const classes = useStyles();
+  const domRef = useFocus(responseInEdition, index);
 
   return (
     <div
-      id={`${PREFIX_DOM_ELEMENT_ID}${index}`}
+    /*
       className={
         isBotTyping ? classes.inputElementHidden : classes.inputElementVisible
-      }
+      }*/
     >
       {children?.({
         index,
@@ -42,6 +43,7 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
         responseInEdition,
         setResponseInEdition,
         setIsValid,
+        domRef,
       })}
     </div>
   );

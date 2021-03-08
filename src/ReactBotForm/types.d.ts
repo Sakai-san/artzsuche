@@ -21,6 +21,7 @@ export interface ResponseProps {
     responseInEdition: null | number;
     setResponseInEdition: Dispatch<SetStateAction<null | number>>;
     setIsValid: (isValid: boolean) => void;
+    domRef: MutableRefObject<HTMLElement | null>;
   }) => JSX.Element;
 }
 

@@ -121,8 +121,15 @@ const App: FunctionComponent = () => {
                 input ? input.length >= 1 : false
               }
             >
-              {({ doValidation, setResponse, index, setResponseInEdition }) => (
+              {({
+                doValidation,
+                setResponse,
+                index,
+                setResponseInEdition,
+                domRef,
+              }) => (
                 <Autocomplete
+                  ref={domRef}
                   options={cantons}
                   getOptionLabel={(option) => option}
                   style={{ width: 300 }}
@@ -164,8 +171,10 @@ const App: FunctionComponent = () => {
                 index,
                 setResponseInEdition,
                 setResponse,
+                domRef,
               }) => (
                 <TextField
+                  ref={domRef}
                   onFocus={() => setResponseInEdition(index)}
                   onBlur={() => setResponseInEdition(null)}
                   helperText={
@@ -198,8 +207,15 @@ const App: FunctionComponent = () => {
               </span>
             </Question>
             <Response doValidation={(input: string | undefined) => !!input}>
-              {({ doValidation, setResponse, index, setResponseInEdition }) => (
+              {({
+                doValidation,
+                setResponse,
+                index,
+                setResponseInEdition,
+                domRef,
+              }) => (
                 <Autocomplete
+                  ref={domRef}
                   onFocus={() => setResponseInEdition(index)}
                   onBlur={() => setResponseInEdition(null)}
                   options={physicians}
@@ -250,8 +266,10 @@ const App: FunctionComponent = () => {
                 setResponse,
                 index,
                 setResponseInEdition,
+                domRef,
               }) => (
                 <TextField
+                  ref={domRef}
                   value={input}
                   helperText={
                     (input !== undefined &&
@@ -291,8 +309,10 @@ const App: FunctionComponent = () => {
                 setResponseInEdition,
                 doValidation,
                 setIsValid,
+                domRef,
               }) => (
                 <TextField
+                  ref={domRef}
                   value={input}
                   helperText={" "}
                   onFocus={() => {
