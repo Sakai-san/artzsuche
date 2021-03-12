@@ -30,10 +30,9 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
 
   return (
     <div
-    /*
       className={
         isBotTyping ? classes.inputElementHidden : classes.inputElementVisible
-      }*/
+      }
     >
       {children?.({
         index,

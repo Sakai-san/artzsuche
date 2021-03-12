@@ -118,14 +118,6 @@ const setResponseFactory = (setReponses: SetReponses) => (index: number) => (
   }));
 };
 
-// none of the inputs are undefined, means the discussion is over
-const isDiscussionOver = (
-  responses: Responses,
-  children: ReactBotFormProps["children"]
-) =>
-  Object.values(responses).filter((response) => response.input !== undefined)
-    .length === children.length;
-
 const hasError = (
   responses: Responses,
   children: ReactBotFormProps["children"],
