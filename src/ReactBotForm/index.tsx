@@ -53,10 +53,51 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-type SetReponses = Dispatch<SetStateAction<Responses>>;
+/*
+const makeRange = (start, end) =>
+  Array(end - start + 1)
+    .fill()
+    .map((_, i) => start + i);
 
-const hasError = (responses: Responses) =>
-  Object.values(responses).some((response) => !response.isValid);
+
+   classes :
+
+   {
+     0: ['italic', 'bold'],
+     1: ['italic', 'bold'],
+     2: [],
+
+   }
+
+
+   formatting :
+   [
+     {
+        type: 'i',
+        start: 0,
+        end: 2,
+     },
+     {
+        type: 'i',
+        start: 0,
+        end: 2,
+     },
+     {
+        type: 'b',
+        start: 3,
+        end: 5,
+     },
+   ]
+
+
+
+const italic = (next) => (config, classes) => {
+  if (config) {
+  }
+};
+*/
+
+type SetReponses = Dispatch<SetStateAction<Responses>>;
 
 const setIsValidFactory = (setReponses: SetReponses) => (index: number) => (
   isValid: boolean
@@ -85,16 +126,13 @@ const isDiscussionOver = (
   Object.values(responses).filter((response) => response.input !== undefined)
     .length === children.length;
 
-const isDiscussionOver2 = (
+const hasError = (
   responses: Responses,
   children: ReactBotFormProps["children"],
   isBotTyping: boolean
-) => {
-  return (
-    Object.values(responses).filter((response) => response.isValid).length ===
-      children.length && !isBotTyping
-  );
-};
+) =>
+  Object.values(responses).filter((response) => response.isValid !== false)
+    .length === children.length && !isBotTyping;
 
 const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
   submitHandler,
@@ -182,26 +220,24 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         </Button>
       )}
 
-      {(isDiscussionOver ||
-        isDiscussionOver2(responses, children, isBotTyping)) &&
-        !hasError(responses) && (
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            endIcon={<SendIcon />}
-            onClick={(e) =>
-              submitHandler(
-                Object.entries(responses).reduce(
-                  (acc, [key, value]) => ({ ...acc, [key]: value.input }),
-                  {}
-                )
+      {hasError(responses, children, isBotTyping) && (
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          endIcon={<SendIcon />}
+          onClick={(e) =>
+            submitHandler(
+              Object.entries(responses).reduce(
+                (acc, [key, value]) => ({ ...acc, [key]: value.input }),
+                {}
               )
-            }
-          >
-            Send
-          </Button>
-        )}
+            )
+          }
+        >
+          Send
+        </Button>
+      )}
     </div>
   );
 };
