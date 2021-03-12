@@ -153,6 +153,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
       value={{
         index,
         input: responses?.[index]?.input,
+        isValid: responses?.[index]?.isValid,
         setResponse: setResponseFactory(setResponses)(index),
         setIsValid: setIsValidFactory(setResponses)(index),
       }}
