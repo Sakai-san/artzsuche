@@ -12,6 +12,6 @@ export const ReactBotFormChildContext = createContext<FormChildContext>({
   index: 0,
   input: undefined,
   isValid: undefined,
-  setResponse: (input: Input, isValid: boolean) => {},
+  setResponse: (input: Input, isValid?: boolean) => {},
   setIsValid: (isValid: boolean) => {},
 });

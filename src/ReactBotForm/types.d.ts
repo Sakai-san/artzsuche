@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 
-type DoValidation = (...args: any) => boolean;
-
 export type Input = string | undefined | null;
 
 export interface Response {
@@ -12,6 +10,10 @@ export interface Response {
 
 export type Responses = Record<string, Response>;
 
+type DoValidation = (...args: any) => boolean;
+type SetResponse = (input: Input, isValid?: boolean) => void;
+type SetIsValid = (isValid: boolean) => void;
+
 export interface ResponseProps {
   className?: string;
   doValidation?: DoValidation;
@@ -19,10 +21,10 @@ export interface ResponseProps {
     index: number;
     doValidation?: DoValidation;
     input: Response["input"];
-    setResponse: (input: Input, isValid?: boolean) => void;
+    setResponse: SetResponse;
     responseInEdition: null | number;
     setResponseInEdition: Dispatch<SetStateAction<null | number>>;
-    setIsValid: (isValid: boolean) => void;
+    setIsValid: SetIsValid;
     domRef: MutableRefObject<HTMLElement | null>;
   }) => JSX.Element;
 }
@@ -56,8 +58,8 @@ export interface FormChildContext {
   index: number;
   input: Response["input"];
   isValid: Response["isValid"] | undefined;
-  setResponse: (input: Input, isValid: boolean) => void;
-  setIsValid: (isValid: boolean) => void;
+  setResponse: SetResponse;
+  setIsValid: SetIsValid;
 }
 
 /*
