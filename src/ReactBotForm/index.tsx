@@ -109,7 +109,7 @@ const setIsValidFactory = (setReponses: SetReponses) => (index: number) => (
 
 const setResponseFactory = (setReponses: SetReponses) => (index: number) => (
   input: Input,
-  isValid = true
+  isValid: boolean = true
 ) => {
   setReponses((prevResponses) => ({
     ...prevResponses,
