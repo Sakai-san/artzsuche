@@ -8,7 +8,7 @@ export const ReactBotFormContext = createContext<FormContext>({
   setIsBotTyping: () => {},
 });
 
-export const ReactBotFormChildContext = createContext<FormChildContext | null>({
+export const ReactBotFormChildContext = createContext<FormChildContext>({
   index: 0,
   input: undefined,
   isValid: undefined,

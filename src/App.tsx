@@ -135,7 +135,7 @@ const App: FunctionComponent = () => {
                   onFocus={() => setResponseInEdition(index)}
                   onBlur={() => setResponseInEdition(null)}
                   onChange={(e, value) =>
-                    setResponse(value, doValidation(value))
+                    setResponse(value, doValidation?.(value))
                   }
                   renderInput={(params) => (
                     <TextField
@@ -178,15 +178,15 @@ const App: FunctionComponent = () => {
                   onBlur={() => setResponseInEdition(null)}
                   helperText={
                     (input !== undefined &&
-                      !doValidation(input) &&
+                      !doValidation?.(input) &&
                       "4 digits") ||
                     " "
                   }
                   onChange={(event: any) => {
                     const value = event.target.value;
-                    setResponse(value, doValidation(value));
+                    setResponse(value, doValidation?.(value));
                   }}
-                  error={!doValidation(input)}
+                  error={!doValidation?.(input)}
                   label="PLZ"
                   type="number"
                   variant="outlined"
@@ -226,7 +226,7 @@ const App: FunctionComponent = () => {
                   onChange={(e, value) =>
                     setResponse(
                       `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
-                      doValidation(value)
+                      doValidation?.(value)
                     )
                   }
                   renderInput={(params) => (
@@ -272,7 +272,7 @@ const App: FunctionComponent = () => {
                   value={input}
                   helperText={
                     (input !== undefined &&
-                      !doValidation(input) &&
+                      !doValidation?.(input) &&
                       "Please enter some text") ||
                     " "
                   }
@@ -280,9 +280,9 @@ const App: FunctionComponent = () => {
                   onBlur={() => setResponseInEdition(null)}
                   onChange={(event: any) => {
                     const value = event.target.value;
-                    setResponse(value, doValidation(value));
+                    setResponse(value, doValidation?.(value));
                   }}
-                  error={!doValidation(input)}
+                  error={!doValidation?.(input)}
                   label="Pains you suffer from"
                   type="text"
                   multiline={true}

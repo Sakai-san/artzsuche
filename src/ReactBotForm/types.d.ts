@@ -14,12 +14,12 @@ export type Responses = Record<string, Response>;
 
 export interface ResponseProps {
   className?: string;
-  doValidation?: (...args: any) => boolean;
+  doValidation?: DoValidation;
   children: (args: {
-    index: number | null;
-    doValidation?: (...args: any) => boolean;
+    index: number;
+    doValidation?: DoValidation;
     input: Response["input"];
-    setResponse: (input: Input, isValid: boolean) => void;
+    setResponse: (input: Input, isValid?: boolean) => void;
     responseInEdition: null | number;
     setResponseInEdition: Dispatch<SetStateAction<null | number>>;
     setIsValid: (isValid: boolean) => void;
