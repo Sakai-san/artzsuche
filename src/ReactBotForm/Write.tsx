@@ -1,7 +1,20 @@
-import { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent, useContext } from "react";
+import { Theme, makeStyles } from "@material-ui/core";
 import useFocus from "./useFocus";
 import { ReactBotFormChildContext, ReactBotFormContext } from "./Context";
 import { WriteProps } from "./types";
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    marginBottom: ({ type }: { type: string }) => {
+      if (type === "MuiAutocomplete") {
+        return "5px";
+      } else if (type === "MuiTextField") {
+        return "-17px";
+      }
+    },
+  },
+}));
 
 const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
   const { input, setResponse, index, setIsValid } = useContext(
@@ -12,8 +25,7 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
   );
 
   const domRef = useFocus(responseInEdition, index);
-
-  return children?.({
+  const kid = children?.({
     index,
     doValidation,
     input,
@@ -23,7 +35,11 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
     setIsValid,
     domRef,
   });
+  console.log("kid", kid);
+  const classes = useStyles({ type: kid?.type?.options?.name });
+  return <div className={classes.root}>{kid}</div>;
 };
+
 export default Write;
 
 /*

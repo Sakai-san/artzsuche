@@ -9,7 +9,7 @@ import { ReactBotFormChildContext, ReactBotFormContext } from "./Context";
 import { ReadProps } from "./types";
 
 const useStyles = makeStyles((theme: Theme) => ({
-  input: {
+  root: {
     display: "flex",
     alignItems: "flex-end",
     "&> svg": {
@@ -29,7 +29,7 @@ const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
   const { setResponseInEdition } = useContext(ReactBotFormContext);
 
   return (
-    <div className={classes.input}>
+    <div className={classes.root}>
       <Paper style={{ padding: "20px" }}>{input}</Paper>
       <div className={classes.icons}>
         <CreateRoundedIcon
