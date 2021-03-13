@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FunctionComponent, useContext } from "react";
 import Typist from "react-typist";
 import { ReactBotFormContext } from "./Context";

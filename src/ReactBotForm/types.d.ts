@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { PaletteOptions } from "@material-ui/core/styles/createPalette";
 
+type DoValidation = (...args: any) => boolean;
+
 export type Input = string | undefined | null;
 
 export interface Response {
@@ -26,11 +28,12 @@ export interface ResponseProps {
 }
 
 export type ReadProps = {
-  doValidation?: (...args: any) => boolean;
+  doValidation?: DoValidation;
 };
 
 export interface WriteProps {
   children: (...args: any) => JSX.Element;
+  doValidation?: DoValidation;
 }
 
 export interface ReactBotFormOptions {
@@ -40,6 +43,21 @@ export interface ReactBotFormOptions {
 export interface ReactBotFormProps {
   submitHandler: (responses: Record<string, Input>) => void;
   children: Array<JSX.Element>;
+}
+
+export interface FormContext {
+  responseInEdition: null | number;
+  setResponseInEdition: Dispatch<SetStateAction<null | number>>;
+  isBotTyping: boolean;
+  setIsBotTyping: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface FormChildContext {
+  index: number;
+  input: Response["input"];
+  isValid: Response["isValid"] | undefined;
+  setResponse: (input: Input, isValid: boolean) => void;
+  setIsValid: (isValid: boolean) => void;
 }
 
 /*

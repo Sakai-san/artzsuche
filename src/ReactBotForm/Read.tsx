@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FunctionComponent, useContext } from "react";
 import Paper from "@material-ui/core/Paper";
 import { green, red } from "@material-ui/core/colors";
