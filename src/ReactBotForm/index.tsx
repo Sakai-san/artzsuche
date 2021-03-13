@@ -109,11 +109,11 @@ const setIsValidFactory = (setReponses: SetReponses) => (index: number) => (
 
 const setResponseFactory = (setReponses: SetReponses) => (index: number) => (
   input: Input,
-  isValid?: boolean
+  isValid = true
 ) => {
   setReponses((prevResponses) => ({
     ...prevResponses,
-    [index]: { input, isValid: typeof isValid === undefined ? true : isValid },
+    [index]: { input, isValid },
   }));
 };
 
