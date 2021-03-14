@@ -4,11 +4,11 @@ import { green, red } from "@material-ui/core/colors";
 import CreateRoundedIcon from "@material-ui/icons/CreateRounded";
 import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
-import { Theme, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { ReactBotFormChildContext, ReactBotFormContext } from "./Context";
 import { ReadProps } from "./types";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     alignItems: "flex-end",

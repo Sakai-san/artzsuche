@@ -7,7 +7,7 @@ import React, {
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
-import { Theme, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 
@@ -15,7 +15,7 @@ import { Input, ReactBotFormProps, Responses } from "./types";
 
 import typingIndicator from "../giphy.gif";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   content: {
     width: "90%",
     margin: "20px auto",
