@@ -7,7 +7,19 @@ import { ResponseProps } from "./types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "78px",
+    display: "flex",
+    justifyContent: "flex-end",
+    height: "94px",
+    /*
+    
+    read => height: 76px
+    height: 71px in autocomplete
+    height: 93px in input number
+    height: 94px in textarea
+    */
+  },
+  write: {
+    marginTop: "15px",
   },
 }));
 
@@ -26,7 +38,11 @@ const Response: FunctionComponent<ResponseProps> = ({
         {responseInEdition !== index && isValid !== undefined ? (
           <Read doValidation={doValidation} />
         ) : (
-          !isBotTyping && <Write doValidation={doValidation}>{children}</Write>
+          !isBotTyping && (
+            <div className={classes.write}>
+              <Write doValidation={doValidation}>{children}</Write>
+            </div>
+          )
         )}
       </div>
     </section>

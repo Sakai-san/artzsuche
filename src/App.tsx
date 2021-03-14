@@ -39,10 +39,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: "#f2f2f3",
       padding: "3px 0 14px 5px",
     },
-    "& > *:nth-child(2)": {
-      marginTop: "15px",
-      marginLeft: "auto",
-    },
     "& svg": {
       position: "relative",
       top: "6px",

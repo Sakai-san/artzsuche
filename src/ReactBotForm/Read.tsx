@@ -10,6 +10,8 @@ import { ReadProps } from "./types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    position: "relative",
+    top: "-20px",
     display: "flex",
     alignItems: "flex-end",
     "&> svg": {
