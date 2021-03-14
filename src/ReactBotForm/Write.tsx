@@ -1,20 +1,7 @@
-import React, { FunctionComponent, useContext } from "react";
-import { makeStyles } from "@material-ui/core";
+import { FunctionComponent, useContext } from "react";
 import useFocus from "./useFocus";
 import { ReactBotFormChildContext, ReactBotFormContext } from "./Context";
 import { WriteProps } from "./types";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    marginBottom: ({ type }: { type: string }) => {
-      if (type === "MuiAutocomplete") {
-        return "5px";
-      } else if (type === "MuiTextField") {
-        return "-17px";
-      }
-    },
-  },
-}));
 
 const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
   const { input, setResponse, index, setIsValid } = useContext(
@@ -25,7 +12,7 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
   );
 
   const domRef = useFocus(responseInEdition, index);
-  const kid = children?.({
+  return children?.({
     index,
     doValidation,
     input,
@@ -35,9 +22,6 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
     setIsValid,
     domRef,
   });
-  console.log("kid", kid);
-  const classes = useStyles({ type: kid?.type?.options?.name });
-  return <div className={classes.root}>{kid}</div>;
 };
 
 export default Write;
@@ -50,6 +34,5 @@ ST.current = util.yaml.parse(currentYaml)\n\n\tconst editorRef = useRef<monaco.e
 onst decorationsRef = useRef<string[] | undefined>(undefined)\n\n\tconst e = editorRef.current\n\tconst m = monacoRef.current\n\n\tuseEffect(() => {\n\t\tif (e && m && currentAST.current && lastModifiedNode) {\n\
 t\t\tconst node = util.yaml.getNodeAtPath(\n\t\t\t\tlastModifiedNode,\n\t\t\t\tcurrentAST.current.contents\n\t\t\t)\n\t\t\tconst model = e.getModel()\n\t\t\tif (!node || !model) return\n\t\t\tconst range = node.r
 ange\n\t\t\tif (!range || !range.length) return\n\n\t\t\tc
-
 
 */
