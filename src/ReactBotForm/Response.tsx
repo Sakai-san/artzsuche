@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
     height: "94px",
+    marginBottom: "40px",
     /*
     
     read => height: 76px
@@ -33,19 +34,17 @@ const Response: FunctionComponent<ResponseProps> = ({
   const classes = useStyles();
 
   return (
-    <section>
-      <div className={classes.root}>
-        {responseInEdition !== index && isValid !== undefined ? (
-          <Read doValidation={doValidation} />
-        ) : (
-          !isBotTyping && (
-            <div className={classes.write}>
-              <Write doValidation={doValidation}>{children}</Write>
-            </div>
-          )
-        )}
-      </div>
-    </section>
+    <div className={classes.root}>
+      {responseInEdition !== index && isValid !== undefined ? (
+        <Read doValidation={doValidation} />
+      ) : (
+        !isBotTyping && (
+          <div className={classes.write}>
+            <Write doValidation={doValidation}>{children}</Write>
+          </div>
+        )
+      )}
+    </div>
   );
 };
 
