@@ -23,7 +23,7 @@ import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
 import { Input } from "./ReactBotForm/types";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   toolbar: {
     backgroundColor: "#FF51A1",
     minHeight: 80,
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const App: FunctionComponent = () => {
-  const classes = useStyles({});
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   const [formResponses, setFormResponses] = useState<null | Record<
@@ -101,7 +101,7 @@ const App: FunctionComponent = () => {
         <ReactBotForm
           submitHandler={(responses) => setFormResponses(responses)}
         >
-          <section className={classes.question}>
+          <>
             <Question>
               <LocalHospitalRoundedIcon
                 fontSize="large"
@@ -150,9 +150,9 @@ const App: FunctionComponent = () => {
                 />
               )}
             </Response>
-          </section>
+          </>
 
-          <section className={classes.question}>
+          <>
             <Question>
               <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
               <span style={{ fontSize: "18px" }}>
@@ -197,9 +197,9 @@ const App: FunctionComponent = () => {
                 />
               )}
             </Response>
-          </section>
+          </>
 
-          <section className={classes.question}>
+          <>
             <Question>
               <LocalHospitalOutlinedIcon
                 fontSize="large"
@@ -250,9 +250,9 @@ const App: FunctionComponent = () => {
                 />
               )}
             </Response>
-          </section>
+          </>
 
-          <section className={classes.question}>
+          <>
             <Question>
               <LocalHospitalOutlinedIcon
                 fontSize="large"
@@ -302,9 +302,9 @@ const App: FunctionComponent = () => {
                 />
               )}
             </Response>
-          </section>
+          </>
 
-          <section className={classes.question}>
+          <>
             <Question>
               <LocalHospitalOutlinedIcon
                 fontSize="large"
@@ -339,7 +339,7 @@ const App: FunctionComponent = () => {
                 />
               )}
             </Response>
-          </section>
+          </>
         </ReactBotForm>
       )}
     </div>
