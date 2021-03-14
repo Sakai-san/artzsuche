@@ -125,6 +125,7 @@ const App: FunctionComponent = () => {
                 setResponse,
                 index,
                 setResponseInEdition,
+                setIsValid,
                 domRef,
               }) => (
                 <Autocomplete
@@ -132,7 +133,10 @@ const App: FunctionComponent = () => {
                   options={cantons}
                   getOptionLabel={(option) => option}
                   style={{ width: 300 }}
-                  onFocus={() => setResponseInEdition(index)}
+                  onFocus={() => {
+                    !doValidation && setIsValid(true);
+                    setResponseInEdition(index);
+                  }}
                   onBlur={() => setResponseInEdition(null)}
                   onChange={(e, value) =>
                     setResponse(value, doValidation?.(value))
@@ -170,11 +174,15 @@ const App: FunctionComponent = () => {
                 index,
                 setResponseInEdition,
                 setResponse,
+                setIsValid,
                 domRef,
               }) => (
                 <TextField
                   ref={domRef}
-                  onFocus={() => setResponseInEdition(index)}
+                  onFocus={() => {
+                    !doValidation && setIsValid(true);
+                    setResponseInEdition(index);
+                  }}
                   onBlur={() => setResponseInEdition(null)}
                   helperText={
                     (input !== undefined &&
@@ -211,11 +219,15 @@ const App: FunctionComponent = () => {
                 setResponse,
                 index,
                 setResponseInEdition,
+                setIsValid,
                 domRef,
               }) => (
                 <Autocomplete
                   ref={domRef}
-                  onFocus={() => setResponseInEdition(index)}
+                  onFocus={() => {
+                    !doValidation && setIsValid(true);
+                    setResponseInEdition(index);
+                  }}
                   onBlur={() => setResponseInEdition(null)}
                   options={physicians}
                   getOptionLabel={(option) =>
@@ -265,6 +277,7 @@ const App: FunctionComponent = () => {
                 setResponse,
                 index,
                 setResponseInEdition,
+                setIsValid,
                 domRef,
               }) => (
                 <TextField
@@ -276,7 +289,10 @@ const App: FunctionComponent = () => {
                       "Please enter some text") ||
                     " "
                   }
-                  onFocus={() => setResponseInEdition(index)}
+                  onFocus={() => {
+                    !doValidation && setIsValid(true);
+                    setResponseInEdition(index);
+                  }}
                   onBlur={() => setResponseInEdition(null)}
                   onChange={(event: any) => {
                     const value = event.target.value;
