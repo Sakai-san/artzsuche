@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Theme, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 
@@ -32,13 +32,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   question: {
-    display: "flex",
-    flexDirection: "column",
-    "& > *:first-child": {
-      borderRadius: "0px 10px 10px 10px",
-      backgroundColor: "#f2f2f3",
-      padding: "3px 0 14px 5px",
-    },
     "& svg": {
       position: "relative",
       top: "6px",
@@ -101,7 +94,7 @@ const App: FunctionComponent = () => {
         <ReactBotForm
           submitHandler={(responses) => setFormResponses(responses)}
         >
-          <>
+          <div>
             <Question>
               <LocalHospitalRoundedIcon
                 fontSize="large"
@@ -150,9 +143,9 @@ const App: FunctionComponent = () => {
                 />
               )}
             </Response>
-          </>
+          </div>
 
-          <>
+          <div>
             <Question>
               <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
               <span style={{ fontSize: "18px" }}>
@@ -197,9 +190,9 @@ const App: FunctionComponent = () => {
                 />
               )}
             </Response>
-          </>
+          </div>
 
-          <>
+          <div>
             <Question>
               <LocalHospitalOutlinedIcon
                 fontSize="large"
@@ -250,9 +243,9 @@ const App: FunctionComponent = () => {
                 />
               )}
             </Response>
-          </>
+          </div>
 
-          <>
+          <div>
             <Question>
               <LocalHospitalOutlinedIcon
                 fontSize="large"
@@ -302,9 +295,9 @@ const App: FunctionComponent = () => {
                 />
               )}
             </Response>
-          </>
+          </div>
 
-          <>
+          <div>
             <Question>
               <LocalHospitalOutlinedIcon
                 fontSize="large"
@@ -339,7 +332,7 @@ const App: FunctionComponent = () => {
                 />
               )}
             </Response>
-          </>
+          </div>
         </ReactBotForm>
       )}
     </div>

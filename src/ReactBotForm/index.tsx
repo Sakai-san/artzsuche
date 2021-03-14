@@ -3,6 +3,7 @@ import React, {
   useState,
   Dispatch,
   SetStateAction,
+  cloneElement,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
@@ -16,6 +17,10 @@ import { Input, ReactBotFormProps, Responses } from "./types";
 import typingIndicator from "../giphy.gif";
 
 const useStyles = makeStyles((theme) => ({
+  child: {
+    display: "flex",
+    flexDirection: "column",
+  },
   content: {
     width: "90%",
     margin: "20px auto",
@@ -157,7 +162,9 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         setIsValid: setIsValidFactory(setResponses)(index),
       }}
     >
-      {child}
+      {cloneElement(child, {
+        className: classes.child,
+      })}
     </ReactBotFormChildContext.Provider>
   ));
 
