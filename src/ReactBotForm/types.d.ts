@@ -65,5 +65,4 @@ export interface FormChildContext {
 /*
  TODO's:
   - Theming to be passed as option to the library
-  - current question asked by bot scrollTo
 */
