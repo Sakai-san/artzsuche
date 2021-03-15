@@ -1,8 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import TextField from "@material-ui/core/TextField";
 
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -15,7 +13,6 @@ import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 import ReactBotForm from "./ReactBotForm";
 import In from "./ReactBotForm/Input";
 import Question from "./ReactBotForm/Question";
-import Response from "./ReactBotForm/Response";
 import { physiciansOperations } from "./ducks/physicians";
 import { cantonsOperations } from "./ducks/cantons";
 
@@ -145,44 +142,15 @@ const App: FunctionComponent = () => {
                 Wähle einen Artz / eine Artzin ?
               </span>
             </Question>
-            <Response doValidation={(input: string | undefined) => !!input}>
-              {({
-                doValidation,
-                setResponse,
-                index,
-                setResponseInEdition,
-                setIsValid,
-                ref,
-              }) => (
-                <Autocomplete
-                  ref={ref}
-                  onFocus={() => {
-                    !doValidation && setIsValid(true);
-                    setResponseInEdition(index);
-                  }}
-                  onBlur={() => setResponseInEdition(null)}
-                  options={physicians}
-                  getOptionLabel={(option) =>
-                    `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}` ||
-                    ""
-                  }
-                  style={{ width: 300 }}
-                  onChange={(e, value) =>
-                    setResponse(
-                      `${value?.ProductDoctorname}, ${value?.ProductDoctorCom}`,
-                      doValidation?.(value)
-                    )
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Suche nach einem/er Artz/in"
-                      variant="outlined"
-                    />
-                  )}
-                />
-              )}
-            </Response>
+            <In
+              type="autocomplete"
+              options={physicians}
+              doValidation={(input: string | undefined) => !!input}
+              getOptionLabel={(option) =>
+                `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}`
+              }
+              label="Suche nach einem/er Artz/in"
+            />
           </div>
 
           <div>
@@ -195,46 +163,14 @@ const App: FunctionComponent = () => {
                 Are there some pains you suffer from ?
               </span>
             </Question>
-            <Response
+            <In
+              type="textarea"
+              errorMessage="Please enter some text"
               doValidation={(input: string | undefined) =>
                 !!(input && input?.length >= 4)
               }
-            >
-              {({
-                doValidation,
-                input,
-                setResponse,
-                index,
-                setResponseInEdition,
-                setIsValid,
-                ref,
-              }) => (
-                <TextField
-                  ref={ref}
-                  value={input}
-                  helperText={
-                    (input !== undefined &&
-                      !doValidation?.(input) &&
-                      "Please enter some text") ||
-                    " "
-                  }
-                  onFocus={() => {
-                    !doValidation && setIsValid(true);
-                    setResponseInEdition(index);
-                  }}
-                  onBlur={() => setResponseInEdition(null)}
-                  onChange={(event: any) => {
-                    const value = event.target.value;
-                    setResponse(value, doValidation?.(value));
-                  }}
-                  error={!doValidation?.(input)}
-                  label="Pains you suffer from"
-                  type="text"
-                  multiline={true}
-                  variant="outlined"
-                />
-              )}
-            </Response>
+              label="Pains you suffer from"
+            />
           </div>
 
           <div>
@@ -245,33 +181,7 @@ const App: FunctionComponent = () => {
               />
               <span style={{ fontSize: "18px" }}>Something else ?</span>
             </Question>
-            <Response>
-              {({
-                input,
-                setResponse,
-                index,
-                setResponseInEdition,
-                doValidation,
-                setIsValid,
-                ref,
-              }) => (
-                <TextField
-                  ref={ref}
-                  value={input}
-                  helperText=" "
-                  onFocus={() => {
-                    !doValidation && setIsValid(true);
-                    setResponseInEdition(index);
-                  }}
-                  onBlur={() => setResponseInEdition(null)}
-                  onChange={(event: any) => setResponse(event.target.value)}
-                  label="Something else"
-                  type="text"
-                  multiline={true}
-                  variant="outlined"
-                />
-              )}
-            </Response>
+            <In type="textarea" label="Something else" />
           </div>
         </ReactBotForm>
       )}

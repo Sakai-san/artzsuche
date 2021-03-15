@@ -42,13 +42,20 @@ const getComponent = (type: string, config: RenderProps & InputProps) => {
             setResponseInEdition(index);
           }}
           onBlur={() => setResponseInEdition(null)}
-          onChange={(e, value) => setResponse(value, doValidation?.(value))}
+          onChange={(e, value) =>
+            setResponse(
+              props.getOptionLabel?.(value) || value,
+              doValidation?.(value)
+            )
+          }
           renderInput={(params) => (
             <TextField {...params} label={label} variant="outlined" />
           )}
         />
       );
     }
+    case "text":
+    case "textarea":
     case "number": {
       const { getOptionLabel, options, ...localProps } = props;
       return (
@@ -67,10 +74,11 @@ const getComponent = (type: string, config: RenderProps & InputProps) => {
             const value = event.target.value;
             setResponse(value, doValidation?.(value));
           }}
-          error={!doValidation?.(input)}
+          error={doValidation && !doValidation?.(input)}
           label={label}
-          type="number"
+          type={type}
           variant="outlined"
+          multiline={type === "textarea"}
         />
       );
     }
@@ -89,6 +97,7 @@ const Input: FunctionComponent<InputProps> = ({
     <Response doValidation={doValidation}>
       {({
         doValidation,
+        input,
         setResponse,
         index,
         setResponseInEdition,
@@ -99,6 +108,7 @@ const Input: FunctionComponent<InputProps> = ({
           label,
           doValidation,
           setResponse,
+          input,
           index,
           setResponseInEdition,
           setIsValid,
