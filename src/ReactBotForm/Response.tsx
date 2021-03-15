@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Response: FunctionComponent<ResponseProps> = ({
   children,
-  className,
   doValidation,
 }) => {
   const { responseInEdition, isBotTyping } = useContext(ReactBotFormContext);

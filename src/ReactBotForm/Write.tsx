@@ -30,7 +30,7 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
     ReactBotFormContext
   );
   const classes = useStyles();
-  const domRef = useFocus(responseInEdition, index);
+  const ref = useFocus(responseInEdition, index);
 
   return (
     // only the very first rendering is animated
@@ -43,7 +43,7 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
         responseInEdition,
         setResponseInEdition,
         setIsValid,
-        domRef,
+        ref,
       })}
     </div>
   );

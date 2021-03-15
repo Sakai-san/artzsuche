@@ -13,19 +13,20 @@ type DoValidation = (...args: any) => boolean;
 type SetResponse = (input: Input, isValid?: boolean) => void;
 type SetIsValid = (isValid: boolean) => void;
 
-export interface ResponseProps {
-  className?: string;
+export type RenderProps = {
+  index: number;
   doValidation?: DoValidation;
-  children: (args: {
-    index: number;
-    doValidation?: DoValidation;
-    input: Response["input"];
-    setResponse: SetResponse;
-    responseInEdition: null | number;
-    setResponseInEdition: Dispatch<SetStateAction<null | number>>;
-    setIsValid: SetIsValid;
-    domRef: MutableRefObject<HTMLElement | null>;
-  }) => JSX.Element;
+  input: Response["input"];
+  setResponse: SetResponse;
+  responseInEdition: null | number;
+  setResponseInEdition: Dispatch<SetStateAction<null | number>>;
+  setIsValid: SetIsValid;
+  ref: MutableRefObject<HTMLElement | null>;
+};
+
+export interface ResponseProps {
+  doValidation?: DoValidation;
+  children: (args: RenderProps) => JSX.Element;
 }
 
 export type ReadProps = {

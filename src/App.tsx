@@ -125,44 +125,14 @@ const App: FunctionComponent = () => {
                 Was ist die Postleitzahl deines Wohnortes ?
               </span>
             </Question>
-            <Response
+            <In
+              type="number"
+              errorMessage="4 digits"
               doValidation={(input: string | undefined) =>
                 !!(input && input.match(/^[1-9][0-9]{3}$/))
               }
-            >
-              {({
-                doValidation,
-                input,
-                index,
-                setResponseInEdition,
-                setResponse,
-                setIsValid,
-                domRef,
-              }) => (
-                <TextField
-                  ref={domRef}
-                  onFocus={() => {
-                    !doValidation && setIsValid(true);
-                    setResponseInEdition(index);
-                  }}
-                  onBlur={() => setResponseInEdition(null)}
-                  helperText={
-                    (input !== undefined &&
-                      !doValidation?.(input) &&
-                      "4 digits") ||
-                    " "
-                  }
-                  onChange={(event: any) => {
-                    const value = event.target.value;
-                    setResponse(value, doValidation?.(value));
-                  }}
-                  error={!doValidation?.(input)}
-                  label="PLZ"
-                  type="number"
-                  variant="outlined"
-                />
-              )}
-            </Response>
+              label="PLZ"
+            />
           </div>
 
           <div>
@@ -182,10 +152,10 @@ const App: FunctionComponent = () => {
                 index,
                 setResponseInEdition,
                 setIsValid,
-                domRef,
+                ref,
               }) => (
                 <Autocomplete
-                  ref={domRef}
+                  ref={ref}
                   onFocus={() => {
                     !doValidation && setIsValid(true);
                     setResponseInEdition(index);
@@ -237,10 +207,10 @@ const App: FunctionComponent = () => {
                 index,
                 setResponseInEdition,
                 setIsValid,
-                domRef,
+                ref,
               }) => (
                 <TextField
-                  ref={domRef}
+                  ref={ref}
                   value={input}
                   helperText={
                     (input !== undefined &&
@@ -283,10 +253,10 @@ const App: FunctionComponent = () => {
                 setResponseInEdition,
                 doValidation,
                 setIsValid,
-                domRef,
+                ref,
               }) => (
                 <TextField
-                  ref={domRef}
+                  ref={ref}
                   value={input}
                   helperText=" "
                   onFocus={() => {
