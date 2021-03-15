@@ -13,6 +13,7 @@ import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 
 import ReactBotForm from "./ReactBotForm";
+import In from "./ReactBotForm/Input";
 import Question from "./ReactBotForm/Question";
 import Response from "./ReactBotForm/Response";
 import { physiciansOperations } from "./ducks/physicians";
@@ -106,42 +107,15 @@ const App: FunctionComponent = () => {
                 Im welchem Kanton wohnst du ?
               </span>
             </Question>
-            <Response
+            <In
+              type="autocomplete"
+              options={cantons}
               doValidation={(input: string | undefined) =>
                 input ? input.length >= 1 : false
               }
-            >
-              {({
-                doValidation,
-                setResponse,
-                index,
-                setResponseInEdition,
-                setIsValid,
-                domRef,
-              }) => (
-                <Autocomplete
-                  ref={domRef}
-                  options={cantons}
-                  getOptionLabel={(option) => option}
-                  style={{ width: 300 }}
-                  onFocus={() => {
-                    !doValidation && setIsValid(true);
-                    setResponseInEdition(index);
-                  }}
-                  onBlur={() => setResponseInEdition(null)}
-                  onChange={(e, value) =>
-                    setResponse(value, doValidation?.(value))
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Wähle bitte deinen Kanton"
-                      variant="outlined"
-                    />
-                  )}
-                />
-              )}
-            </Response>
+              getOptionLabel={(option: string) => option}
+              label="Wähle bitte deinen Kanton"
+            />
           </div>
 
           <div>
