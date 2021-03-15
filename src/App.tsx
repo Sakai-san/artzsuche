@@ -135,7 +135,6 @@ const App: FunctionComponent = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      color="secondary"
                       label="Wähle bitte deinen Kanton"
                       variant="outlined"
                       inputProps={{
@@ -170,7 +169,6 @@ const App: FunctionComponent = () => {
                 domRef,
               }) => (
                 <TextField
-                  color="secondary"
                   ref={domRef}
                   onFocus={() => {
                     !doValidation && setIsValid(true);
@@ -237,7 +235,6 @@ const App: FunctionComponent = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      color="secondary"
                       label="Suche nach einem/er Artz/in"
                       variant="outlined"
                       inputProps={{
@@ -275,7 +272,6 @@ const App: FunctionComponent = () => {
                 domRef,
               }) => (
                 <TextField
-                  color="secondary"
                   ref={domRef}
                   value={input}
                   helperText={
@@ -322,7 +318,6 @@ const App: FunctionComponent = () => {
                 domRef,
               }) => (
                 <TextField
-                  color="secondary"
                   ref={domRef}
                   value={input}
                   helperText={" "}

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useEffect, useRef } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { makeStyles, createStyles } from "@material-ui/core";
 import useFocus from "./useFocus";
 import { ReactBotFormChildContext, ReactBotFormContext } from "./Context";
