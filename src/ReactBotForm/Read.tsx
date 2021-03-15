@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
+  value: {
+    whiteSpace: "pre-wrap",
+  },
 }));
 
 const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
@@ -32,7 +35,9 @@ const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
 
   return (
     <div className={classes.root}>
-      <Paper style={{ padding: "20px" }}>{input}</Paper>
+      <Paper style={{ padding: "20px" }} className={classes.value}>
+        {input}
+      </Paper>
       <div className={classes.icons}>
         <CreateRoundedIcon
           fontSize="small"
