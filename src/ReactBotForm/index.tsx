@@ -24,11 +24,6 @@ const useStyles = makeStyles((theme) => ({
   content: {
     width: "90%",
     margin: "20px auto",
-    "&>section:not(:first-child)": {
-      padding: "5px",
-      marginTop: "30px",
-      borderRadius: "6px 6px",
-    },
   },
   lanes: {
     display: "flex",
