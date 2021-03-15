@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { PaletteOptions } from "@material-ui/core/styles/createPalette";
+import { ThemeOptions } from "@material-ui/core/styles/createMuiTheme";
 
 export type Input = string | undefined | null;
 
@@ -38,13 +38,12 @@ export interface WriteProps {
   doValidation?: DoValidation;
 }
 
-export interface ReactBotFormOptions {
-  theme?: PaletteOptions;
-}
-
 export interface ReactBotFormProps {
   submitHandler: (responses: Record<string, Input>) => void;
   children: Array<JSX.Element>;
+  options?: {
+    theme?: ThemeOptions;
+  };
 }
 
 export interface FormContext {

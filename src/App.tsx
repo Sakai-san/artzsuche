@@ -57,6 +57,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const palette = {
+  primary: {
+    light: "#7986cb",
+    main: "#3f51b5",
+    dark: "#303f9f",
+    contrastText: "#fff",
+  },
+  secondary: {
+    light: "#ff4081",
+    main: "#f50057",
+    dark: "#c51162",
+    contrastText: "#fff",
+  },
+  error: {
+    light: "#e57373",
+    main: "#f44336",
+    dark: "#d32f2f",
+    contrastText: "#fff",
+  },
+  warning: {
+    light: "#ffb74d",
+    main: "#ff9800",
+    dark: "#f57c00",
+    contrastText: "rgba(0, 0, 0, 0.87)",
+  },
+  info: {
+    light: "#64b5f6",
+    main: "#2196f3",
+    dark: "#1976d2",
+    contrastText: "#fff",
+  },
+  success: {
+    light: "#81c784",
+    main: "#4caf50",
+    dark: "#388e3c",
+    contrastText: "rgba(0, 0, 0, 0.87)",
+  },
+};
+
 const App: FunctionComponent = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -87,12 +126,15 @@ const App: FunctionComponent = () => {
           <ForumIcon fontSize="large" />
         </Toolbar>
       </AppBar>
-
+      <div>
+        <option></option>
+      </div>
       {formResponses ? (
         <div className={classes.completed}>Messi vielmals for your time !</div>
       ) : (
         <ReactBotForm
           submitHandler={(responses) => setFormResponses(responses)}
+          options={{ theme: { palette } }}
         >
           <div>
             <Question>
@@ -133,6 +175,7 @@ const App: FunctionComponent = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
+                      color="secondary"
                       label="Wähle bitte deinen Kanton"
                       variant="outlined"
                       inputProps={{
@@ -167,6 +210,7 @@ const App: FunctionComponent = () => {
                 domRef,
               }) => (
                 <TextField
+                  color="secondary"
                   ref={domRef}
                   onFocus={() => {
                     !doValidation && setIsValid(true);
@@ -233,6 +277,7 @@ const App: FunctionComponent = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
+                      color="secondary"
                       label="Suche nach einem/er Artz/in"
                       variant="outlined"
                       inputProps={{
@@ -270,6 +315,7 @@ const App: FunctionComponent = () => {
                 domRef,
               }) => (
                 <TextField
+                  color="secondary"
                   ref={domRef}
                   value={input}
                   helperText={
@@ -316,6 +362,7 @@ const App: FunctionComponent = () => {
                 domRef,
               }) => (
                 <TextField
+                  color="secondary"
                   ref={domRef}
                   value={input}
                   helperText={" "}

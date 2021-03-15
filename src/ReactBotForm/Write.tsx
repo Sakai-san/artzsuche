@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) =>
       },
     },
     display: {
-      animation: `$display ${ANIMATION_DURATION}ms ease-in`,
+      // animation: `$display ${ANIMATION_DURATION}ms ease-in`,
     },
   })
 );

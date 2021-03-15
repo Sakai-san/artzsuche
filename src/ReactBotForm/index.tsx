@@ -5,6 +5,8 @@ import React, {
   SetStateAction,
   cloneElement,
 } from "react";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
@@ -136,6 +138,7 @@ const hasError = (
 const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
   submitHandler,
   children,
+  options,
 }) => {
   const classes = useStyles({});
 
@@ -171,76 +174,80 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
       setIsBotTyping(false);
     }
   };
-
+  console.log("palette", options);
   return (
-    <div className={classes.content}>
-      <section className={classes.lanes}>
-        <div>
-          <img
-            style={{ visibility: isBotTyping ? "visible" : "hidden" }}
-            className={classes.typing}
-            src={typingIndicator}
-            alt="Typing indicator"
-          />
-          <Avatar alt="bot" className={classes.bot}>
-            <span>&#129302;</span>
-          </Avatar>
-        </div>
-        <div>
-          <img
-            style={{
-              visibility: responseInEdition !== null ? "visible" : "hidden",
-            }}
-            className={classes.typing}
-            src={typingIndicator}
-            alt="Typing indicator"
-          />
-          <Avatar alt="you" className={classes.orange}>
-            You
-          </Avatar>
-        </div>
-      </section>
-      <ReactBotFormContext.Provider
-        value={{
-          responseInEdition,
-          setResponseInEdition,
-          isBotTyping,
-          setIsBotTyping,
-        }}
-      >
-        {contextInChildren.slice(0, currentQuestionIndex + 1)}
-      </ReactBotFormContext.Provider>
-      {children.length - currentQuestionIndex !== 1 && (
-        <Button
-          variant="outlined"
-          color="secondary"
-          size="large"
-          endIcon="->"
-          onClick={next}
-        >
-          Next question
-        </Button>
-      )}
+    <ThemeProvider theme={createMuiTheme(options?.theme || {})}>
+      <div className={classes.content}>
+        <section className={classes.lanes}>
+          <div>
+            <img
+              style={{ visibility: isBotTyping ? "visible" : "hidden" }}
+              className={classes.typing}
+              src={typingIndicator}
+              alt="Typing indicator"
+            />
+            <Avatar alt="bot" className={classes.bot}>
+              <span>&#129302;</span>
+            </Avatar>
+          </div>
+          <div>
+            <img
+              style={{
+                visibility: responseInEdition !== null ? "visible" : "hidden",
+              }}
+              className={classes.typing}
+              src={typingIndicator}
+              alt="Typing indicator"
+            />
+            <Avatar alt="you" className={classes.orange}>
+              You
+            </Avatar>
+          </div>
+        </section>
 
-      {hasError(responses, children, isBotTyping) && (
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          endIcon={<SendIcon />}
-          onClick={(e) =>
-            submitHandler(
-              Object.entries(responses).reduce(
-                (acc, [key, value]) => ({ ...acc, [key]: value.input }),
-                {}
-              )
-            )
-          }
+        <ReactBotFormContext.Provider
+          value={{
+            responseInEdition,
+            setResponseInEdition,
+            isBotTyping,
+            setIsBotTyping,
+          }}
         >
-          Send
-        </Button>
-      )}
-    </div>
+          {contextInChildren.slice(0, currentQuestionIndex + 1)}
+        </ReactBotFormContext.Provider>
+
+        {children.length - currentQuestionIndex !== 1 && (
+          <Button
+            variant="outlined"
+            color="secondary"
+            size="large"
+            endIcon="->"
+            onClick={next}
+          >
+            Next question
+          </Button>
+        )}
+
+        {hasError(responses, children, isBotTyping) && (
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            endIcon={<SendIcon />}
+            onClick={(e) =>
+              submitHandler(
+                Object.entries(responses).reduce(
+                  (acc, [key, value]) => ({ ...acc, [key]: value.input }),
+                  {}
+                )
+              )
+            }
+          >
+            Send
+          </Button>
+        )}
+      </div>
+    </ThemeProvider>
   );
 };
 
