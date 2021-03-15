@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from "react";
-import { ThemeOptions } from "@material-ui/core/styles/createMuiTheme";
 
 export type Input = string | undefined | null;
 
@@ -41,9 +40,6 @@ export interface WriteProps {
 export interface ReactBotFormProps {
   submitHandler: (responses: Record<string, Input>) => void;
   children: Array<JSX.Element>;
-  options?: {
-    theme?: ThemeOptions;
-  };
 }
 
 export interface FormContext {
@@ -60,8 +56,3 @@ export interface FormChildContext {
   setResponse: SetResponse;
   setIsValid: SetIsValid;
 }
-
-/*
- TODO's:
-  - Theming to be passed as option to the library
-*/
