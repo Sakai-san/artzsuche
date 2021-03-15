@@ -137,9 +137,6 @@ const App: FunctionComponent = () => {
                       {...params}
                       label="Wähle bitte deinen Kanton"
                       variant="outlined"
-                      inputProps={{
-                        ...params.inputProps,
-                      }}
                     />
                   )}
                 />
@@ -237,9 +234,6 @@ const App: FunctionComponent = () => {
                       {...params}
                       label="Suche nach einem/er Artz/in"
                       variant="outlined"
-                      inputProps={{
-                        ...params.inputProps,
-                      }}
                     />
                   )}
                 />
@@ -320,7 +314,7 @@ const App: FunctionComponent = () => {
                 <TextField
                   ref={domRef}
                   value={input}
-                  helperText={" "}
+                  helperText=" "
                   onFocus={() => {
                     !doValidation && setIsValid(true);
                     setResponseInEdition(index);
