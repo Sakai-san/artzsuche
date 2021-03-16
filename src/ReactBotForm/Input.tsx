@@ -23,7 +23,7 @@ const getComponent = (type: string, config: RenderProps & InputProps) => {
     label,
     doValidation,
     setResponse,
-    input,
+    inputedValue,
     index,
     setResponseInEdition,
     setIsValid,
@@ -60,9 +60,11 @@ const getComponent = (type: string, config: RenderProps & InputProps) => {
       const { getOptionLabel, options, ...localProps } = props;
       return (
         <TextField
-          {...{ ...localProps, value: input }}
+          {...{ ...localProps, value: inputedValue }}
           helperText={
-            (input !== undefined && !doValidation?.(input) && errorMessage) ||
+            (inputedValue !== undefined &&
+              !doValidation?.(inputedValue) &&
+              errorMessage) ||
             " "
           }
           onFocus={() => {
@@ -70,11 +72,11 @@ const getComponent = (type: string, config: RenderProps & InputProps) => {
             setResponseInEdition(index);
           }}
           onBlur={() => setResponseInEdition(null)}
-          onChange={(event: any) => {
-            const value = event.target.value;
+          onChange={(e) => {
+            const value = e.target.value;
             setResponse(value, doValidation?.(value));
           }}
-          error={doValidation && !doValidation?.(input)}
+          error={doValidation && !doValidation?.(inputedValue)}
           label={label}
           type={type}
           variant="outlined"
@@ -97,7 +99,7 @@ const Input: FunctionComponent<InputProps> = ({
     <Response doValidation={doValidation}>
       {({
         doValidation,
-        input,
+        inputedValue,
         setResponse,
         index,
         setResponseInEdition,
@@ -108,7 +110,7 @@ const Input: FunctionComponent<InputProps> = ({
           label,
           doValidation,
           setResponse,
-          input,
+          inputedValue,
           index,
           setResponseInEdition,
           setIsValid,

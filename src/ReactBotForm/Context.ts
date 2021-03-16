@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { FormContext, FormChildContext, Input } from "./types";
+import { FormContext, FormChildContext, Response } from "./types";
 
 export const ReactBotFormContext = createContext<FormContext>({
   responseInEdition: null,
@@ -10,8 +10,11 @@ export const ReactBotFormContext = createContext<FormContext>({
 
 export const ReactBotFormChildContext = createContext<FormChildContext>({
   index: 0,
-  input: undefined,
+  inputedValue: "",
   isValid: undefined,
-  setResponse: (input: Input, isValid?: boolean) => {},
+  setResponse: (
+    inputedValue: Response["inputedValue"],
+    isValid?: boolean
+  ) => {},
   setIsValid: (isValid: boolean) => {},
 });

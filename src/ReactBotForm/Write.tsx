@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
-  const { input, setResponse, index, setIsValid, isValid } = useContext(
+  const { inputedValue, setResponse, index, setIsValid, isValid } = useContext(
     ReactBotFormChildContext
   );
   const { responseInEdition, setResponseInEdition } = useContext(
@@ -38,7 +38,7 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
       {children?.({
         index,
         doValidation,
-        input,
+        inputedValue,
         setResponse,
         responseInEdition,
         setResponseInEdition,

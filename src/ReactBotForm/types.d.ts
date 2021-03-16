@@ -1,22 +1,20 @@
 import { Dispatch, SetStateAction } from "react";
 
-export type Input = string | undefined | null;
-
 export interface Response {
-  input: Input;
+  inputedValue: string;
   isValid: boolean;
 }
 
 export type Responses = Record<string, Response>;
 
-type DoValidation = (input: string | undefined) => boolean;
-type SetResponse = (input: Input, isValid?: boolean) => void;
+type DoValidation = (inputedValue: string) => boolean;
+type SetResponse = (inputedValue: string, isValid?: boolean) => void;
 type SetIsValid = (isValid: boolean) => void;
 
 export type RenderProps = {
   index: number;
   doValidation?: DoValidation;
-  input: Response["input"];
+  inputedValue: Response["inputedValue"];
   setResponse: SetResponse;
   responseInEdition: null | number;
   setResponseInEdition: Dispatch<SetStateAction<null | number>>;
@@ -52,7 +50,7 @@ export interface FormContext {
 
 export interface FormChildContext {
   index: number;
-  input: Response["input"];
+  inputedValue: Response["inputedValue"];
   isValid: Response["isValid"] | undefined;
   setResponse: SetResponse;
   setIsValid: SetIsValid;

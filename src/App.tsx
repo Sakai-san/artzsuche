@@ -19,7 +19,7 @@ import { cantonsOperations } from "./ducks/cantons";
 import { IPhysician } from "./ducks/physicians/types";
 import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
-import { Input } from "./ReactBotForm/types";
+import { Response } from "./ReactBotForm/types";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -61,7 +61,7 @@ const App: FunctionComponent = () => {
 
   const [formResponses, setFormResponses] = useState<null | Record<
     string,
-    Input
+    Response["inputedValue"]
   >>(null);
 
   useEffect(() => {
@@ -107,8 +107,8 @@ const App: FunctionComponent = () => {
             <In
               type="autocomplete"
               options={cantons}
-              doValidation={(input: string | undefined) =>
-                input ? input.length >= 1 : false
+              doValidation={(inputedValue: string) =>
+                inputedValue ? inputedValue.length >= 1 : false
               }
               getOptionLabel={(option: string) => option}
               label="Wähle bitte deinen Kanton"
@@ -125,8 +125,8 @@ const App: FunctionComponent = () => {
             <In
               type="number"
               errorMessage="4 digits"
-              doValidation={(input: string | undefined) =>
-                !!(input && input.match(/^[1-9][0-9]{3}$/))
+              doValidation={(inputedValue: string) =>
+                !!(inputedValue && inputedValue.match(/^[1-9][0-9]{3}$/))
               }
               label="PLZ"
             />
@@ -145,7 +145,7 @@ const App: FunctionComponent = () => {
             <In
               type="autocomplete"
               options={physicians}
-              doValidation={(input: string | undefined) => !!input}
+              doValidation={(inputedValue: string) => !!inputedValue}
               getOptionLabel={(option) =>
                 `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}`
               }
@@ -166,8 +166,8 @@ const App: FunctionComponent = () => {
             <In
               type="textarea"
               errorMessage="Please enter some text"
-              doValidation={(input: string | undefined) =>
-                !!(input && input?.length >= 4)
+              doValidation={(inputedValue: string) =>
+                !!(inputedValue && inputedValue?.length >= 4)
               }
               label="Pains you suffer from"
             />

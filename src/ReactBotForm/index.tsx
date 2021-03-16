@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 
-import { Input, ReactBotFormProps, Responses } from "./types";
+import { Response, ReactBotFormProps, Responses } from "./types";
 
 import typingIndicator from "../giphy.gif";
 
@@ -108,12 +108,12 @@ const setIsValidFactory = (setReponses: SetReponses) => (index: number) => (
 };
 
 const setResponseFactory = (setReponses: SetReponses) => (index: number) => (
-  input: Input,
+  inputedValue: Response["inputedValue"],
   isValid: boolean = true
 ) => {
   setReponses((prevResponses) => ({
     ...prevResponses,
-    [index]: { input, isValid },
+    [index]: { inputedValue, isValid },
   }));
 };
 
@@ -122,8 +122,9 @@ const isDiscussionOver = (
   responses: Responses,
   children: ReactBotFormProps["children"]
 ) =>
-  Object.values(responses).filter((response) => response.input !== undefined)
-    .length === children.length;
+  Object.values(responses).filter(
+    (response) => response.inputedValue !== undefined
+  ).length === children.length;
 
 const hasError = (
   responses: Responses,
@@ -151,7 +152,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
       key={index}
       value={{
         index,
-        input: responses?.[index]?.input,
+        inputedValue: responses?.[index]?.inputedValue,
         isValid: responses?.[index]?.isValid,
         setResponse: setResponseFactory(setResponses)(index),
         setIsValid: setIsValidFactory(setResponses)(index),
@@ -233,7 +234,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
           onClick={(e) =>
             submitHandler(
               Object.entries(responses).reduce(
-                (acc, [key, value]) => ({ ...acc, [key]: value.input }),
+                (acc, [key, value]) => ({ ...acc, [key]: value.inputedValue }),
                 {}
               )
             )

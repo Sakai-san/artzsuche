@@ -30,20 +30,20 @@ const useStyles = makeStyles((theme) => ({
 
 const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
   const classes = useStyles();
-  const { input, index } = useContext(ReactBotFormChildContext);
+  const { inputedValue, index } = useContext(ReactBotFormChildContext);
   const { setResponseInEdition } = useContext(ReactBotFormContext);
 
   return (
     <div className={classes.root}>
       <Paper style={{ padding: "20px" }} className={classes.value}>
-        {input}
+        {inputedValue}
       </Paper>
       <div className={classes.icons}>
         <CreateRoundedIcon
           fontSize="small"
           onClick={(e) => setResponseInEdition(index)}
         />
-        {!doValidation || doValidation?.(input) ? (
+        {!doValidation || doValidation?.(inputedValue) ? (
           <CheckIcon fontSize="large" style={{ color: green[500] }} />
         ) : (
           <ClearIcon fontSize="large" style={{ color: red[500] }} />
