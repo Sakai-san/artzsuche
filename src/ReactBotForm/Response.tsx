@@ -8,8 +8,9 @@ import { ResponseProps } from "./types";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    alignItems: "flex-start",
     justifyContent: "flex-end",
-    height: "94px",
+    minHeight: "94px",
     marginBottom: "40px",
     /*
     
