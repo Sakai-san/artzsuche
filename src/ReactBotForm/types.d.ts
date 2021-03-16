@@ -9,7 +9,7 @@ export interface Response {
 
 export type Responses = Record<string, Response>;
 
-type DoValidation = (...args: any) => boolean;
+type DoValidation = (input: string | undefined) => boolean;
 type SetResponse = (input: Input, isValid?: boolean) => void;
 type SetIsValid = (isValid: boolean) => void;
 
