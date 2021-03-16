@@ -60,7 +60,7 @@ const getComponent = (type: string, config: RenderProps & InputProps) => {
       const { getOptionLabel, options, ...localProps } = props;
       return (
         <TextField
-          {...localProps}
+          {...{ ...localProps, value: input }}
           helperText={
             (input !== undefined && !doValidation?.(input) && errorMessage) ||
             " "
