@@ -37,7 +37,7 @@ export interface WriteProps {
 }
 
 export interface ReactBotFormProps {
-  submitHandler: (responses: Record<string, Input>) => void;
+  submitHandler: (responses: Record<string, Reponse["inputedValue"]>) => void;
   children: Array<JSX.Element>;
 }
 

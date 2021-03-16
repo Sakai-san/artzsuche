@@ -107,7 +107,7 @@ const App: FunctionComponent = () => {
             <In
               type="autocomplete"
               options={cantons}
-              doValidation={(inputedValue: string) =>
+              doValidation={(inputedValue) =>
                 inputedValue ? inputedValue.length >= 1 : false
               }
               getOptionLabel={(option: string) => option}
@@ -125,7 +125,7 @@ const App: FunctionComponent = () => {
             <In
               type="number"
               errorMessage="4 digits"
-              doValidation={(inputedValue: string) =>
+              doValidation={(inputedValue) =>
                 !!(inputedValue && inputedValue.match(/^[1-9][0-9]{3}$/))
               }
               label="PLZ"
@@ -145,7 +145,7 @@ const App: FunctionComponent = () => {
             <In
               type="autocomplete"
               options={physicians}
-              doValidation={(inputedValue: string) => !!inputedValue}
+              doValidation={(inputedValue) => !!inputedValue}
               getOptionLabel={(option) =>
                 `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}`
               }
@@ -166,7 +166,7 @@ const App: FunctionComponent = () => {
             <In
               type="textarea"
               errorMessage="Please enter some text"
-              doValidation={(inputedValue: string) =>
+              doValidation={(inputedValue) =>
                 !!(inputedValue && inputedValue?.length >= 4)
               }
               label="Pains you suffer from"
