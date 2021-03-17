@@ -110,7 +110,7 @@ const App: FunctionComponent = () => {
               doValidation={(inputedValue) =>
                 inputedValue ? inputedValue.length >= 1 : false
               }
-              getOptionLabel={(option: string) => option}
+              getOptionLabel={(option) => option}
               label="Wähle bitte deinen Kanton"
             />
           </div>

@@ -16,7 +16,6 @@ export type RenderProps = {
   doValidation?: DoValidation;
   inputedValue: Response["inputedValue"];
   setResponse: SetResponse;
-  responseInEdition: null | number;
   setResponseInEdition: Dispatch<SetStateAction<null | number>>;
   setIsValid: SetIsValid;
   ref: MutableRefObject<HTMLElement | null>;

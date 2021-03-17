@@ -40,7 +40,6 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
         doValidation,
         inputedValue,
         setResponse,
-        responseInEdition,
         setResponseInEdition,
         setIsValid,
         ref,

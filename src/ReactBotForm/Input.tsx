@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FunctionComponent, ReactNode } from "react";
 import { UseAutocompleteProps } from "@material-ui/lab/useAutocomplete";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -6,19 +5,33 @@ import TextField from "@material-ui/core/TextField";
 import Response from "./Response";
 import { DoValidation, RenderProps } from "./types";
 
-type InputProps = {
+type InputBaseProps = RenderProps & {
   errorMessage?: string;
-  type: string;
   doValidation?: DoValidation;
   label?: ReactNode;
-  /*
+  type: "autocomplete" | "text" | "number" | "textarea";
   options?: any[];
   getOptionLabel?: (option: any) => string;
-  label?: string;
-  */
-} & Partial<UseAutocompleteProps<any, boolean, boolean, boolean>>;
+};
 
-const getComponent = (type: string, config: RenderProps & InputProps) => {
+// UseAutocompleteProps<any, boolean, boolean, boolean> & {
+type AutocompleteInput = Omit<InputBaseProps, "options" | "getOptionLabel"> & {
+  options: any[];
+  getOptionLabel: (option: any) => string;
+};
+
+type SimpleInput = InputBaseProps;
+
+type InputProps = AutocompleteInput | SimpleInput;
+
+// TYPE GUARDS
+const isSimpleInput = (input: InputProps): input is SimpleInput =>
+  input.type === "text" || input.type === "number" || input.type === "textarea";
+
+const isAutocompleteInput = (input: InputProps): input is AutocompleteInput =>
+  input.type === "autocomplete";
+
+const getComponent = (input: InputProps) => {
   const {
     label,
     doValidation,
@@ -28,62 +41,59 @@ const getComponent = (type: string, config: RenderProps & InputProps) => {
     setResponseInEdition,
     setIsValid,
     errorMessage,
+    type,
     ...props
-  } = config;
+  } = input;
 
-  switch (type) {
-    case "autocomplete": {
-      return (
-        <Autocomplete
-          {...props}
-          style={{ width: 300 }}
-          onFocus={() => {
-            !doValidation && setIsValid(true);
-            setResponseInEdition(index);
-          }}
-          onBlur={() => setResponseInEdition(null)}
-          onChange={(e, value) =>
-            setResponse(
-              props.getOptionLabel?.(value) || value,
-              doValidation?.(value)
-            )
-          }
-          renderInput={(params) => (
-            <TextField {...params} label={label} variant="outlined" />
-          )}
-        />
-      );
-    }
-    case "text":
-    case "textarea":
-    case "number": {
-      const { getOptionLabel, options, ...localProps } = props;
-      return (
-        <TextField
-          {...{ ...localProps, value: inputedValue }}
-          helperText={
-            (inputedValue !== undefined &&
-              !doValidation?.(inputedValue) &&
-              errorMessage) ||
-            " "
-          }
-          onFocus={() => {
-            !doValidation && setIsValid(true);
-            setResponseInEdition(index);
-          }}
-          onBlur={() => setResponseInEdition(null)}
-          onChange={(e) => {
-            const value = e.target.value;
-            setResponse(value, doValidation?.(value));
-          }}
-          error={doValidation && !doValidation?.(inputedValue)}
-          label={label}
-          type={type}
-          variant="outlined"
-          multiline={type === "textarea"}
-        />
-      );
-    }
+  if (isAutocompleteInput(input)) {
+    return (
+      <Autocomplete
+        {...props}
+        style={{ width: 300 }}
+        onFocus={() => {
+          !doValidation && setIsValid(true);
+          setResponseInEdition(index);
+        }}
+        onBlur={() => setResponseInEdition(null)}
+        onChange={(e, value) =>
+          setResponse(
+            props?.getOptionLabel?.(value) || value,
+            doValidation?.(value)
+          )
+        }
+        renderInput={(params) => (
+          <TextField {...params} label={label} variant="outlined" />
+        )}
+      />
+    );
+  } else if (isSimpleInput(input)) {
+    return (
+      <TextField
+        {...{ ...props, value: inputedValue }}
+        helperText={
+          (inputedValue !== undefined &&
+            !doValidation?.(inputedValue) &&
+            errorMessage) ||
+          " "
+        }
+        onFocus={() => {
+          !doValidation && setIsValid(true);
+          setResponseInEdition(index);
+        }}
+        onBlur={() => setResponseInEdition(null)}
+        onChange={(e) => {
+          const value = e.target.value;
+          setResponse(value, doValidation?.(value));
+        }}
+        error={doValidation && !doValidation?.(inputedValue)}
+        label={label}
+        type={type}
+        variant="outlined"
+        multiline={type === "textarea"}
+      />
+    );
+  } else {
+    return <></>;
   }
 };
 
@@ -106,7 +116,8 @@ const Input: FunctionComponent<InputProps> = ({
         setIsValid,
         ref,
       }) =>
-        getComponent(type, {
+        getComponent({
+          type,
           label,
           doValidation,
           setResponse,
