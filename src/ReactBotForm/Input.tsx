@@ -1,5 +1,4 @@
 import React, { FunctionComponent, ReactNode } from "react";
-import { UseAutocompleteProps } from "@material-ui/lab/useAutocomplete";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import Response from "./Response";
@@ -10,26 +9,20 @@ type InputBaseProps = RenderProps & {
   doValidation?: DoValidation;
   label?: ReactNode;
   type: "autocomplete" | "text" | "number" | "textarea";
-  options?: any[];
-  getOptionLabel?: (option: any) => string;
 };
 
 // UseAutocompleteProps<any, boolean, boolean, boolean> & {
-type AutocompleteInput = Omit<InputBaseProps, "options" | "getOptionLabel"> & {
+type AutocompleteInput = InputBaseProps & {
   options: any[];
   getOptionLabel: (option: any) => string;
+  type: "autocomplete";
 };
 
-type SimpleInput = InputBaseProps;
+type SimpleInput = InputBaseProps & {
+  type: "text" | "number" | "textarea";
+};
 
 type InputProps = AutocompleteInput | SimpleInput;
-
-// TYPE GUARDS
-const isSimpleInput = (input: InputProps): input is SimpleInput =>
-  input.type === "text" || input.type === "number" || input.type === "textarea";
-
-const isAutocompleteInput = (input: InputProps): input is AutocompleteInput =>
-  input.type === "autocomplete";
 
 const getComponent = (input: InputProps) => {
   const {
@@ -45,10 +38,10 @@ const getComponent = (input: InputProps) => {
     ...props
   } = input;
 
-  if (isAutocompleteInput(input)) {
+  if (type === "autocomplete") {
     return (
       <Autocomplete
-        {...props}
+        {...(props as AutocompleteInput)}
         style={{ width: 300 }}
         onFocus={() => {
           !doValidation && setIsValid(true);
@@ -57,7 +50,7 @@ const getComponent = (input: InputProps) => {
         onBlur={() => setResponseInEdition(null)}
         onChange={(e, value) =>
           setResponse(
-            props?.getOptionLabel?.(value) || value,
+            (props as AutocompleteInput).getOptionLabel(value) || value,
             doValidation?.(value)
           )
         }
@@ -66,7 +59,7 @@ const getComponent = (input: InputProps) => {
         )}
       />
     );
-  } else if (isSimpleInput(input)) {
+  } else if (type === "text" || type === "number" || type === "textarea") {
     return (
       <TextField
         {...{ ...props, value: inputedValue }}
@@ -97,14 +90,12 @@ const getComponent = (input: InputProps) => {
   }
 };
 
-const Input: FunctionComponent<InputProps> = ({
-  type,
-  options,
-  getOptionLabel,
-  doValidation,
-  label,
-  errorMessage,
-}) => {
+const Input: FunctionComponent<
+  InputProps & {
+    options?: any[];
+    getOptionLabel?: (option: any) => string;
+  }
+> = ({ type, options, getOptionLabel, doValidation, label, errorMessage }) => {
   return (
     <Response doValidation={doValidation}>
       {({
@@ -128,7 +119,7 @@ const Input: FunctionComponent<InputProps> = ({
           errorMessage,
           ref,
           options: options || [],
-          getOptionLabel,
+          getOptionLabel: getOptionLabel || ((a: any) => `${a}`),
         })
       }
     </Response>

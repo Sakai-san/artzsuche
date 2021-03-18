@@ -85,9 +85,7 @@ const App: FunctionComponent = () => {
           <ForumIcon fontSize="large" />
         </Toolbar>
       </AppBar>
-      <div>
-        <option></option>
-      </div>
+
       {formResponses ? (
         <div className={classes.completed}>Messi vielmals for your time !</div>
       ) : (
