@@ -42,7 +42,7 @@ const getComponent = (input: InputProps & RenderProps) => {
   if (type === "autocomplete") {
     return (
       <Autocomplete
-        {...(props as AutocompleteInput)}
+        {...(props as Omit<AutocompleteInput, "type">)}
         style={{ width: 300 }}
         onFocus={() => {
           !doValidation && setIsValid(true);
@@ -51,7 +51,8 @@ const getComponent = (input: InputProps & RenderProps) => {
         onBlur={() => setResponseInEdition(null)}
         onChange={(e, value) =>
           setResponse(
-            (props as AutocompleteInput).getOptionLabel(value) || value,
+            (props as Omit<AutocompleteInput, "type">).getOptionLabel(value) ||
+              value,
             doValidation?.(value)
           )
         }
