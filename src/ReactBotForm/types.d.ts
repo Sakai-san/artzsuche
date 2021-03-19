@@ -18,7 +18,7 @@ export type RenderProps = {
   setResponse: SetResponse;
   setResponseInEdition: Dispatch<SetStateAction<null | number>>;
   setIsValid: SetIsValid;
-  ref: MutableRefObject<HTMLElement | null>;
+  ref: MutableRefObject<HTMDivLElement | null>;
 };
 
 export interface ResponseProps {
