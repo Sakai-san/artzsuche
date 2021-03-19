@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Response from "./Response";
 import { DoValidation, RenderProps } from "./types";
 
-type InputBaseProps = RenderProps & {
+type InputBaseProps = {
   errorMessage?: string;
   doValidation?: DoValidation;
   label?: ReactNode;
@@ -25,7 +25,7 @@ type SimpleInput = InputBaseProps & {
 
 type InputProps = AutocompleteInput | SimpleInput;
 
-const getComponent = (input: InputProps) => {
+const getComponent = (input: InputProps & RenderProps) => {
   const {
     label,
     doValidation,
