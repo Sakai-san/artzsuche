@@ -19,11 +19,33 @@ type AutocompleteInput = InputBaseProps & {
   type: "autocomplete";
 };
 
-type SimpleInput = InputBaseProps & {
-  type: "text" | "number" | "textarea";
+type TextInput = InputBaseProps & {
+  type: "text";
 };
 
-type InputProps = AutocompleteInput | SimpleInput;
+type TextareaInput = InputBaseProps & {
+  type: "textarea";
+};
+
+type NumberInput = InputBaseProps & {
+  type: "number";
+};
+
+type InputProps = AutocompleteInput | TextInput | TextareaInput | NumberInput;
+
+// TYPE GUARDS
+export const isAutocompleteInput = (
+  input: InputProps
+): input is AutocompleteInput => input.type === "autocomplete";
+
+export const isTextInput = (input: InputProps): input is TextInput =>
+  input.type === "text";
+
+export const isTextareaInput = (input: InputProps): input is TextareaInput =>
+  input.type === "textarea";
+
+export const isNumberInput = (input: InputProps): input is NumberInput =>
+  input.type === "number";
 
 const getComponent = (input: InputProps & RenderProps) => {
   const {
@@ -39,7 +61,8 @@ const getComponent = (input: InputProps & RenderProps) => {
     ...props
   } = input;
 
-  if (type === "autocomplete") {
+  //  if (type === "autocomplete") {
+  if (isAutocompleteInput(input)) {
     return (
       <Autocomplete
         {...(props as Omit<AutocompleteInput, "type">)}
@@ -61,7 +84,12 @@ const getComponent = (input: InputProps & RenderProps) => {
         )}
       />
     );
-  } else if (type === "text" || type === "number" || type === "textarea") {
+    // } else if (type === "text" || type === "number" || type === "textarea") {
+  } else if (
+    isTextInput(input) ||
+    isNumberInput(input) ||
+    isTextareaInput(input)
+  ) {
     return (
       <TextField
         {...{ ...props, value: inputedValue }}
