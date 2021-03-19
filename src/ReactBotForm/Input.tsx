@@ -9,9 +9,10 @@ type InputBaseProps = RenderProps & {
   doValidation?: DoValidation;
   label?: ReactNode;
   type: "autocomplete" | "text" | "number" | "textarea";
+  options?: any[];
+  getOptionLabel?: (option: any) => string;
 };
 
-// UseAutocompleteProps<any, boolean, boolean, boolean> & {
 type AutocompleteInput = InputBaseProps & {
   options: any[];
   getOptionLabel: (option: any) => string;
@@ -90,40 +91,40 @@ const getComponent = (input: InputProps) => {
   }
 };
 
-const Input: FunctionComponent<
-  InputProps & {
-    options?: any[];
-    getOptionLabel?: (option: any) => string;
-  }
-> = ({ type, options, getOptionLabel, doValidation, label, errorMessage }) => {
-  return (
-    <Response doValidation={doValidation}>
-      {({
+const Input: FunctionComponent<InputProps> = ({
+  type,
+  options,
+  getOptionLabel,
+  doValidation,
+  label,
+  errorMessage,
+}) => (
+  <Response doValidation={doValidation}>
+    {({
+      doValidation,
+      inputedValue,
+      setResponse,
+      index,
+      setResponseInEdition,
+      setIsValid,
+      ref,
+    }) =>
+      getComponent({
+        type,
+        label,
         doValidation,
-        inputedValue,
         setResponse,
+        inputedValue,
         index,
         setResponseInEdition,
         setIsValid,
+        errorMessage,
         ref,
-      }) =>
-        getComponent({
-          type,
-          label,
-          doValidation,
-          setResponse,
-          inputedValue,
-          index,
-          setResponseInEdition,
-          setIsValid,
-          errorMessage,
-          ref,
-          options: options || [],
-          getOptionLabel: getOptionLabel || ((a: any) => `${a}`),
-        })
-      }
-    </Response>
-  );
-};
+        options: options || [],
+        getOptionLabel: getOptionLabel || ((a: any) => `${a}`),
+      })
+    }
+  </Response>
+);
 
 export default Input;
