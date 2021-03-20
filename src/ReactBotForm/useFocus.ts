@@ -16,6 +16,7 @@ const domFocus = (domRef: MutableRefObject<HTMLElement | null>) => {
       FOCUSABLE_ELEMENTS.join(", ")
     ) as any;
 
+    console.log("node", node);
     node?.focus?.();
   }
 };
