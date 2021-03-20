@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from "react";
+import React, { FunctionComponent, ReactNode, ChangeEvent } from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
@@ -111,8 +111,8 @@ const getComponent = (input: InputProps & RenderProps) => {
             setResponseInEdition(index);
           }}
           onBlur={() => setResponseInEdition(null)}
-          onChange={(e) => {
-            const value = e.target.value;
+          onChange={(event: ChangeEvent<HTMLInputElement>) => {
+            const value = event.target.value;
             console.log("value radiogroup", value);
             setResponse(value, doValidation?.(value));
           }}
