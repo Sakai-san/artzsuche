@@ -97,16 +97,23 @@ const getComponent = (input: InputProps & RenderProps) => {
   } else if (type === "radio") {
     return (
       <div>
-        {props?.options?.map?.((option) => {
+        {(props as Omit<RadioInput, "type">).options.map((option) => {
           return (
             <Radio
+              key={option}
               checked={inputedValue === option}
+              onFocus={() => {
+                !doValidation && setIsValid(true);
+                setResponseInEdition(index);
+              }}
+              onBlur={() => setResponseInEdition(null)}
               onChange={(e) => {
                 const value = e.target.value;
                 setResponse(
                   (props as Omit<RadioInput, "type">)?.getOptionLabel?.(
                     value
-                  ) || value
+                  ) || value,
+                  doValidation?.(value)
                 );
               }}
               value={option}
