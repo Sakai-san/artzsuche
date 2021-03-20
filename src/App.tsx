@@ -104,7 +104,6 @@ const App: FunctionComponent = () => {
               options={["full stack", "front-end", "back-end"]}
               errorMessage="Please pick an option"
               doValidation={(inputedValue) => !!inputedValue}
-              label="Your profile"
             />
           </div>
 

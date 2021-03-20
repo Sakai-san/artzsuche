@@ -114,7 +114,7 @@ const getComponent = (input: InputProps & RenderProps) => {
           onChange={(e) => {
             const value = e.target.value;
             console.log("value radiogroup", value);
-            //            setResponse(value, doValidation?.(value));
+            setResponse(value, doValidation?.(value));
           }}
         >
           {(props as Omit<RadioInput, "type">).options.map((option) => {
