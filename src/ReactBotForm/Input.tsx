@@ -102,10 +102,10 @@ const getComponent = (input: InputProps & RenderProps) => {
       <>
         <FormLabel component="legend">{label}</FormLabel>
         <RadioGroup
+          {...{ ref: props.ref, value: inputedValue }}
           row
           aria-label="quiz"
           name={`${index}`}
-          value={inputedValue}
           onFocus={() => {
             !doValidation && setIsValid(true);
             setResponseInEdition(index);

@@ -32,9 +32,6 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
   const classes = useStyles();
   const ref = useFocus(responseInEdition, index);
 
-  if (ref?.current?.style?.cssText) {
-    ref.current.style.cssText = "border: 3px solid red;";
-  }
   return (
     // only the very first rendering is animated
     <div className={isValid === undefined ? classes.display : ""}>
