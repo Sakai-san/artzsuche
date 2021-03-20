@@ -94,6 +94,22 @@ const App: FunctionComponent = () => {
         >
           <div>
             <Question>
+              <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
+              <span style={{ fontSize: "18px" }}>
+                What kind of developer are you ?
+              </span>
+            </Question>
+            <In
+              type="radio"
+              options={["full stack", "front-end", "back-end"]}
+              errorMessage="Please pick an option"
+              doValidation={(inputedValue) => !!inputedValue}
+              label="Your profile"
+            />
+          </div>
+
+          <div>
+            <Question>
               <LocalHospitalRoundedIcon
                 fontSize="large"
                 style={{ color: "#D52B1E" }}
@@ -127,22 +143,6 @@ const App: FunctionComponent = () => {
                 !!(inputedValue && inputedValue.match(/^[1-9][0-9]{3}$/))
               }
               label="PLZ"
-            />
-          </div>
-
-          <div>
-            <Question>
-              <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
-              <span style={{ fontSize: "18px" }}>
-                What kind of developer are you ?
-              </span>
-            </Question>
-            <In
-              type="radio"
-              options={["full stack", "front-end", "back-end"]}
-              errorMessage="Please pick an option"
-              doValidation={(inputedValue) => !!inputedValue}
-              label="Pick one option"
             />
           </div>
 

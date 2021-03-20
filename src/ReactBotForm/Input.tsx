@@ -1,6 +1,9 @@
 import React, { FunctionComponent, ReactNode } from "react";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import FormLabel from "@material-ui/core/FormLabel";
+import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio, { RadioProps } from "@material-ui/core/Radio";
 import Response from "./Response";
 import { DoValidation, RenderProps } from "./types";
@@ -96,33 +99,36 @@ const getComponent = (input: InputProps & RenderProps) => {
     );
   } else if (type === "radio") {
     return (
-      <div>
-        {(props as Omit<RadioInput, "type">).options.map((option) => {
-          return (
-            <Radio
-              key={option}
-              checked={inputedValue === option}
-              onFocus={() => {
-                !doValidation && setIsValid(true);
-                setResponseInEdition(index);
-              }}
-              onBlur={() => setResponseInEdition(null)}
-              onChange={(e) => {
-                const value = e.target.value;
-                setResponse(
-                  (props as Omit<RadioInput, "type">)?.getOptionLabel?.(
-                    value
-                  ) || value,
-                  doValidation?.(value)
-                );
-              }}
-              value={option}
-              name={`reactBotForm-radio-${index}`}
-              inputProps={{ "aria-label": option }}
-            />
-          );
-        })}
-      </div>
+      <>
+        <FormLabel component="legend">{label}</FormLabel>
+        <RadioGroup
+          row
+          aria-label="quiz"
+          name={`${index}`}
+          value={inputedValue}
+          onFocus={() => {
+            !doValidation && setIsValid(true);
+            setResponseInEdition(index);
+          }}
+          onBlur={() => setResponseInEdition(null)}
+          onChange={(e) => {
+            const value = e.target.value;
+            setResponse(value, doValidation?.(value));
+          }}
+        >
+          {(props as Omit<RadioInput, "type">).options.map((option) => {
+            return (
+              <FormControlLabel
+                control={<Radio />}
+                key={option}
+                value={option}
+                label={option}
+                labelPlacement="top"
+              />
+            );
+          })}
+        </RadioGroup>
+      </>
     );
   } else {
     return <></>;
