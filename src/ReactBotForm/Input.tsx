@@ -29,7 +29,6 @@ type SimpleInput = InputBaseProps & {
 
 type RadioInput = InputBaseProps & {
   options: any[];
-  getOptionLabel?: (option: any) => string;
   type: "radio";
 };
 
