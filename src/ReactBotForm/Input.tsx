@@ -100,7 +100,7 @@ const getComponent = (input: InputProps & RenderProps) => {
   } else if (type === "radio") {
     return (
       <>
-        <FormLabel component="legend">{label}</FormLabel>
+        {label && <FormLabel component="legend">{label}</FormLabel>}
         <RadioGroup
           {...{ ref: props.ref, value: inputedValue }}
           row
@@ -113,7 +113,8 @@ const getComponent = (input: InputProps & RenderProps) => {
           onBlur={() => setResponseInEdition(null)}
           onChange={(e) => {
             const value = e.target.value;
-            setResponse(value, doValidation?.(value));
+            console.log("value radiogroup", value);
+            //            setResponse(value, doValidation?.(value));
           }}
         >
           {(props as Omit<RadioInput, "type">).options.map((option) => {
