@@ -113,6 +113,7 @@ const getComponent = (input: InputProps & RenderProps) => {
           onBlur={() => setResponseInEdition(null)}
           onChange={(e) => {
             const value = e.target.value;
+            console.log("radio", value);
             setResponse(value, doValidation?.(value));
           }}
         >
