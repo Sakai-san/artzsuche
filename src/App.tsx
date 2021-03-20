@@ -132,6 +132,22 @@ const App: FunctionComponent = () => {
 
           <div>
             <Question>
+              <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
+              <span style={{ fontSize: "18px" }}>
+                What kind of developer are you ?
+              </span>
+            </Question>
+            <In
+              type="radio"
+              options={["full stack", "front-end", "back-end"]}
+              errorMessage="Please pick an option"
+              doValidation={(inputedValue) => !!inputedValue}
+              label="Pick one option"
+            />
+          </div>
+
+          <div>
+            <Question>
               <LocalHospitalOutlinedIcon
                 fontSize="large"
                 style={{ color: "#D52B1E" }}

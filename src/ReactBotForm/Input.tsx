@@ -1,6 +1,7 @@
 import React, { FunctionComponent, ReactNode } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import Radio, { RadioProps } from "@material-ui/core/Radio";
 import Response from "./Response";
 import { DoValidation, RenderProps } from "./types";
 
@@ -8,7 +9,7 @@ type InputBaseProps = {
   errorMessage?: string;
   doValidation?: DoValidation;
   label?: ReactNode;
-  type: "autocomplete" | "text" | "number" | "textarea";
+  type: "autocomplete" | "text" | "number" | "textarea" | "radio";
   options?: any[];
   getOptionLabel?: (option: any) => string;
 };
@@ -23,7 +24,13 @@ type SimpleInput = InputBaseProps & {
   type: "number" | "textarea" | "text";
 };
 
-type InputProps = AutocompleteInput | SimpleInput;
+type RadioInput = InputBaseProps & {
+  options: any[];
+  getOptionLabel?: (option: any) => string;
+  type: "radio";
+};
+
+type InputProps = AutocompleteInput | SimpleInput | RadioInput;
 
 const getComponent = (input: InputProps & RenderProps) => {
   const {
@@ -86,6 +93,29 @@ const getComponent = (input: InputProps & RenderProps) => {
         variant="outlined"
         multiline={type === "textarea"}
       />
+    );
+  } else if (type === "radio") {
+    return (
+      <div>
+        {props?.options?.map?.((option) => {
+          return (
+            <Radio
+              checked={inputedValue === option}
+              onChange={(e) => {
+                const value = e.target.value;
+                setResponse(
+                  (props as Omit<RadioInput, "type">)?.getOptionLabel?.(
+                    value
+                  ) || value
+                );
+              }}
+              value={option}
+              name={`reactBotForm-radio-${index}`}
+              inputProps={{ "aria-label": option }}
+            />
+          );
+        })}
+      </div>
     );
   } else {
     return <></>;
