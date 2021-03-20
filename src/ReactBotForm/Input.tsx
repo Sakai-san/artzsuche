@@ -49,6 +49,8 @@ const getComponent = (input: InputProps & RenderProps) => {
     ...props
   } = input;
 
+  console.log("focus ref", props);
+
   if (type === "autocomplete") {
     return (
       <Autocomplete
