@@ -1,9 +1,15 @@
-import React, { FunctionComponent, ReactNode, ChangeEvent } from "react";
+import React, {
+  FunctionComponent,
+  ReactNode,
+  ChangeEvent,
+  FocusEvent,
+} from "react";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Radio, { RadioProps } from "@material-ui/core/Radio";
 import Response from "./Response";
 import { DoValidation, RenderProps } from "./types";
@@ -100,34 +106,34 @@ const getComponent = (input: InputProps & RenderProps) => {
     return (
       <>
         {label && <FormLabel component="legend">{label}</FormLabel>}
-        <RadioGroup
-          {...{ ref: props.ref, value: inputedValue }}
-          row
-          aria-label="quiz"
-          name={`${index}`}
-          onFocus={() => {
-            !doValidation && setIsValid(true);
-            setResponseInEdition(index);
-          }}
-          onBlur={() => setResponseInEdition(null)}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            const value = event.target.value;
-            console.log("value radiogroup", value);
-            setResponse(value, doValidation?.(value));
-          }}
-        >
-          {(props as Omit<RadioInput, "type">).options.map((option) => {
-            return (
-              <FormControlLabel
-                control={<Radio />}
-                key={option}
-                value={option}
-                label={option}
-                labelPlacement="top"
-              />
-            );
-          })}
-        </RadioGroup>
+        <ClickAwayListener onClickAway={() => setResponseInEdition(null)}>
+          <RadioGroup
+            {...{ ref: props.ref, value: inputedValue }}
+            row
+            aria-label="quiz"
+            name={`${index}`}
+            onFocus={(event: FocusEvent<HTMLInputElement>) => {
+              !doValidation && setIsValid(true);
+              setResponseInEdition(index);
+            }}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              const value = (event.target as HTMLInputElement).value;
+              setResponse(value, doValidation?.(value));
+            }}
+          >
+            {(props as Omit<RadioInput, "type">).options.map((option) => {
+              return (
+                <FormControlLabel
+                  control={<Radio />}
+                  key={option}
+                  value={option}
+                  label={option}
+                  labelPlacement="top"
+                />
+              );
+            })}
+          </RadioGroup>
+        </ClickAwayListener>
       </>
     );
   } else {
