@@ -108,7 +108,7 @@ const getComponent = (input: InputProps & RenderProps) => {
         {label && <FormLabel component="legend">{label}</FormLabel>}
         <ClickAwayListener onClickAway={() => setResponseInEdition(null)}>
           <RadioGroup
-            {...{ ref: props.ref, value: inputedValue }}
+            {...{ ref: props.ref, value: inputedValue || "" }}
             row
             aria-label="quiz"
             name={`${index}`}
