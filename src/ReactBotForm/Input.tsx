@@ -10,7 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Radio, { RadioProps } from "@material-ui/core/Radio";
+import Radio from "@material-ui/core/Radio";
 import Response from "./Response";
 import { DoValidation, RenderProps } from "./types";
 
