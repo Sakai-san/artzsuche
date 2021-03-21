@@ -79,7 +79,7 @@ const getComponent = (input: InputProps & RenderProps) => {
   } else if (type === "text" || type === "number" || type === "textarea") {
     return (
       <TextField
-        {...{ ...props, value: inputedValue }}
+        {...{ options: props.options, value: inputedValue, ref: props.ref }}
         helperText={
           (inputedValue !== undefined &&
             !doValidation?.(inputedValue) &&
