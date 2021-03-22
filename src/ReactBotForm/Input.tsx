@@ -1,24 +1,40 @@
+// @ts-nocheck
 import React, {
   FunctionComponent,
   ReactNode,
   ChangeEvent,
   FocusEvent,
 } from "react";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Chip from "@material-ui/core/Chip";
+import ListItemText from "@material-ui/core/ListItemText";
+import Select from "@material-ui/core/Select";
+import Checkbox from "@material-ui/core/Checkbox";
 import Radio from "@material-ui/core/Radio";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
 import Response from "./Response";
 import { DoValidation, RenderProps } from "./types";
+import { ClassNameMap } from "@material-ui/styles";
 
 type InputBaseProps = {
   errorMessage?: string;
   doValidation?: DoValidation;
   label?: ReactNode;
-  type: "autocomplete" | "text" | "number" | "textarea" | "radio";
+  type:
+    | "autocomplete"
+    | "text"
+    | "number"
+    | "textarea"
+    | "radio"
+    | "multiselect";
   options?: any[];
   getOptionLabel?: (option: any) => string;
 };
@@ -38,9 +54,40 @@ type RadioInput = InputBaseProps & {
   type: "radio";
 };
 
-type InputProps = AutocompleteInput | SimpleInput | RadioInput;
+type MultiselectInput = InputBaseProps & {
+  options: any[];
+  type: "multiselect";
+};
 
-const getComponent = (input: InputProps & RenderProps) => {
+type InputProps =
+  | AutocompleteInput
+  | SimpleInput
+  | RadioInput
+  | MultiselectInput;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+      maxWidth: 300,
+    },
+    chips: {
+      display: "flex",
+      flexWrap: "wrap",
+    },
+    chip: {
+      margin: 2,
+    },
+    noLabel: {
+      marginTop: theme.spacing(3),
+    },
+  })
+);
+
+const getComponent = (
+  input: InputProps & RenderProps & { classes: ClassNameMap<any> }
+) => {
   const {
     label,
     doValidation,
@@ -51,6 +98,7 @@ const getComponent = (input: InputProps & RenderProps) => {
     setIsValid,
     errorMessage,
     type,
+    classes,
     ...props
   } = input;
 
@@ -79,7 +127,11 @@ const getComponent = (input: InputProps & RenderProps) => {
   } else if (type === "text" || type === "number" || type === "textarea") {
     return (
       <TextField
-        {...{ options: props.options, value: inputedValue, ref: props.ref }}
+        {...{
+          options: props.options,
+          value: inputedValue,
+          ref: props.ref,
+        }}
         helperText={
           (inputedValue !== undefined &&
             !doValidation?.(inputedValue) &&
@@ -136,6 +188,29 @@ const getComponent = (input: InputProps & RenderProps) => {
         </ClickAwayListener>
       </>
     );
+  } else if (type === "multiselect") {
+    return (
+      <FormControl className={classes.formControl}>
+        <InputLabel shrink htmlFor="select-multiple-native">
+          Native
+        </InputLabel>
+        <Select
+          multiple
+          native
+          value={inputedValue}
+          onChange={() => null}
+          inputProps={{
+            id: "select-multiple-native",
+          }}
+        >
+          {(props as Omit<MultiselectInput, "type">).options.map((name) => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
+        </Select>
+      </FormControl>
+    );
   } else {
     return <></>;
   }
@@ -148,33 +223,38 @@ const Input: FunctionComponent<InputProps> = ({
   doValidation,
   label,
   errorMessage,
-}) => (
-  <Response doValidation={doValidation}>
-    {({
-      doValidation,
-      inputedValue,
-      setResponse,
-      index,
-      setResponseInEdition,
-      setIsValid,
-      ref,
-    }) =>
-      getComponent({
-        type,
-        label,
+}) => {
+  const classes = useStyles();
+
+  return (
+    <Response doValidation={doValidation}>
+      {({
         doValidation,
-        setResponse,
         inputedValue,
+        setResponse,
         index,
         setResponseInEdition,
         setIsValid,
-        errorMessage,
         ref,
-        options: options || [],
-        getOptionLabel: getOptionLabel || ((a: any) => `${a}`),
-      })
-    }
-  </Response>
-);
+      }) =>
+        getComponent({
+          type,
+          label,
+          doValidation,
+          setResponse,
+          inputedValue,
+          index,
+          setResponseInEdition,
+          setIsValid,
+          errorMessage,
+          ref,
+          classes,
+          options: options || [],
+          getOptionLabel: getOptionLabel || ((a: any) => `${a}`),
+        })
+      }
+    </Response>
+  );
+};
 
 export default Input;

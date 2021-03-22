@@ -96,6 +96,21 @@ const App: FunctionComponent = () => {
             <Question>
               <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
               <span style={{ fontSize: "18px" }}>
+                What technology do you have a professional experience with ?
+              </span>
+            </Question>
+            <In
+              type="multiselect"
+              options={["react", "angular", "laravel", "mysql", "nodejs"]}
+              errorMessage="Please pick an option"
+              doValidation={(inputedValue) => !!inputedValue}
+            />
+          </div>
+
+          <div>
+            <Question>
+              <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
+              <span style={{ fontSize: "18px" }}>
                 What kind of developer are you ?
               </span>
             </Question>
