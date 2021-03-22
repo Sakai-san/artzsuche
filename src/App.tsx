@@ -101,9 +101,14 @@ const App: FunctionComponent = () => {
             </Question>
             <In
               type="multiselect"
+              label="Techos you work with"
               options={["react", "angular", "laravel", "mysql", "nodejs"]}
               errorMessage="Please pick an option"
-              doValidation={(inputedValue) => !!inputedValue}
+              doValidation={(inputedValues) =>
+                (inputedValues as string[]).filter(
+                  (inputedValue) => !!inputedValue
+                ).length !== 0
+              }
             />
           </div>
 
@@ -154,7 +159,10 @@ const App: FunctionComponent = () => {
               type="number"
               errorMessage="4 digits"
               doValidation={(inputedValue) =>
-                !!(inputedValue && inputedValue.match(/^[1-9][0-9]{3}$/))
+                !!(
+                  inputedValue &&
+                  (inputedValue as string).match(/^[1-9][0-9]{3}$/)
+                )
               }
               label="PLZ"
             />

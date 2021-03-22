@@ -1,14 +1,17 @@
 import { Dispatch, SetStateAction, MutableRefObject } from "react";
 
 export interface Response {
-  inputedValue: string;
+  inputedValue: string | string[];
   isValid: boolean;
 }
 
 export type Responses = Record<string, Response>;
 
-type DoValidation = (inputedValue: string) => boolean;
-type SetResponse = (inputedValue: string, isValid?: boolean) => void;
+type DoValidation = (inputedValue: Response["inputedValue"]) => boolean;
+type SetResponse = (
+  inputedValue: Response["inputedValue"],
+  isValid?: boolean
+) => void;
 type SetIsValid = (isValid: boolean) => void;
 
 export type RenderProps = {

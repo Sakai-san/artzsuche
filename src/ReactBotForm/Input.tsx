@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, {
   FunctionComponent,
   ReactNode,
@@ -189,26 +188,43 @@ const getComponent = (
       </>
     );
   } else if (type === "multiselect") {
+    const handleChangeMultiple = (event: ChangeEvent<{ value: unknown }>) => {
+      const { options } = event.target as HTMLSelectElement;
+      const value: string[] = [];
+      for (let i = 0, l = options.length; i < l; i += 1) {
+        if (options[i].selected) {
+          value.push(options[i].value);
+        }
+      }
+      setResponse(value, doValidation?.(value));
+    };
+
     return (
       <FormControl className={classes.formControl}>
         <InputLabel shrink htmlFor="select-multiple-native">
-          Native
+          {label}
         </InputLabel>
-        <Select
-          multiple
-          native
-          value={inputedValue}
-          onChange={() => null}
-          inputProps={{
-            id: "select-multiple-native",
-          }}
-        >
-          {(props as Omit<MultiselectInput, "type">).options.map((name) => (
-            <option key={name} value={name}>
-              {name}
-            </option>
-          ))}
-        </Select>
+        <ClickAwayListener onClickAway={() => setResponseInEdition(null)}>
+          <Select
+            {...{ ref: props.ref, value: inputedValue }}
+            multiple
+            native
+            onFocus={(event: FocusEvent<{ value: unknown }>) => {
+              !doValidation && setIsValid(true);
+              setResponseInEdition(index);
+            }}
+            onChange={handleChangeMultiple}
+            inputProps={{
+              id: "select-multiple-native",
+            }}
+          >
+            {(props as Omit<MultiselectInput, "type">).options.map((name) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
+          </Select>
+        </ClickAwayListener>
       </FormControl>
     );
   } else {

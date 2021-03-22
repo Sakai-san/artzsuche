@@ -34,7 +34,7 @@ const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
   return (
     <div className={classes.root}>
       <Paper style={{ padding: "20px" }} className={classes.value}>
-        {inputedValue}
+        {Array.isArray(inputedValue) ? inputedValue.join(", ") : inputedValue}
       </Paper>
       <div className={classes.icons}>
         <CreateRoundedIcon
