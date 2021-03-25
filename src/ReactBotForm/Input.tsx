@@ -169,8 +169,6 @@ const getComponent = (
         {label && <FormLabel component="legend">{label}</FormLabel>}
         <ClickAwayListener
           onClickAway={() => {
-            console.log("click away", index);
-
             setCurrentWriter(null);
             setResponseInEdition(null);
           }}
@@ -185,28 +183,20 @@ const getComponent = (
               setResponseInEdition(index);
               setCurrentWriter(USER_WRITER);
             }}
-            onBlur={() => {
-              console.log("on blur", index);
-
-              setCurrentWriter(null);
-              setResponseInEdition(null);
-            }}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               const value = (event.target as HTMLInputElement).value;
               setResponse(value, doValidation?.(value));
             }}
           >
-            {(props as Omit<RadioInput, "type">).options.map((option) => {
-              return (
-                <FormControlLabel
-                  control={<Radio />}
-                  key={option}
-                  value={option}
-                  label={option}
-                  labelPlacement="top"
-                />
-              );
-            })}
+            {(props as Omit<RadioInput, "type">).options.map((option) => (
+              <FormControlLabel
+                control={<Radio />}
+                key={option}
+                value={option}
+                label={option}
+                labelPlacement="top"
+              />
+            ))}
           </RadioGroup>
         </ClickAwayListener>
       </>
