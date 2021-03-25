@@ -2,6 +2,7 @@ import React, { FunctionComponent, useContext } from "react";
 import { makeStyles } from "@material-ui/core";
 import Write from "./Write";
 import Read from "./Read";
+import { USER_WRITER } from "./constants";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 import { ResponseProps } from "./types";
 
@@ -29,7 +30,7 @@ const Response: FunctionComponent<ResponseProps> = ({
   children,
   doValidation,
 }) => {
-  const { responseInEdition, isBotTyping } = useContext(ReactBotFormContext);
+  const { responseInEdition, currentWriter } = useContext(ReactBotFormContext);
   const { isValid, index } = useContext(ReactBotFormChildContext);
   const classes = useStyles();
 
@@ -38,7 +39,7 @@ const Response: FunctionComponent<ResponseProps> = ({
       {responseInEdition !== index && isValid !== undefined ? (
         <Read doValidation={doValidation} />
       ) : (
-        !isBotTyping && (
+        currentWriter === USER_WRITER && (
           <div className={classes.write}>
             <Write doValidation={doValidation}>{children}</Write>
           </div>

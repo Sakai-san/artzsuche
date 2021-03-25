@@ -96,26 +96,6 @@ const App: FunctionComponent = () => {
             <Question>
               <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
               <span style={{ fontSize: "18px" }}>
-                What technology do you have a professional experience with ?
-              </span>
-            </Question>
-            <In
-              type="multiselect"
-              label="Techos you work with"
-              options={["react", "angular", "laravel", "mysql", "nodejs"]}
-              errorMessage="Please pick an option"
-              doValidation={(inputedValues) =>
-                (inputedValues as string[]).filter(
-                  (inputedValue) => !!inputedValue
-                ).length !== 0
-              }
-            />
-          </div>
-
-          <div>
-            <Question>
-              <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
-              <span style={{ fontSize: "18px" }}>
                 What kind of developer are you ?
               </span>
             </Question>
@@ -124,6 +104,26 @@ const App: FunctionComponent = () => {
               options={["full stack", "front-end", "back-end"]}
               errorMessage="Please pick an option"
               doValidation={(inputedValue) => !!inputedValue}
+            />
+          </div>
+
+          <div>
+            <Question>
+              <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
+              <span style={{ fontSize: "18px" }}>
+                What technology do you have a professional experience with ?
+              </span>
+            </Question>
+            <In
+              type="multiselect"
+              label="Techos you work with"
+              options={["react", "angular", "laravel", "mysql", "nodejs"]}
+              errorMessage="Please pick an option"
+              /*doValidation={(inputedValues) =>
+                (inputedValues as string[]).filter(
+                  (inputedValue) => !!inputedValue
+                ).length !== 0
+              }*/
             />
           </div>
 

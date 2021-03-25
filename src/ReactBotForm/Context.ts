@@ -4,8 +4,8 @@ import { FormContext, FormChildContext, Response } from "./types";
 export const ReactBotFormContext = createContext<FormContext>({
   responseInEdition: null,
   setResponseInEdition: () => {},
-  isBotTyping: false,
-  setIsBotTyping: () => {},
+  currentWriter: null,
+  setCurrentWriter: () => {},
 });
 
 export const ReactBotFormChildContext = createContext<FormChildContext>({

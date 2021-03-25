@@ -20,6 +20,7 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Response from "./Response";
+import { USER_WRITER } from "./constants";
 import { DoValidation, RenderProps } from "./types";
 import { ClassNameMap } from "@material-ui/styles";
 
@@ -98,6 +99,7 @@ const getComponent = (
     errorMessage,
     type,
     classes,
+    setCurrentWriter,
     ...props
   } = input;
 
@@ -109,8 +111,12 @@ const getComponent = (
         onFocus={() => {
           !doValidation && setIsValid(true);
           setResponseInEdition(index);
+          setCurrentWriter(USER_WRITER);
         }}
-        onBlur={() => setResponseInEdition(null)}
+        onBlur={() => {
+          setCurrentWriter(null);
+          setResponseInEdition(null);
+        }}
         onChange={(e, value) =>
           setResponse(
             (props as Omit<AutocompleteInput, "type">).getOptionLabel(value) ||
@@ -140,8 +146,12 @@ const getComponent = (
         onFocus={() => {
           !doValidation && setIsValid(true);
           setResponseInEdition(index);
+          setCurrentWriter(USER_WRITER);
         }}
-        onBlur={() => setResponseInEdition(null)}
+        onBlur={() => {
+          setCurrentWriter(null);
+          setResponseInEdition(null);
+        }}
         onChange={(e) => {
           const value = e.target.value;
           setResponse(value, doValidation?.(value));
@@ -157,7 +167,14 @@ const getComponent = (
     return (
       <>
         {label && <FormLabel component="legend">{label}</FormLabel>}
-        <ClickAwayListener onClickAway={() => setResponseInEdition(null)}>
+        <ClickAwayListener
+          onClickAway={() => {
+            console.log("click away", index);
+
+            setCurrentWriter(null);
+            setResponseInEdition(null);
+          }}
+        >
           <RadioGroup
             {...{ ref: props.ref, value: inputedValue || "" }}
             row
@@ -166,6 +183,13 @@ const getComponent = (
             onFocus={(event: FocusEvent<HTMLInputElement>) => {
               !doValidation && setIsValid(true);
               setResponseInEdition(index);
+              setCurrentWriter(USER_WRITER);
+            }}
+            onBlur={() => {
+              console.log("on blur", index);
+
+              setCurrentWriter(null);
+              setResponseInEdition(null);
             }}
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               const value = (event.target as HTMLInputElement).value;
@@ -204,27 +228,29 @@ const getComponent = (
         <InputLabel shrink htmlFor="select-multiple-native">
           {label}
         </InputLabel>
-        <ClickAwayListener onClickAway={() => setResponseInEdition(null)}>
-          <Select
-            {...{ ref: props.ref, value: inputedValue }}
-            multiple
-            native
-            onFocus={(event: FocusEvent<{ value: unknown }>) => {
-              !doValidation && setIsValid(true);
-              setResponseInEdition(index);
-            }}
-            onChange={handleChangeMultiple}
-            inputProps={{
-              id: "select-multiple-native",
-            }}
-          >
-            {(props as Omit<MultiselectInput, "type">).options.map((name) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </Select>
-        </ClickAwayListener>
+        <Select
+          {...{ ref: props.ref, value: inputedValue }}
+          multiple
+          native
+          onFocus={(event: FocusEvent<{ value: unknown }>) => {
+            !doValidation && setIsValid(true);
+            setResponseInEdition(index);
+          }}
+          onBlur={() => {
+            setCurrentWriter(null);
+            setResponseInEdition(null);
+          }}
+          onChange={handleChangeMultiple}
+          inputProps={{
+            id: "select-multiple-native",
+          }}
+        >
+          {(props as Omit<MultiselectInput, "type">).options.map((name) => (
+            <option key={name} value={name}>
+              {name}
+            </option>
+          ))}
+        </Select>
       </FormControl>
     );
   } else {
@@ -252,6 +278,7 @@ const Input: FunctionComponent<InputProps> = ({
         setResponseInEdition,
         setIsValid,
         ref,
+        setCurrentWriter,
       }) =>
         getComponent({
           type,
@@ -265,6 +292,7 @@ const Input: FunctionComponent<InputProps> = ({
           errorMessage,
           ref,
           classes,
+          setCurrentWriter,
           options: options || [],
           getOptionLabel: getOptionLabel || ((a: any) => `${a}`),
         })

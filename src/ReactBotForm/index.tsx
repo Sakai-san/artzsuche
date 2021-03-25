@@ -11,8 +11,9 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
+import { BOT_WRITER } from "./constants";
 
-import { Response, ReactBotFormProps, Responses } from "./types";
+import { Response, ReactBotFormProps, Responses, Writer } from "./types";
 
 import typingIndicator from "../giphy.gif";
 
@@ -89,7 +90,6 @@ const makeRange = (start, end) =>
    ]
 
 
-
 const italic = (next) => (config, classes) => {
   if (config) {
   }
@@ -129,10 +129,10 @@ const isDiscussionOver = (
 const hasError = (
   responses: Responses,
   children: ReactBotFormProps["children"],
-  isBotTyping: boolean
+  currentWriter: Writer
 ) =>
   Object.values(responses).filter((response) => response.isValid !== false)
-    .length === children.length && !isBotTyping;
+    .length === children.length && currentWriter !== BOT_WRITER;
 
 const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
   submitHandler,
@@ -144,7 +144,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
     null
   );
   const [responses, setResponses] = useState<Responses>({});
-  const [isBotTyping, setIsBotTyping] = useState<boolean>(true);
+  const [currentWriter, setCurrentWriter] = useState<Writer>(BOT_WRITER);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
   const contextInChildren = children.map((child, index) => (
@@ -167,19 +167,22 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
   const next = () => {
     setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
     if (!isDiscussionOver(responses, children)) {
-      setIsBotTyping(true);
+      setCurrentWriter(BOT_WRITER);
     } else {
-      setIsBotTyping(false);
+      setCurrentWriter(null);
     }
   };
 
   console.log("responses", responses);
+
   return (
     <div className={classes.content}>
       <section className={classes.lanes}>
         <div>
           <img
-            style={{ visibility: isBotTyping ? "visible" : "hidden" }}
+            style={{
+              visibility: currentWriter === BOT_WRITER ? "visible" : "hidden",
+            }}
             className={classes.typing}
             src={typingIndicator}
             alt="Typing indicator"
@@ -207,8 +210,8 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         value={{
           responseInEdition,
           setResponseInEdition,
-          isBotTyping,
-          setIsBotTyping,
+          currentWriter,
+          setCurrentWriter,
         }}
       >
         {contextInChildren.slice(0, currentQuestionIndex + 1)}
@@ -226,7 +229,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         </Button>
       )}
 
-      {hasError(responses, children, isBotTyping) && (
+      {hasError(responses, children, currentWriter) && (
         <Button
           variant="contained"
           color="primary"

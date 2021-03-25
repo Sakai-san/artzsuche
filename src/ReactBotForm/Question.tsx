@@ -2,6 +2,7 @@ import React, { FunctionComponent, useContext } from "react";
 import Typist from "react-typist";
 import { makeStyles } from "@material-ui/core";
 import { ReactBotFormContext } from "./Context";
+import { USER_WRITER } from "./constants";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -12,14 +13,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Question: FunctionComponent<{}> = ({ children }) => {
-  const { setIsBotTyping } = useContext(ReactBotFormContext);
+  const { setCurrentWriter } = useContext(ReactBotFormContext);
   const classes = useStyles();
 
   return (
     <Typist
       className={classes.wrapper}
       cursor={{ hideWhenDone: true }}
-      onTypingDone={() => setIsBotTyping(false)}
+      onTypingDone={() => setCurrentWriter(USER_WRITER)}
     >
       {children}
     </Typist>

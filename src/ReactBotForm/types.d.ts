@@ -1,4 +1,7 @@
 import { Dispatch, SetStateAction, MutableRefObject } from "react";
+import { BOT_WRITER, USER_WRITER } from "./constants";
+
+export type Writer = typeof BOT_WRITER | typeof USER_WRITER | null;
 
 export interface Response {
   inputedValue: string | string[];
@@ -22,6 +25,7 @@ export type RenderProps = {
   setResponseInEdition: Dispatch<SetStateAction<null | number>>;
   setIsValid: SetIsValid;
   ref: MutableRefObject<HTMDivLElement | null>;
+  setCurrentWriter: Dispatch<SetStateAction<Writer>>;
 };
 
 export interface ResponseProps {
@@ -46,8 +50,8 @@ export interface ReactBotFormProps {
 export interface FormContext {
   responseInEdition: null | number;
   setResponseInEdition: Dispatch<SetStateAction<null | number>>;
-  isBotTyping: boolean;
-  setIsBotTyping: Dispatch<SetStateAction<boolean>>;
+  currentWriter: Writer;
+  setCurrentWriter: Dispatch<SetStateAction<Writer>>;
 }
 
 export interface FormChildContext {

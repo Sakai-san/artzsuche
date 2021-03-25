@@ -26,15 +26,18 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
   const { inputedValue, setResponse, index, setIsValid, isValid } = useContext(
     ReactBotFormChildContext
   );
-  const { responseInEdition, setResponseInEdition } = useContext(
-    ReactBotFormContext
-  );
+  const {
+    responseInEdition,
+    setResponseInEdition,
+    setCurrentWriter,
+  } = useContext(ReactBotFormContext);
   const classes = useStyles();
   const ref = useFocus(responseInEdition, index);
 
   return (
     // only the very first rendering is animated
-    <div className={isValid === undefined ? classes.display : ""}>
+    //  <div className={isValid === undefined ? classes.display : ""}>
+    <div>
       {children?.({
         index,
         doValidation,
@@ -43,6 +46,7 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
         setResponseInEdition,
         setIsValid,
         ref,
+        setCurrentWriter,
       })}
     </div>
   );
