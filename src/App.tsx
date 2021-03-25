@@ -119,11 +119,11 @@ const App: FunctionComponent = () => {
               label="Techos you work with"
               options={["react", "angular", "laravel", "mysql", "nodejs"]}
               errorMessage="Please pick an option"
-              /*doValidation={(inputedValues) =>
+              doValidation={(inputedValues) =>
                 (inputedValues as string[]).filter(
                   (inputedValue) => !!inputedValue
                 ).length !== 0
-              }*/
+              }
             />
           </div>
 
