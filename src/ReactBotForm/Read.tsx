@@ -6,6 +6,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
 import { makeStyles } from "@material-ui/core";
 import { ReactBotFormChildContext, ReactBotFormContext } from "./Context";
+import { USER_WRITER } from "./constants";
 import { ReadProps } from "./types";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +30,9 @@ const useStyles = makeStyles((theme) => ({
 const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
   const classes = useStyles();
   const { inputedValue, index } = useContext(ReactBotFormChildContext);
-  const { setResponseInEdition } = useContext(ReactBotFormContext);
+  const { setResponseInEdition, setCurrentWriter } = useContext(
+    ReactBotFormContext
+  );
 
   return (
     <div className={classes.root}>
@@ -39,7 +42,10 @@ const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
       <div className={classes.icons}>
         <CreateRoundedIcon
           fontSize="small"
-          onClick={(e) => setResponseInEdition(index)}
+          onClick={(e) => {
+            setResponseInEdition(index);
+            setCurrentWriter(USER_WRITER);
+          }}
         />
         {!doValidation || doValidation?.(inputedValue) ? (
           <CheckIcon fontSize="large" style={{ color: green[500] }} />
