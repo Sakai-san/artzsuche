@@ -36,8 +36,7 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
 
   return (
     // only the very first rendering is animated
-    //  <div className={isValid === undefined ? classes.display : ""}>
-    <div>
+    <div className={isValid === undefined ? classes.display : ""}>
       {children?.({
         index,
         doValidation,
