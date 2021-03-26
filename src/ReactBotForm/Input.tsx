@@ -3,6 +3,7 @@ import React, {
   ReactNode,
   ChangeEvent,
   FocusEvent,
+  useContext,
 } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -16,10 +17,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Select from "@material-ui/core/Select";
 import Checkbox from "@material-ui/core/Checkbox";
 import Radio from "@material-ui/core/Radio";
+import MaterialUIInput from "@material-ui/core/Input";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Response from "./Response";
+import { ReactBotFormContext } from "./Context";
 import { USER_WRITER } from "./constants";
 import { DoValidation, RenderProps } from "./types";
 import { ClassNameMap } from "@material-ui/styles";
@@ -213,15 +216,25 @@ const getComponent = (
       setResponse(value, doValidation?.(value));
     };
 
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+      PaperProps: {
+        style: {
+          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+          width: 250,
+        },
+      },
+    };
+
     return (
       <FormControl className={classes.formControl}>
-        <InputLabel shrink htmlFor="select-multiple-native">
-          {label}
-        </InputLabel>
+        <InputLabel id="demo-mutiple-chip-label">Chip</InputLabel>
         <Select
-          {...{ ref: props.ref, value: inputedValue }}
+          {...{ ref: props.ref, value: inputedValue || [] }}
+          labelId="demo-mutiple-chip-label"
+          id="demo-mutiple-chip"
           multiple
-          native
           onFocus={(event: FocusEvent<{ value: unknown }>) => {
             !doValidation && setIsValid(true);
             setResponseInEdition(index);
@@ -230,15 +243,31 @@ const getComponent = (
             setCurrentWriter(null);
             setResponseInEdition(null);
           }}
-          onChange={handleChangeMultiple}
+          onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+            const selected = event.target.value as string[];
+            setResponse(selected, doValidation?.(selected));
+          }}
           inputProps={{
             id: "select-multiple-native",
           }}
+          input={<MaterialUIInput id="select-multiple-chip" />}
+          renderValue={(selected) => (
+            <div className={classes.chips}>
+              {(selected as string[]).map((value) => (
+                <Chip key={value} label={value} className={classes.chip} />
+              ))}
+            </div>
+          )}
+          MenuProps={MenuProps}
         >
           {(props as Omit<MultiselectInput, "type">).options.map((name) => (
-            <option key={name} value={name}>
+            <MenuItem
+              key={name}
+              value={name}
+              // style={getStyles(name, personName, theme)}
+            >
               {name}
-            </option>
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -256,20 +285,15 @@ const Input: FunctionComponent<InputProps> = ({
   label,
   errorMessage,
 }) => {
+  const { setResponseInEdition, setCurrentWriter } = useContext(
+    ReactBotFormContext
+  );
+
   const classes = useStyles();
 
   return (
     <Response doValidation={doValidation}>
-      {({
-        doValidation,
-        inputedValue,
-        setResponse,
-        index,
-        setResponseInEdition,
-        setIsValid,
-        ref,
-        setCurrentWriter,
-      }) =>
+      {({ doValidation, inputedValue, setResponse, index, setIsValid, ref }) =>
         getComponent({
           type,
           label,
