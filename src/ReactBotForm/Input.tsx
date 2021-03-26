@@ -247,9 +247,6 @@ const getComponent = (
             const selected = event.target.value as string[];
             setResponse(selected, doValidation?.(selected));
           }}
-          inputProps={{
-            id: "select-multiple-native",
-          }}
           input={<MaterialUIInput id="select-multiple-chip" />}
           renderValue={(selected) => (
             <div className={classes.chips}>
