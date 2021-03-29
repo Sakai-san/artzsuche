@@ -30,16 +30,18 @@ const Response: FunctionComponent<ResponseProps> = ({
   children,
   doValidation,
 }) => {
-  const { responseInEdition, currentWriter, currentQuestionIndex } = useContext(
-    ReactBotFormContext
-  );
-  const { isValid, index } = useContext(ReactBotFormChildContext);
+  const {
+    responseInEdition,
+    isDiscussionOver,
+    currentQuestionIndex,
+  } = useContext(ReactBotFormContext);
+  const { index } = useContext(ReactBotFormChildContext);
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {currentWriter === USER_WRITER &&
-      (responseInEdition === index || index === currentQuestionIndex) ? (
+      {responseInEdition === index ||
+      (!isDiscussionOver() && index === currentQuestionIndex) ? (
         <div className={classes.write}>
           <Write doValidation={doValidation}>{children}</Write>
         </div>

@@ -54,6 +54,7 @@ export interface FormContext {
   currentWriter: Writer;
   setCurrentWriter: Dispatch<SetStateAction<Writer>>;
   currentQuestionIndex: number;
+  isDiscussionOver: () => boolean;
 }
 
 export interface FormChildContext {

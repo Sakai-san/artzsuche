@@ -7,6 +7,7 @@ export const ReactBotFormContext = createContext<FormContext>({
   currentWriter: null,
   setCurrentWriter: () => {},
   currentQuestionIndex: 0,
+  isDiscussionOver: () => false,
 });
 
 export const ReactBotFormChildContext = createContext<FormChildContext>({
