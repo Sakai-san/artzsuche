@@ -23,16 +23,22 @@ const useStyles = makeStyles((theme) =>
 );
 
 const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
-  const { inputedValue, setResponse, index, setIsValid, isValid } = useContext(
-    ReactBotFormChildContext
-  );
+  const {
+    inputedValue,
+    setResponse,
+    index,
+    ref,
+    setIsValid,
+    isValid,
+  } = useContext(ReactBotFormChildContext);
   const {
     responseInEdition,
     setResponseInEdition,
     setCurrentWriter,
+    currentQuestionIndex,
   } = useContext(ReactBotFormContext);
   const classes = useStyles();
-  const ref = useFocus(responseInEdition, index);
+  //  const ref = useFocus(currentQuestionIndex, responseInEdition, index);
 
   return (
     // only the very first rendering is animated

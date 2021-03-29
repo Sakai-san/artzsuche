@@ -2,7 +2,7 @@ import { useRef, useEffect, MutableRefObject } from "react";
 
 const FOCUSABLE_ELEMENTS = ["INPUT", "TEXTAREA", "SELECT"];
 
-const domFocus = (domRef: MutableRefObject<HTMLElement | null>) => {
+export const domFocus = (domRef: MutableRefObject<HTMLElement | null>) => {
   if (
     // parent
     domRef?.current?.tagName

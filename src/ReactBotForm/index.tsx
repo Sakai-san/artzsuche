@@ -4,14 +4,17 @@ import React, {
   Dispatch,
   SetStateAction,
   cloneElement,
+  useRef,
+  useEffect,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
+import { domFocus } from "./useFocus";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
-import { BOT_WRITER } from "./constants";
+import { BOT_WRITER, USER_WRITER } from "./constants";
 
 import { Response, ReactBotFormProps, Responses, Writer } from "./types";
 
@@ -118,13 +121,20 @@ const setResponseFactory = (setReponses: SetReponses) => (index: number) => (
 };
 
 // none of the inputs are undefined, means the discussion is over
-const isDiscussionOver = (
+const isDiscussionOver1 = (
   responses: Responses,
   children: ReactBotFormProps["children"]
 ) =>
   Object.values(responses).filter(
     (response) => response.inputedValue !== undefined
   ).length === children.length;
+
+const isDiscussionOver = (
+  responses: Responses,
+  children: ReactBotFormProps["children"]
+) =>
+  Object.values(responses).filter((response) => response.isValid !== undefined)
+    .length === children.length;
 
 const hasError = (
   responses: Responses,
@@ -147,6 +157,10 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
   const [currentWriter, setCurrentWriter] = useState<Writer>(BOT_WRITER);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
+  const refs = new Array(children.length).fill(
+    useRef<HTMLDivElement | null>(null)
+  );
+
   const contextInChildren = children.map((child, index) => (
     <ReactBotFormChildContext.Provider
       key={index}
@@ -156,6 +170,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         isValid: responses?.[index]?.isValid,
         setResponse: setResponseFactory(setResponses)(index),
         setIsValid: setIsValidFactory(setResponses)(index),
+        ref: refs[index],
       }}
     >
       {cloneElement(child, {
@@ -164,6 +179,24 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
     </ReactBotFormChildContext.Provider>
   ));
 
+  useEffect(() => {
+    // transition from bot as a writer to user as a writer
+    if (currentWriter === USER_WRITER) {
+      // editing
+      if (isDiscussionOver(responses, children)) {
+        console.log("yes discussion over", responseInEdition);
+        responseInEdition && domFocus(refs[responseInEdition]);
+      }
+      // first input rendering
+      else {
+        console.log("discussion NOT over", responseInEdition);
+        const ref = refs[currentQuestionIndex];
+        domFocus(ref);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  });
+
   const next = () => {
     setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
     if (!isDiscussionOver(responses, children)) {
@@ -171,9 +204,8 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
     } else {
       setCurrentWriter(null);
     }
+    setResponseInEdition(null);
   };
-
-  console.log("responses", responses);
 
   return (
     <div className={classes.content}>
@@ -212,6 +244,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
           setResponseInEdition,
           currentWriter,
           setCurrentWriter,
+          currentQuestionIndex,
         }}
       >
         {contextInChildren.slice(0, currentQuestionIndex + 1)}

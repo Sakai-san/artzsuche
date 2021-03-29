@@ -24,7 +24,7 @@ export type RenderProps = {
   setResponse: SetResponse;
   setResponseInEdition: Dispatch<SetStateAction<null | number>>;
   setIsValid: SetIsValid;
-  ref: MutableRefObject<HTMDivLElement | null>;
+  ref: MutableRefObject<HTMLDivElement | null>;
   setCurrentWriter: Dispatch<SetStateAction<Writer>>;
 };
 
@@ -52,6 +52,7 @@ export interface FormContext {
   setResponseInEdition: Dispatch<SetStateAction<null | number>>;
   currentWriter: Writer;
   setCurrentWriter: Dispatch<SetStateAction<Writer>>;
+  currentQuestionIndex: number;
 }
 
 export interface FormChildContext {
@@ -60,4 +61,5 @@ export interface FormChildContext {
   isValid: Response["isValid"] | undefined;
   setResponse: SetResponse;
   setIsValid: SetIsValid;
+  ref: MutableRefObject<HTMLDivElement | null> | null;
 }

@@ -120,7 +120,7 @@ const App: FunctionComponent = () => {
               options={["react", "angular", "laravel", "mysql", "nodejs"]}
               errorMessage="Please pick an option"
               doValidation={(inputedValues) =>
-                (inputedValues as string[]).filter(
+                ((inputedValues as string[]) || []).filter(
                   (inputedValue) => !!inputedValue
                 ).length !== 0
               }

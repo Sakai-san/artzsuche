@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, {
   FunctionComponent,
   ReactNode,
@@ -111,12 +112,16 @@ const getComponent = (
       <Autocomplete
         {...(props as Omit<AutocompleteInput, "type">)}
         style={{ width: 300 }}
-        onFocus={() => {
-          !doValidation && setIsValid(true);
+        onFocus={(event) => {
           setResponseInEdition(index);
           setCurrentWriter(USER_WRITER);
         }}
-        onBlur={() => {
+        onBlur={(event) => {
+          if (!doValidation) {
+            setIsValid(true);
+          } else {
+            setIsValid(doValidation(event.target.value));
+          }
           setCurrentWriter(null);
           setResponseInEdition(null);
         }}
@@ -140,18 +145,23 @@ const getComponent = (
           value: inputedValue,
           ref: props.ref,
         }}
+        className={classes.textarea}
         helperText={
           (inputedValue !== undefined &&
             !doValidation?.(inputedValue) &&
             errorMessage) ||
           " "
         }
-        onFocus={() => {
-          !doValidation && setIsValid(true);
+        onFocus={(event) => {
           setResponseInEdition(index);
           setCurrentWriter(USER_WRITER);
         }}
-        onBlur={() => {
+        onBlur={(event) => {
+          if (!doValidation) {
+            setIsValid(true);
+          } else {
+            setIsValid(doValidation(event.target.value));
+          }
           setCurrentWriter(null);
           setResponseInEdition(null);
         }}
@@ -171,7 +181,12 @@ const getComponent = (
       <>
         {label && <FormLabel component="legend">{label}</FormLabel>}
         <ClickAwayListener
-          onClickAway={() => {
+          onClickAway={(event) => {
+            if (!doValidation) {
+              setIsValid(true);
+            } else {
+              setIsValid(doValidation(event.target.value));
+            }
             setCurrentWriter(null);
             setResponseInEdition(null);
           }}
@@ -182,7 +197,6 @@ const getComponent = (
             aria-label="quiz"
             name={`${index}`}
             onFocus={(event: FocusEvent<HTMLInputElement>) => {
-              !doValidation && setIsValid(true);
               setResponseInEdition(index);
               setCurrentWriter(USER_WRITER);
             }}
@@ -236,10 +250,15 @@ const getComponent = (
           id="demo-mutiple-chip"
           multiple
           onFocus={(event: FocusEvent<{ value: unknown }>) => {
-            !doValidation && setIsValid(true);
             setResponseInEdition(index);
+            setCurrentWriter(USER_WRITER);
           }}
-          onBlur={() => {
+          onBlur={(event) => {
+            if (!doValidation) {
+              setIsValid(true);
+            } else {
+              setIsValid(doValidation(event.target.value));
+            }
             setCurrentWriter(null);
             setResponseInEdition(null);
           }}

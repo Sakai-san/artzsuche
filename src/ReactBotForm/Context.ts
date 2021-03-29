@@ -6,6 +6,7 @@ export const ReactBotFormContext = createContext<FormContext>({
   setResponseInEdition: () => {},
   currentWriter: null,
   setCurrentWriter: () => {},
+  currentQuestionIndex: 0,
 });
 
 export const ReactBotFormChildContext = createContext<FormChildContext>({
@@ -17,4 +18,5 @@ export const ReactBotFormChildContext = createContext<FormChildContext>({
     isValid?: boolean
   ) => {},
   setIsValid: (isValid: boolean) => {},
+  ref: null,
 });
