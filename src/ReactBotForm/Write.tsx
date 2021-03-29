@@ -31,14 +31,10 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
     setIsValid,
     isValid,
   } = useContext(ReactBotFormChildContext);
-  const {
-    setResponseInEdition,
-    setCurrentWriter,
-
-    currentWriter,
-  } = useContext(ReactBotFormContext);
+  const { setResponseInEdition, setCurrentWriter, currentWriter } = useContext(
+    ReactBotFormContext
+  );
   const classes = useStyles();
-  //  const ref = useFocus(currentQuestionIndex, responseInEdition, index);
 
   return (
     // only the very first rendering is animated
