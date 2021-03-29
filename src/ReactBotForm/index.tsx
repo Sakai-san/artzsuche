@@ -6,13 +6,13 @@ import React, {
   cloneElement,
   useRef,
   useEffect,
+  MutableRefObject,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
-import { domFocus } from "./useFocus";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 import { BOT_WRITER, USER_WRITER } from "./constants";
 
@@ -101,6 +101,26 @@ const italic = (next) => (config, classes) => {
 
 type SetResponses = Dispatch<SetStateAction<Responses>>;
 
+const domFocus = (domRef: MutableRefObject<HTMLElement | null>) => {
+  const FOCUSABLE_ELEMENTS = ["INPUT", "TEXTAREA", "SELECT"];
+
+  if (
+    // parent
+    domRef?.current?.tagName
+      ?.toUpperCase?.()
+      ?.match?.(new RegExp(`\\b${FOCUSABLE_ELEMENTS.join("|")}\\b`))
+  ) {
+    domRef?.current?.focus?.();
+  } else {
+    // children
+    const node = domRef?.current?.querySelector?.(
+      FOCUSABLE_ELEMENTS.join(", ")
+    ) as any;
+
+    node?.focus?.();
+  }
+};
+
 const setIsValidFactory = (setResponses: SetResponses) => (index: number) => (
   isValid: boolean
 ) => {
@@ -133,7 +153,7 @@ const hasError = (
   currentWriter: Writer
 ) =>
   Object.values(responses).filter((response) => response.isValid !== false)
-    .length === children.length && currentWriter !== BOT_WRITER;
+    .length === children.length;
 
 const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
   submitHandler,
@@ -256,24 +276,28 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         </Button>
       )}
 
-      {hasError(responses, children, currentWriter) && (
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          endIcon={<SendIcon />}
-          onClick={(e) =>
-            submitHandler(
-              Object.entries(responses).reduce(
-                (acc, [key, value]) => ({ ...acc, [key]: value.inputedValue }),
-                {}
+      {currentWriter !== BOT_WRITER &&
+        hasError(responses, children, currentWriter) && (
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            endIcon={<SendIcon />}
+            onClick={(e) =>
+              submitHandler(
+                Object.entries(responses).reduce(
+                  (acc, [key, value]) => ({
+                    ...acc,
+                    [key]: value.inputedValue,
+                  }),
+                  {}
+                )
               )
-            )
-          }
-        >
-          Send
-        </Button>
-      )}
+            }
+          >
+            Send
+          </Button>
+        )}
     </div>
   );
 };
