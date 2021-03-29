@@ -184,8 +184,8 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
     </ReactBotFormChildContext.Provider>
   ));
 
+  // focus
   useEffect(() => {
-    // transition from bot as a writer to user as a writer
     if (currentWriter === USER_WRITER) {
       // editing
       if (isDiscussionOver(responses, children)) {
