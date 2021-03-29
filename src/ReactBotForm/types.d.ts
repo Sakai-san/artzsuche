@@ -6,6 +6,7 @@ export type Writer = typeof BOT_WRITER | typeof USER_WRITER | null;
 export interface Response {
   inputedValue: string | string[];
   isValid: boolean;
+  ref: MutableRefObject<HTMLDivElement | null>;
 }
 
 export type Responses = Record<string, Response>;

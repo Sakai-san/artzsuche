@@ -5,6 +5,7 @@ import React, {
   SetStateAction,
   cloneElement,
   useRef,
+  useLayoutEffect,
   useEffect,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
@@ -99,24 +100,24 @@ const italic = (next) => (config, classes) => {
 };
 */
 
-type SetReponses = Dispatch<SetStateAction<Responses>>;
+type SetResponses = Dispatch<SetStateAction<Responses>>;
 
-const setIsValidFactory = (setReponses: SetReponses) => (index: number) => (
+const setIsValidFactory = (setResponses: SetResponses) => (index: number) => (
   isValid: boolean
 ) => {
-  setReponses((prevResponses) => ({
+  setResponses((prevResponses) => ({
     ...prevResponses,
     [index]: { ...prevResponses[index], isValid },
   }));
 };
 
-const setResponseFactory = (setReponses: SetReponses) => (index: number) => (
+const setResponseFactory = (setResponses: SetResponses) => (index: number) => (
   inputedValue: Response["inputedValue"],
   isValid: boolean = true
 ) => {
-  setReponses((prevResponses) => ({
+  setResponses((prevResponses) => ({
     ...prevResponses,
-    [index]: { inputedValue, isValid },
+    [index]: { ...prevResponses[index], inputedValue, isValid },
   }));
 };
 
@@ -153,13 +154,18 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
   const [responseInEdition, setResponseInEdition] = useState<null | number>(
     null
   );
-  const [responses, setResponses] = useState<Responses>({});
+  const [responses, setResponses] = useState<Responses>(
+    new Array(children.length).fill(null).reduce(
+      (acc, current, index) => ({
+        ...acc,
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        [index]: { ref: useRef<HTMLDivElement | null>(null) },
+      }),
+      {}
+    )
+  );
   const [currentWriter, setCurrentWriter] = useState<Writer>(BOT_WRITER);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-
-  const refs = new Array(children.length).fill(
-    useRef<HTMLDivElement | null>(null)
-  );
 
   const contextInChildren = children.map((child, index) => (
     <ReactBotFormChildContext.Provider
@@ -170,7 +176,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         isValid: responses?.[index]?.isValid,
         setResponse: setResponseFactory(setResponses)(index),
         setIsValid: setIsValidFactory(setResponses)(index),
-        ref: refs[index],
+        ref: responses?.[index]?.ref,
       }}
     >
       {cloneElement(child, {
@@ -184,14 +190,12 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
     if (currentWriter === USER_WRITER) {
       // editing
       if (isDiscussionOver(responses, children)) {
-        console.log("yes discussion over", responseInEdition);
-        responseInEdition && domFocus(refs[responseInEdition]);
+        responseInEdition && domFocus(responses[responseInEdition].ref);
       }
       // first input rendering
       else {
-        console.log("discussion NOT over", responseInEdition);
-        const ref = refs[currentQuestionIndex];
-        domFocus(ref);
+        responses?.[currentQuestionIndex]?.ref &&
+          domFocus(responses[currentQuestionIndex].ref);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
