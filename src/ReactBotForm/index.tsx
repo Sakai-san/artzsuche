@@ -207,7 +207,6 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
     } else {
       setCurrentWriter(null);
     }
-    setResponseInEdition(null);
   };
 
   return (
