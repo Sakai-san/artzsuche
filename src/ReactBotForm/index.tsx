@@ -5,7 +5,6 @@ import React, {
   SetStateAction,
   cloneElement,
   useRef,
-  useLayoutEffect,
   useEffect,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
