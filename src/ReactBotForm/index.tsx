@@ -182,8 +182,6 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
     }
   };
 
-  console.log("responses", responses);
-
   return (
     <div className={classes.content}>
       <section className={classes.lanes}>
