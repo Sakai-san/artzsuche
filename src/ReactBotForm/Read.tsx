@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
   value: {
     whiteSpace: "pre-wrap",
   },
+  edit: {
+    border: "2px solid green",
+    cursor: "pointer",
+  },
 }));
 
 const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
@@ -41,6 +45,7 @@ const Read: FunctionComponent<ReadProps> = ({ doValidation }) => {
       </Paper>
       <div className={classes.icons}>
         <CreateRoundedIcon
+          className={classes.edit}
           fontSize="small"
           onClick={(e) => {
             setResponseInEdition(index);

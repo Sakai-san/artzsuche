@@ -30,13 +30,15 @@ const Response: FunctionComponent<ResponseProps> = ({
   children,
   doValidation,
 }) => {
-  const { responseInEdition, currentWriter } = useContext(ReactBotFormContext);
+  const { responseInEdition, currentWriter, currentQuestionIndex } = useContext(
+    ReactBotFormContext
+  );
   const { isValid, index } = useContext(ReactBotFormChildContext);
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {responseInEdition !== index && isValid !== undefined ? (
+      {responseInEdition !== index ? (
         <Read doValidation={doValidation} />
       ) : (
         currentWriter === USER_WRITER && (
