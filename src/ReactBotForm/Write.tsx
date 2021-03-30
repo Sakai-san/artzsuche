@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useContext } from "react";
 import { makeStyles, createStyles } from "@material-ui/core";
-import { USER_WRITER } from "./constants";
+import useFocus from "./useFocus";
 import { ReactBotFormChildContext, ReactBotFormContext } from "./Context";
 import { WriteProps } from "./types";
 
@@ -31,27 +31,29 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
     setIsValid,
     isValid,
   } = useContext(ReactBotFormChildContext);
-  const { setResponseInEdition, setCurrentWriter, currentWriter } = useContext(
-    ReactBotFormContext
-  );
+  const {
+    setResponseInEdition,
+    setCurrentWriter,
+    responseInEdition,
+  } = useContext(ReactBotFormContext);
   const classes = useStyles();
+
+  useFocus(ref, responseInEdition, index);
 
   return (
     // only the very first rendering is animated
-    currentWriter === USER_WRITER ? (
-      <div className={isValid === undefined ? classes.display : ""}>
-        {children?.({
-          index,
-          doValidation,
-          inputedValue,
-          setResponse,
-          setResponseInEdition,
-          setIsValid,
-          ref,
-          setCurrentWriter,
-        })}
-      </div>
-    ) : null
+    <div className={isValid === undefined ? classes.display : ""}>
+      {children?.({
+        index,
+        doValidation,
+        inputedValue,
+        setResponse,
+        setResponseInEdition,
+        setIsValid,
+        ref,
+        setCurrentWriter,
+      })}
+    </div>
   );
 };
 

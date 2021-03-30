@@ -2,7 +2,7 @@ import React, { FunctionComponent, useContext } from "react";
 import { makeStyles } from "@material-ui/core";
 import Write from "./Write";
 import Read from "./Read";
-import { USER_WRITER, BOT_WRITER } from "./constants";
+import { USER_WRITER } from "./constants";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
 import { ResponseProps } from "./types";
 
@@ -30,26 +30,22 @@ const Response: FunctionComponent<ResponseProps> = ({
   children,
   doValidation,
 }) => {
-  const {
-    responseInEdition,
-    isDiscussionOver,
-    currentQuestionIndex,
-  } = useContext(ReactBotFormContext);
-  const { index } = useContext(ReactBotFormChildContext);
+  const { responseInEdition, currentWriter } = useContext(ReactBotFormContext);
+  const { isValid, index } = useContext(ReactBotFormChildContext);
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      {responseInEdition === index ||
-      (!isDiscussionOver() && index === currentQuestionIndex) ? (
-        <div className={classes.write}>
-          <Write doValidation={doValidation}>{children}</Write>
-        </div>
-      ) : (
+      {responseInEdition !== index && isValid !== undefined ? (
         <Read doValidation={doValidation} />
+      ) : (
+        currentWriter === USER_WRITER && (
+          <div className={classes.write}>
+            <Write doValidation={doValidation}>{children}</Write>
+          </div>
+        )
       )}
     </div>
   );
 };
-
 export default Response;

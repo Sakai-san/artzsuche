@@ -5,8 +5,6 @@ import React, {
   SetStateAction,
   cloneElement,
   useRef,
-  useEffect,
-  MutableRefObject,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
@@ -14,7 +12,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core";
 import { deepOrange } from "@material-ui/core/colors";
 import { ReactBotFormContext, ReactBotFormChildContext } from "./Context";
-import { BOT_WRITER, USER_WRITER } from "./constants";
+import { BOT_WRITER } from "./constants";
 
 import { Response, ReactBotFormProps, Responses, Writer } from "./types";
 
@@ -101,26 +99,6 @@ const italic = (next) => (config, classes) => {
 
 type SetResponses = Dispatch<SetStateAction<Responses>>;
 
-const domFocus = (domRef: MutableRefObject<HTMLElement | null>) => {
-  const FOCUSABLE_ELEMENTS = ["INPUT", "TEXTAREA", "SELECT"];
-
-  if (
-    // parent
-    domRef?.current?.tagName
-      ?.toUpperCase?.()
-      ?.match?.(new RegExp(`\\b${FOCUSABLE_ELEMENTS.join("|")}\\b`))
-  ) {
-    domRef?.current?.focus?.();
-  } else {
-    // children
-    const node = domRef?.current?.querySelector?.(
-      FOCUSABLE_ELEMENTS.join(", ")
-    ) as any;
-
-    node?.focus?.();
-  }
-};
-
 const setIsValidFactory = (setResponses: SetResponses) => (index: number) => (
   isValid: boolean
 ) => {
@@ -194,22 +172,6 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
       })}
     </ReactBotFormChildContext.Provider>
   ));
-
-  // focus
-  useEffect(() => {
-    if (currentWriter === USER_WRITER) {
-      // editing
-      if (isDiscussionOver(responses, children)) {
-        responseInEdition && domFocus(responses[responseInEdition].ref);
-      }
-      // first input rendering
-      else {
-        responses?.[currentQuestionIndex]?.ref &&
-          domFocus(responses[currentQuestionIndex].ref);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
 
   const next = () => {
     setCurrentQuestionIndex((currentIndex) => currentIndex + 1);
