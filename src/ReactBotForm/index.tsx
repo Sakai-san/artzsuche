@@ -127,8 +127,7 @@ const isDiscussionOver = (
 
 const hasError = (
   responses: Responses,
-  children: ReactBotFormProps["children"],
-  currentWriter: Writer
+  children: ReactBotFormProps["children"]
 ) =>
   Object.values(responses).filter((response) => response.isValid !== false)
     .length === children.length;
@@ -238,28 +237,27 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         </Button>
       )}
 
-      {currentWriter !== BOT_WRITER &&
-        hasError(responses, children, currentWriter) && (
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            endIcon={<SendIcon />}
-            onClick={(e) =>
-              submitHandler(
-                Object.entries(responses).reduce(
-                  (acc, [key, value]) => ({
-                    ...acc,
-                    [key]: value.inputedValue,
-                  }),
-                  {}
-                )
+      {currentWriter !== BOT_WRITER && hasError(responses, children) && (
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          endIcon={<SendIcon />}
+          onClick={(e) =>
+            submitHandler(
+              Object.entries(responses).reduce(
+                (acc, [key, value]) => ({
+                  ...acc,
+                  [key]: value.inputedValue,
+                }),
+                {}
               )
-            }
-          >
-            Send
-          </Button>
-        )}
+            )
+          }
+        >
+          Send
+        </Button>
+      )}
     </div>
   );
 };
