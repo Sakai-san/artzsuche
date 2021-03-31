@@ -219,7 +219,6 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
           currentWriter,
           setCurrentWriter,
           currentQuestionIndex,
-          isDiscussionOver: () => isDiscussionOver(responses, children),
         }}
       >
         {contextInChildren.slice(0, currentQuestionIndex + 1)}
