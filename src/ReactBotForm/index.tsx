@@ -236,27 +236,29 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
         </Button>
       )}
 
-      {currentWriter !== BOT_WRITER && hasError(responses, children) && (
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          endIcon={<SendIcon />}
-          onClick={(e) =>
-            submitHandler(
-              Object.entries(responses).reduce(
-                (acc, [key, value]) => ({
-                  ...acc,
-                  [key]: value.inputedValue,
-                }),
-                {}
+      {currentWriter !== BOT_WRITER &&
+        isDiscussionOver(responses, children) &&
+        hasError(responses, children) && (
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            endIcon={<SendIcon />}
+            onClick={(e) =>
+              submitHandler(
+                Object.entries(responses).reduce(
+                  (acc, [key, value]) => ({
+                    ...acc,
+                    [key]: value.inputedValue,
+                  }),
+                  {}
+                )
               )
-            )
-          }
-        >
-          Send
-        </Button>
-      )}
+            }
+          >
+            Send
+          </Button>
+        )}
     </div>
   );
 };
