@@ -113,15 +113,16 @@ const getComponent = (
         {...(props as Omit<AutocompleteInput, "type">)}
         style={{ width: 300 }}
         onFocus={(event) => {
-          setResponseInEdition(index);
-          setCurrentWriter(USER_WRITER);
-        }}
-        onBlur={(event) => {
           if (!doValidation) {
             setIsValid(true);
           } else {
             setIsValid(doValidation(event.target.value));
           }
+
+          setResponseInEdition(index);
+          setCurrentWriter(USER_WRITER);
+        }}
+        onBlur={(event) => {
           setCurrentWriter(null);
           setResponseInEdition(null);
         }}
@@ -153,15 +154,16 @@ const getComponent = (
           " "
         }
         onFocus={(event) => {
-          setResponseInEdition(index);
-          setCurrentWriter(USER_WRITER);
-        }}
-        onBlur={(event) => {
           if (!doValidation) {
             setIsValid(true);
           } else {
             setIsValid(doValidation(event.target.value));
           }
+
+          setResponseInEdition(index);
+          setCurrentWriter(USER_WRITER);
+        }}
+        onBlur={(event) => {
           setCurrentWriter(null);
           setResponseInEdition(null);
         }}
@@ -182,11 +184,6 @@ const getComponent = (
         {label && <FormLabel component="legend">{label}</FormLabel>}
         <ClickAwayListener
           onClickAway={(event) => {
-            if (!doValidation) {
-              setIsValid(true);
-            } else {
-              setIsValid(doValidation(event.target.value));
-            }
             setCurrentWriter(null);
             setResponseInEdition(null);
           }}
@@ -197,6 +194,12 @@ const getComponent = (
             aria-label="quiz"
             name={`${index}`}
             onFocus={(event: FocusEvent<HTMLInputElement>) => {
+              if (!doValidation) {
+                setIsValid(true);
+              } else {
+                setIsValid(doValidation(event.target.value));
+              }
+
               setResponseInEdition(index);
               setCurrentWriter(USER_WRITER);
             }}
@@ -250,15 +253,16 @@ const getComponent = (
           id="demo-mutiple-chip"
           multiple
           onFocus={(event: FocusEvent<{ value: unknown }>) => {
-            setResponseInEdition(index);
-            setCurrentWriter(USER_WRITER);
-          }}
-          onBlur={(event) => {
             if (!doValidation) {
               setIsValid(true);
             } else {
               setIsValid(doValidation(event.target.value));
             }
+
+            setResponseInEdition(index);
+            setCurrentWriter(USER_WRITER);
+          }}
+          onBlur={(event) => {
             setCurrentWriter(null);
             setResponseInEdition(null);
           }}
