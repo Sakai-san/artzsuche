@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, {
   FunctionComponent,
   ReactNode,
@@ -112,7 +111,7 @@ const getComponent = (
       <Autocomplete
         {...(props as Omit<AutocompleteInput, "type">)}
         style={{ width: 300 }}
-        onFocus={(event) => {
+        onFocus={(event: FocusEvent<HTMLInputElement>) => {
           if (!doValidation) {
             setIsValid(true);
           } else {
@@ -256,7 +255,7 @@ const getComponent = (
             if (!doValidation) {
               setIsValid(true);
             } else {
-              setIsValid(doValidation(event.target.value));
+              setIsValid(doValidation(event.target.value as string));
             }
 
             setResponseInEdition(index);
@@ -266,7 +265,7 @@ const getComponent = (
             setCurrentWriter(null);
             setResponseInEdition(null);
           }}
-          onChange={(event: React.ChangeEvent<{ value: unknown }>) => {
+          onChange={(event: ChangeEvent<{ value: unknown }>) => {
             const selected = event.target.value as string[];
             setResponse(selected, doValidation?.(selected));
           }}
