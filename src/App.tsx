@@ -124,6 +124,7 @@ const App: FunctionComponent = () => {
                   (inputedValue) => !!inputedValue
                 ).length !== 0
               }
+              getOptionLabel={(option) => option}
             />
           </div>
 

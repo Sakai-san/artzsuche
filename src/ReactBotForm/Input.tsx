@@ -12,15 +12,7 @@ import TextField from "@material-ui/core/TextField";
 import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Chip from "@material-ui/core/Chip";
-import ListItemText from "@material-ui/core/ListItemText";
-import Select from "@material-ui/core/Select";
-import Checkbox from "@material-ui/core/Checkbox";
 import Radio from "@material-ui/core/Radio";
-import MaterialUIInput from "@material-ui/core/Input";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
 import Response from "./Response";
 import { ReactBotFormContext } from "./Context";
 import { USER_WRITER } from "./constants";
@@ -221,75 +213,38 @@ const getComponent = (
       </>
     );
   } else if (type === "multiselect") {
-    const handleChangeMultiple = (event: ChangeEvent<{ value: unknown }>) => {
-      const { options } = event.target as HTMLSelectElement;
-      const value: string[] = [];
-      for (let i = 0, l = options.length; i < l; i += 1) {
-        if (options[i].selected) {
-          value.push(options[i].value);
-        }
-      }
-      setResponse(value, doValidation?.(value));
-    };
-
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-      PaperProps: {
-        style: {
-          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-          width: 250,
-        },
-      },
-    };
-
     return (
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-mutiple-chip-label">Chip</InputLabel>
-        <Select
-          {...{ ref: props.ref, value: inputedValue || [] }}
-          labelId="demo-mutiple-chip-label"
-          id="demo-mutiple-chip"
-          multiple
-          onFocus={(event: FocusEvent<{ value: unknown }>) => {
-            if (!doValidation) {
-              setIsValid(true);
-            } else {
-              setIsValid(doValidation(event.target.value as string));
-            }
+      <Autocomplete
+        {...(props as Omit<AutocompleteInput, "type">)}
+        multiple
+        style={{ width: 300 }}
+        onFocus={(event: FocusEvent<HTMLInputElement>) => {
+          if (!doValidation) {
+            setIsValid(true);
+          } else {
+            setIsValid(doValidation(event.target.value));
+          }
 
-            setResponseInEdition(index);
-            setCurrentWriter(USER_WRITER);
-          }}
-          onBlur={(event) => {
-            setCurrentWriter(null);
-            setResponseInEdition(null);
-          }}
-          onChange={(event: ChangeEvent<{ value: unknown }>) => {
-            const selected = event.target.value as string[];
-            setResponse(selected, doValidation?.(selected));
-          }}
-          input={<MaterialUIInput id="select-multiple-chip" />}
-          renderValue={(selected) => (
-            <div className={classes.chips}>
-              {(selected as string[]).map((value) => (
-                <Chip key={value} label={value} className={classes.chip} />
-              ))}
-            </div>
-          )}
-          MenuProps={MenuProps}
-        >
-          {(props as Omit<MultiselectInput, "type">).options.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              // style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+          setResponseInEdition(index);
+          setCurrentWriter(USER_WRITER);
+        }}
+        onBlur={(event) => {
+          setCurrentWriter(null);
+          setResponseInEdition(null);
+        }}
+        onChange={(event, value: any) => {
+          const selected = value as string[];
+          setResponse(
+            (props as Omit<AutocompleteInput, "type">).getOptionLabel(
+              selected
+            ) || selected,
+            doValidation?.(selected)
+          );
+        }}
+        renderInput={(params) => (
+          <TextField {...params} label={label} variant="outlined" />
+        )}
+      />
     );
   } else {
     return <></>;
