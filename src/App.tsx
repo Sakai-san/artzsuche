@@ -100,10 +100,12 @@ const App: FunctionComponent = () => {
               </span>
             </Question>
             <In
-              type="radio"
+              type="autocomplete"
               options={["full stack", "front-end", "back-end"]}
               errorMessage="Please pick an option"
               doValidation={(inputedValue) => !!inputedValue}
+              getOptionLabel={(option) => option}
+              label="Speciality"
             />
           </div>
 

@@ -44,21 +44,12 @@ type SimpleInput = InputBaseProps & {
   type: "number" | "textarea" | "text";
 };
 
-type RadioInput = InputBaseProps & {
-  options: any[];
-  type: "radio";
-};
-
 type MultiselectInput = InputBaseProps & {
   options: any[];
   type: "multiselect";
 };
 
-type InputProps =
-  | AutocompleteInput
-  | SimpleInput
-  | RadioInput
-  | MultiselectInput;
+type InputProps = AutocompleteInput | SimpleInput | MultiselectInput;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -168,49 +159,6 @@ const getComponent = (
         variant="outlined"
         multiline={type === "textarea"}
       />
-    );
-  } else if (type === "radio") {
-    return (
-      <>
-        {label && <FormLabel component="legend">{label}</FormLabel>}
-        <ClickAwayListener
-          onClickAway={(event) => {
-            setCurrentWriter(null);
-            setResponseInEdition(null);
-          }}
-        >
-          <RadioGroup
-            {...{ ref: props.ref, value: inputedValue || "" }}
-            row
-            aria-label="quiz"
-            name={`${index}`}
-            onFocus={(event: FocusEvent<HTMLInputElement>) => {
-              if (!doValidation) {
-                setIsValid(true);
-              } else {
-                setIsValid(doValidation(event.target.value));
-              }
-
-              setResponseInEdition(index);
-              setCurrentWriter(USER_WRITER);
-            }}
-            onChange={(event: ChangeEvent<HTMLInputElement>) => {
-              const value = (event.target as HTMLInputElement).value;
-              setResponse(value, doValidation?.(value));
-            }}
-          >
-            {(props as Omit<RadioInput, "type">).options.map((option) => (
-              <FormControlLabel
-                control={<Radio />}
-                key={option}
-                value={option}
-                label={option}
-                labelPlacement="top"
-              />
-            ))}
-          </RadioGroup>
-        </ClickAwayListener>
-      </>
     );
   } else if (type === "multiselect") {
     return (
