@@ -83,7 +83,13 @@ const getComponent = (
       <Autocomplete
         {...(props as Omit<AutocompleteInput, "type">)}
         multiple={type === "multiselect"}
-        value={inputedValue}
+        value={
+          type === "multiselect"
+            ? inputedValue
+            : props.options?.find?.(
+                (option) => props.getOptionLabel?.(option) === inputedValue
+              )
+        }
         style={{ width: 300 }}
         onFocus={(event: FocusEvent<HTMLInputElement>) => {
           if (!doValidation) {
