@@ -1,18 +1,12 @@
 import React, {
   FunctionComponent,
   ReactNode,
-  ChangeEvent,
   FocusEvent,
   useContext,
 } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
-import FormLabel from "@material-ui/core/FormLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Radio from "@material-ui/core/Radio";
 import Response from "./Response";
 import { ReactBotFormContext } from "./Context";
 import { USER_WRITER } from "./constants";
@@ -37,19 +31,14 @@ type InputBaseProps = {
 type AutocompleteInput = InputBaseProps & {
   options: any[];
   getOptionLabel: (option: any) => string;
-  type: "autocomplete";
+  type: "autocomplete" | "multiselect";
 };
 
 type SimpleInput = InputBaseProps & {
   type: "number" | "textarea" | "text";
 };
 
-type MultiselectInput = InputBaseProps & {
-  options: any[];
-  type: "multiselect";
-};
-
-type InputProps = AutocompleteInput | SimpleInput | MultiselectInput;
+type InputProps = AutocompleteInput | SimpleInput;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -89,10 +78,12 @@ const getComponent = (
     ...props
   } = input;
 
-  if (type === "autocomplete") {
+  if (type === "autocomplete" || type === "multiselect") {
     return (
       <Autocomplete
         {...(props as Omit<AutocompleteInput, "type">)}
+        multiple={type === "multiselect"}
+        value={inputedValue}
         style={{ width: 300 }}
         onFocus={(event: FocusEvent<HTMLInputElement>) => {
           if (!doValidation) {
@@ -158,40 +149,6 @@ const getComponent = (
         type={type}
         variant="outlined"
         multiline={type === "textarea"}
-      />
-    );
-  } else if (type === "multiselect") {
-    return (
-      <Autocomplete
-        {...(props as Omit<AutocompleteInput, "type">)}
-        multiple
-        style={{ width: 300 }}
-        onFocus={(event: FocusEvent<HTMLInputElement>) => {
-          if (!doValidation) {
-            setIsValid(true);
-          } else {
-            setIsValid(doValidation(event.target.value));
-          }
-
-          setResponseInEdition(index);
-          setCurrentWriter(USER_WRITER);
-        }}
-        onBlur={(event) => {
-          setCurrentWriter(null);
-          setResponseInEdition(null);
-        }}
-        onChange={(event, value: any) => {
-          const selected = value as string[];
-          setResponse(
-            (props as Omit<AutocompleteInput, "type">).getOptionLabel(
-              selected
-            ) || selected,
-            doValidation?.(selected)
-          );
-        }}
-        renderInput={(params) => (
-          <TextField {...params} label={label} variant="outlined" />
-        )}
       />
     );
   } else {

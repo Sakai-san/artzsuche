@@ -101,11 +101,11 @@ const App: FunctionComponent = () => {
             </Question>
             <In
               type="autocomplete"
+              label="Speciality"
               options={["full stack", "front-end", "back-end"]}
               errorMessage="Please pick an option"
               doValidation={(inputedValue) => !!inputedValue}
               getOptionLabel={(option) => option}
-              label="Speciality"
             />
           </div>
 
@@ -142,12 +142,12 @@ const App: FunctionComponent = () => {
             </Question>
             <In
               type="autocomplete"
+              label="Wähle bitte deinen Kanton"
               options={cantons}
               doValidation={(inputedValue) =>
                 inputedValue ? inputedValue.length >= 1 : false
               }
               getOptionLabel={(option) => option}
-              label="Wähle bitte deinen Kanton"
             />
           </div>
 
@@ -160,6 +160,7 @@ const App: FunctionComponent = () => {
             </Question>
             <In
               type="number"
+              label="PLZ"
               errorMessage="4 digits"
               doValidation={(inputedValue) =>
                 !!(
@@ -167,7 +168,6 @@ const App: FunctionComponent = () => {
                   (inputedValue as string).match(/^[1-9][0-9]{3}$/)
                 )
               }
-              label="PLZ"
             />
           </div>
 
@@ -183,12 +183,12 @@ const App: FunctionComponent = () => {
             </Question>
             <In
               type="autocomplete"
+              label="Suche nach einem/er Artz/in"
               options={physicians}
               doValidation={(inputedValue) => !!inputedValue}
               getOptionLabel={(option) =>
                 `${option?.ProductDoctorname}, ${option?.ProductDoctorCom}`
               }
-              label="Suche nach einem/er Artz/in"
             />
           </div>
 
@@ -204,11 +204,11 @@ const App: FunctionComponent = () => {
             </Question>
             <In
               type="textarea"
+              label="Pains you suffer from"
               errorMessage="Please enter some text"
               doValidation={(inputedValue) =>
                 !!(inputedValue && inputedValue?.length >= 4)
               }
-              label="Pains you suffer from"
             />
           </div>
 
