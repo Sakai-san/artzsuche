@@ -11,7 +11,7 @@ import LocalHospitalRoundedIcon from "@material-ui/icons/LocalHospitalRounded";
 import RoomRoundedIcon from "@material-ui/icons/RoomRounded";
 
 import ReactBotForm from "./ReactBotForm";
-import In from "./ReactBotForm/Input";
+import Input from "./ReactBotForm/Input";
 import Question from "./ReactBotForm/Question";
 import { physiciansOperations } from "./ducks/physicians";
 import { cantonsOperations } from "./ducks/cantons";
@@ -99,7 +99,7 @@ const App: FunctionComponent = () => {
                 What kind of developer are you ?
               </span>
             </Question>
-            <In
+            <Input
               type="autocomplete"
               label="Speciality"
               options={["full stack", "front-end", "back-end"]}
@@ -116,7 +116,7 @@ const App: FunctionComponent = () => {
                 What technology do you have a professional experience with ?
               </span>
             </Question>
-            <In
+            <Input
               type="multiselect"
               label="Techos you work with"
               options={["react", "angular", "laravel", "mysql", "nodejs"]}
@@ -140,7 +140,7 @@ const App: FunctionComponent = () => {
                 Im welchem Kanton wohnst du ?
               </span>
             </Question>
-            <In
+            <Input
               type="autocomplete"
               label="Wähle bitte deinen Kanton"
               options={cantons}
@@ -158,7 +158,7 @@ const App: FunctionComponent = () => {
                 Was ist die Postleitzahl deines Wohnortes ?
               </span>
             </Question>
-            <In
+            <Input
               type="number"
               label="PLZ"
               errorMessage="4 digits"
@@ -181,7 +181,7 @@ const App: FunctionComponent = () => {
                 Wähle einen Artz / eine Artzin ?
               </span>
             </Question>
-            <In
+            <Input
               type="autocomplete"
               label="Suche nach einem/er Artz/in"
               options={physicians}
@@ -202,7 +202,7 @@ const App: FunctionComponent = () => {
                 Are there some pains you suffer from ?
               </span>
             </Question>
-            <In
+            <Input
               type="textarea"
               label="Pains you suffer from"
               errorMessage="Please enter some text"
@@ -220,7 +220,7 @@ const App: FunctionComponent = () => {
               />
               <span style={{ fontSize: "18px" }}>Something else ?</span>
             </Question>
-            <In type="textarea" label="Something else" />
+            <Input type="textarea" label="Something else" />
           </div>
         </ReactBotForm>
       )}
