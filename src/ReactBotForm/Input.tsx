@@ -116,9 +116,9 @@ const getComponent = (
       <TextField
         {...{
           options: props.options,
-          value: inputedValue,
           ref: props.ref,
         }}
+        value={inputedValue}
         className={classes.textarea}
         helperText={
           (inputedValue !== undefined &&
