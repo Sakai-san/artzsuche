@@ -102,10 +102,14 @@ const App: FunctionComponent = () => {
             <Input
               type="autocomplete"
               label="Speciality"
-              options={["full stack", "front-end", "back-end"]}
+              options={[
+                { language: "full stack", location: "zurich" },
+                { language: "front-end", location: "tokyo" },
+                { language: "back-end", location: "london" },
+              ]}
               errorMessage="Please pick an option"
               doValidation={(inputedValue) => !!inputedValue}
-              getOptionLabel={(option) => option}
+              getOptionLabel={(option) => option.language}
             />
           </div>
 
@@ -119,14 +123,15 @@ const App: FunctionComponent = () => {
             <Input
               type="multiselect"
               label="Techos you work with"
-              options={["react", "angular", "laravel", "mysql", "nodejs"]}
+              options={[
+                { language: "javascript", techno: "react" },
+                { language: "typescript", techno: "angular" },
+                { language: "php", techno: "laravel" },
+                { language: "python", techno: "Django" },
+                { language: "Node.js", techno: "Express" },
+              ]}
               errorMessage="Please pick an option"
-              doValidation={(inputedValues) =>
-                ((inputedValues as string[]) || []).filter(
-                  (inputedValue) => !!inputedValue
-                ).length !== 0
-              }
-              getOptionLabel={(option) => option}
+              getOptionLabel={(option) => option.techo}
             />
           </div>
 
