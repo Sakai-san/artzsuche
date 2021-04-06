@@ -103,13 +103,22 @@ const getComponent = (
           setCurrentWriter(null);
           setResponseInEdition(null);
         }}
-        onChange={(e, value) =>
-          setResponse(
-            (props as Omit<AutocompleteInput, "type">).getOptionLabel(value) ||
-              value,
-            doValidation?.(value)
-          )
-        }
+        onChange={(e, value) => {
+          if (type === "multiselect") {
+            setResponse(
+              value.map((input: string) =>
+                (props as Omit<AutocompleteInput, "type">).getOptionLabel(input)
+              )
+            );
+          } else {
+            setResponse(
+              (props as Omit<AutocompleteInput, "type">).getOptionLabel(
+                value
+              ) || value,
+              doValidation?.(value)
+            );
+          }
+        }}
         renderInput={(params) => (
           <TextField {...params} label={label} variant="outlined" />
         )}
