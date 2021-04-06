@@ -60,7 +60,19 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const getOptionFromAttribute = (options, attribute, value) => {};
+const getOptionsFromAttribute = (
+  options: Array<any>,
+  getOptionLabel: (option: any) => string,
+  values: Array<string>
+) => {
+  let opts: Array<any> = [];
+
+  values.forEach((val) => {
+    opts = opts.concat(options.filter((op) => getOptionLabel(op) === val));
+  });
+
+  return opts;
+};
 
 const getComponent = (
   input: InputProps & RenderProps & { classes: ClassNameMap<any> }
@@ -81,17 +93,16 @@ const getComponent = (
   } = input;
 
   if (type === "autocomplete" || type === "multiselect") {
-    console.log("inputedValue", inputedValue);
-
     return (
       <Autocomplete
         {...(props as Omit<AutocompleteInput, "type">)}
         multiple={type === "multiselect"}
         value={
           type === "multiselect"
-            ? props.options?.filter?.(
-                (option, index) =>
-                  props.getOptionLabel?.(option) === inputedValue?.[index]
+            ? getOptionsFromAttribute(
+                props.options as Array<any>,
+                props.getOptionLabel as (op: any) => string,
+                (inputedValue as string[]) || []
               )
             : props.options?.find?.(
                 (option) => props.getOptionLabel?.(option) === inputedValue
