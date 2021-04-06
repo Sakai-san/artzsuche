@@ -131,7 +131,7 @@ const App: FunctionComponent = () => {
                 { language: "Node.js", techno: "Express" },
               ]}
               errorMessage="Please pick an option"
-              getOptionLabel={(option) => option?.techno}
+              getOptionLabel={(option) => option.techno}
             />
           </div>
 
