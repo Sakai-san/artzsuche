@@ -61,14 +61,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const getOptionsFromAttribute = (
-  options: Array<any>,
-  getOptionLabel: (option: any) => string,
+  options: AutocompleteInput["options"],
+  getOptionLabel: AutocompleteInput["getOptionLabel"],
   values: Array<string>
 ) => {
   let opts: Array<any> = [];
 
   values.forEach((val) => {
-    opts = opts.concat(options.filter((op) => getOptionLabel(op) === val));
+    opts = opts.concat(
+      options.filter((option) => getOptionLabel(option) === val)
+    );
   });
 
   return opts;
