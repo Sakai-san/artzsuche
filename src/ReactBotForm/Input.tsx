@@ -60,6 +60,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const getOptionFromAttribute = (options, attribute, value) => {};
+
 const getComponent = (
   input: InputProps & RenderProps & { classes: ClassNameMap<any> }
 ) => {
@@ -85,9 +87,16 @@ const getComponent = (
       <Autocomplete
         {...(props as Omit<AutocompleteInput, "type">)}
         multiple={type === "multiselect"}
-        value={props.options?.find?.(
-          (option) => props.getOptionLabel?.(option) === inputedValue
-        )}
+        value={
+          type === "multiselect"
+            ? props.options?.filter?.(
+                (option, index) =>
+                  props.getOptionLabel?.(option) === inputedValue?.[index]
+              )
+            : props.options?.find?.(
+                (option) => props.getOptionLabel?.(option) === inputedValue
+              )
+        }
         style={{ width: 300 }}
         onFocus={(event: FocusEvent<HTMLInputElement>) => {
           if (!doValidation) {
