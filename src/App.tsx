@@ -131,6 +131,13 @@ const App: FunctionComponent = () => {
               ]}
               errorMessage="Please pick an option"
               getOptionLabel={(option) => option.techno}
+              doValidation={(inputedValues) => {
+                const values = (inputedValues as string[])?.filter?.(
+                  (value) => value
+                );
+
+                return values && values.length !== 0;
+              }}
             />
           </div>
 

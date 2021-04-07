@@ -130,13 +130,12 @@ const getComponent = (
             setResponse(
               value.map((input: string) =>
                 (props as Omit<AutocompleteInput, "type">).getOptionLabel(input)
-              )
+              ),
+              doValidation?.(value)
             );
           } else {
             setResponse(
-              (props as Omit<AutocompleteInput, "type">).getOptionLabel(
-                value
-              ) || value,
+              (props as Omit<AutocompleteInput, "type">).getOptionLabel(value),
               doValidation?.(value)
             );
           }
