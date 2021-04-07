@@ -136,7 +136,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
   submitHandler,
   children,
 }) => {
-  const classes = useStyles({});
+  const classes = useStyles();
 
   const [responseInEdition, setResponseInEdition] = useState<null | number>(
     null
