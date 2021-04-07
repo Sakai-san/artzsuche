@@ -15,7 +15,6 @@ import Input from "./ReactBotForm/Input";
 import Question from "./ReactBotForm/Question";
 import { physiciansOperations } from "./ducks/physicians";
 import { cantonsOperations } from "./ducks/cantons";
-
 import { IPhysician } from "./ducks/physicians/types";
 import { ICanton } from "./ducks/cantons/types";
 import { IReduxStore } from "./ducks/reduxStore";
