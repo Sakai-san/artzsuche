@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useEffect } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { makeStyles, createStyles } from "@material-ui/core";
 import useFocus from "./useFocus";
 import { ReactBotFormChildContext, ReactBotFormContext } from "./Context";
@@ -35,17 +35,10 @@ const Write: FunctionComponent<WriteProps> = ({ children, doValidation }) => {
     setResponseInEdition,
     setCurrentWriter,
     responseInEdition,
-    currentQuestionIndex,
   } = useContext(ReactBotFormContext);
   const classes = useStyles();
 
   useFocus(ref, responseInEdition, index);
-
-  useEffect(() => {
-    if (currentQuestionIndex === index) {
-      ref?.current?.scrollIntoView();
-    }
-  });
 
   return (
     // only the very first rendering is animated

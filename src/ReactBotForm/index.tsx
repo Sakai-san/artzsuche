@@ -5,6 +5,7 @@ import React, {
   SetStateAction,
   cloneElement,
   useRef,
+  useEffect,
 } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import SendIcon from "@material-ui/icons/Send";
@@ -138,6 +139,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
 }) => {
   const classes = useStyles();
 
+  const nextRef = useRef<HTMLButtonElement | null>(null);
   const [responseInEdition, setResponseInEdition] = useState<null | number>(
     null
   );
@@ -180,6 +182,10 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
       setCurrentWriter(null);
     }
   };
+
+  useEffect(() => {
+    nextRef?.current?.scrollIntoView();
+  }, [currentQuestionIndex]);
 
   return (
     <div className={classes.content}>
@@ -226,6 +232,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
 
       {children.length - currentQuestionIndex !== 1 && (
         <Button
+          ref={nextRef}
           variant="outlined"
           color="secondary"
           size="large"
