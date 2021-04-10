@@ -108,7 +108,7 @@ const App: FunctionComponent = () => {
               ]}
               errorMessage="Please pick an option"
               doValidation={(inputedValue) => !!inputedValue}
-              getOptionLabel={(option) => option.language}
+              getOptionLabel={(option) => option?.language}
             />
           </div>
 
@@ -130,7 +130,7 @@ const App: FunctionComponent = () => {
                 { language: "Node.js", techno: "Express" },
               ]}
               errorMessage="Please pick an option"
-              getOptionLabel={(option) => option.techno}
+              getOptionLabel={(option) => option?.techno}
               doValidation={(inputedValues) => {
                 const values = (inputedValues as string[])?.filter?.(
                   (value) => value

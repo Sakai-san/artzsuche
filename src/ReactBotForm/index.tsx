@@ -183,6 +183,7 @@ const ReactBotForm: FunctionComponent<ReactBotFormProps> = ({
     }
   };
 
+  // scroll to the next button, upon index change
   useEffect(() => {
     nextRef?.current?.scrollIntoView();
   }, [currentQuestionIndex]);
