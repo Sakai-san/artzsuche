@@ -48,4 +48,5 @@ const Response: FunctionComponent<ResponseProps> = ({
     </div>
   );
 };
+
 export default Response;
