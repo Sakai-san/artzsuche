@@ -92,7 +92,7 @@ const App: FunctionComponent = () => {
           submitHandler={(responses) => setFormResponses(responses)}
         >
           {[
-            <div>
+            <div key={0}>
               <Question>
                 <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
                 <span style={{ fontSize: "18px" }}>
@@ -113,7 +113,7 @@ const App: FunctionComponent = () => {
               />
             </div>,
 
-            <div>
+            <div key={1}>
               <Question>
                 <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
                 <span style={{ fontSize: "18px" }}>
@@ -142,7 +142,7 @@ const App: FunctionComponent = () => {
               />
             </div>,
 
-            <div>
+            <div key={2}>
               <Question>
                 <LocalHospitalRoundedIcon
                   fontSize="large"
@@ -163,7 +163,7 @@ const App: FunctionComponent = () => {
               />
             </div>,
 
-            <div>
+            <div key={3}>
               <Question>
                 <RoomRoundedIcon fontSize="large" style={{ color: "ff0000" }} />
                 <span style={{ fontSize: "18px" }}>
@@ -183,7 +183,7 @@ const App: FunctionComponent = () => {
               />
             </div>,
 
-            <div>
+            <div key={4}>
               <Question>
                 <LocalHospitalOutlinedIcon
                   fontSize="large"
@@ -204,7 +204,7 @@ const App: FunctionComponent = () => {
               />
             </div>,
 
-            <div>
+            <div key={5}>
               <Question>
                 <LocalHospitalOutlinedIcon
                   fontSize="large"
@@ -224,7 +224,7 @@ const App: FunctionComponent = () => {
               />
             </div>,
 
-            <div>
+            <div key={6}>
               <Question>
                 <LocalHospitalOutlinedIcon
                   fontSize="large"
