@@ -30,7 +30,7 @@ type InputBaseProps = {
 
 type AutocompleteInput = InputBaseProps & {
   options: any[];
-  getOptionLabel: (option: any) => string;
+  getOptionLabel: (option: any | undefined) => string;
   type: "autocomplete" | "multiselect";
 };
 
@@ -135,7 +135,11 @@ const getComponent = (
             );
           } else {
             setResponse(
-              (props as Omit<AutocompleteInput, "type">).getOptionLabel(value),
+              (value &&
+                (props as Omit<AutocompleteInput, "type">).getOptionLabel(
+                  value
+                )) ||
+                value,
               doValidation?.(value)
             );
           }
