@@ -14,6 +14,7 @@ import { DoValidation, RenderProps } from "./types";
 import { ClassNameMap } from "@material-ui/styles";
 
 type InputBaseProps = {
+  required?: boolean;
   errorMessage?: string;
   doValidation?: DoValidation;
   label?: ReactNode;
@@ -59,6 +60,25 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+const validateRequiredAutocomplete = (
+  values: RenderProps["inputedValue"],
+  options: AutocompleteInput["options"],
+  getOptionLabel: AutocompleteInput["getOptionLabel"],
+  type: AutocompleteInput["type"]
+) => {
+  let isValid = true;
+  const inputedValues =
+    Array.isArray(values) && type === "multiselect" ? values : [values];
+
+  inputedValues.forEach((val) => {
+    if (!options.some((option) => getOptionLabel(option) === val)) {
+      isValid = false;
+    }
+  });
+
+  return isValid;
+};
 
 const getOptionsFromAttribute = (
   options: AutocompleteInput["options"],
@@ -195,6 +215,7 @@ const getComponent = (
 };
 
 const Input: FunctionComponent<InputProps> = ({
+  required,
   type,
   options,
   getOptionLabel,
@@ -210,8 +231,9 @@ const Input: FunctionComponent<InputProps> = ({
 
   return (
     <Response doValidation={doValidation}>
-      {({ doValidation, inputedValue, setResponse, index, setIsValid, ref }) =>
+      {({ index, doValidation, inputedValue, setResponse, setIsValid, ref }) =>
         getComponent({
+          required,
           type,
           label,
           doValidation,

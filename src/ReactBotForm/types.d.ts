@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, MutableRefObject } from "react";
+import { Dispatch, SetStateAction, MutableRefObject } from "react";
 import { BOT_WRITER, USER_WRITER } from "./constants";
 
 export type Writer = typeof BOT_WRITER | typeof USER_WRITER | null;
@@ -19,6 +19,7 @@ type SetResponse = (
 type SetIsValid = (isValid: boolean) => void;
 
 export type RenderProps = {
+  required?: boolean;
   index: number;
   doValidation?: DoValidation;
   inputedValue: Response["inputedValue"];
