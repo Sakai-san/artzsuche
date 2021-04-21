@@ -18,7 +18,7 @@ import { BOT_WRITER } from "./constants";
 import { Response, ReactBotFormProps, Responses, Writer } from "./types";
 
 import typingIndicator from "../giphy.gif";
-
+// commit 0 test rebase
 const useStyles = makeStyles((theme) => ({
   child: {
     display: "flex",
