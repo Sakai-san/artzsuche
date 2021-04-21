@@ -3,7 +3,7 @@ import Typist from "react-typist";
 import { makeStyles } from "@material-ui/core";
 import { ReactBotFormContext } from "./Context";
 import { USER_WRITER } from "./constants";
-// git commit 6
+
 const useStyles = makeStyles((theme) => ({
   wrapper: {
     borderRadius: "0px 10px 10px 10px",
