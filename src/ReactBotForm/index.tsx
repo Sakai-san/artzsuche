@@ -21,6 +21,7 @@ import typingIndicator from "../giphy.gif";
 // commit 0 test rebase
 // commit 1 test rebase
 // commit 2 test rebase
+// commit 3 test rebase
 const useStyles = makeStyles((theme) => ({
   child: {
     display: "flex",
