@@ -55,49 +55,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-/*
-const makeRange = (start, end) =>
-  Array(end - start + 1)
-    .fill()
-    .map((_, i) => start + i);
-
-
-   classes :
-
-   {
-     0: ['italic', 'bold'],
-     1: ['italic', 'bold'],
-     2: [],
-
-   }
-
-
-   formatting :
-   [
-     {
-        type: 'i',
-        start: 0,
-        end: 2,
-     },
-     {
-        type: 'i',
-        start: 0,
-        end: 2,
-     },
-     {
-        type: 'b',
-        start: 3,
-        end: 5,
-     },
-   ]
-
-
-const italic = (next) => (config, classes) => {
-  if (config) {
-  }
-};
-*/
-
 type SetResponses = Dispatch<SetStateAction<Responses>>;
 
 const setIsValidFactory = (setResponses: SetResponses) => (index: number) => (
