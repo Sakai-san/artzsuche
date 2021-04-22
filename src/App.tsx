@@ -108,8 +108,8 @@ const App: FunctionComponent = () => {
                   { language: "back-end", location: "london" },
                 ]}
                 errorMessage="Please pick an option"
-                doValidation={(inputedValue) => !!inputedValue}
                 getOptionLabel={(option) => option?.language}
+                required={true}
               />
             </div>,
 
@@ -132,13 +132,7 @@ const App: FunctionComponent = () => {
                 ]}
                 errorMessage="Please pick an option"
                 getOptionLabel={(option) => option?.techno}
-                doValidation={(inputedValues) => {
-                  const values = (inputedValues as string[])?.filter?.(
-                    (value) => value
-                  );
-
-                  return values && values.length !== 0;
-                }}
+                required={true}
               />
             </div>,
 
