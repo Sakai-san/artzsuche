@@ -89,13 +89,9 @@ const makeValidate = ({
   else {
     if (required) {
       // at least one value is part of the labels
+      const labels = options?.map((option) => getOptionLabel?.(option));
       return (inputedValues: string[]) =>
-        inputedValues?.some(
-          (value: any) =>
-            options
-              ?.map((option) => getOptionLabel?.(option))
-              ?.indexOf(value) !== -1
-        );
+        inputedValues.some((value: any) => labels?.indexOf(value) !== -1);
     } else {
       return (inputedValues: string[]) => true;
     }
@@ -137,6 +133,14 @@ const getComponent = (
     ...props
   } = input;
 
+  const valid = makeValidate({
+    type,
+    required,
+    doValidation,
+    options: props.options,
+    getOptionLabel: props.getOptionLabel,
+  });
+
   if (type === "autocomplete" || type === "multiselect") {
     return (
       <Autocomplete
@@ -159,15 +163,7 @@ const getComponent = (
           if (!required || !doValidation) {
             setIsValid(true);
           } else {
-            setIsValid(
-              makeValidate({
-                type,
-                required,
-                doValidation,
-                options: props.options,
-                getOptionLabel: props.getOptionLabel,
-              })(event.target.value)
-            );
+            setIsValid(valid(event.target.value));
           }
 
           setResponseInEdition(index);
@@ -183,13 +179,7 @@ const getComponent = (
               value.map((input: string) =>
                 (props as Omit<AutocompleteInput, "type">).getOptionLabel(input)
               ),
-              makeValidate({
-                type,
-                required,
-                doValidation,
-                options: props.options,
-                getOptionLabel: props.getOptionLabel,
-              })(value)
+              valid(value)
             );
           } else {
             setResponse(
@@ -198,13 +188,7 @@ const getComponent = (
                   value
                 )) ||
                 value,
-              makeValidate({
-                type,
-                required,
-                doValidation,
-                options: props.options,
-                getOptionLabel: props.getOptionLabel,
-              })(value)
+              valid(value)
             );
           }
         }}
@@ -224,29 +208,16 @@ const getComponent = (
         className={classes.textarea}
         helperText={
           (inputedValue !== undefined &&
-            !makeValidate({
-              type,
-              required,
-              doValidation,
-              options: props.options,
-              getOptionLabel: props.getOptionLabel,
-            })(inputedValue) &&
+            !valid(inputedValue) &&
             errorMessage) ||
           " "
         }
         onFocus={(event) => {
+          // inupt not required or doValidation is not passed
           if (!required || !doValidation) {
             setIsValid(true);
           } else {
-            setIsValid(
-              makeValidate({
-                type,
-                required,
-                doValidation,
-                options: props.options,
-                getOptionLabel: props.getOptionLabel,
-              })(event.target.value)
-            );
+            setIsValid(valid(event.target.value));
           }
 
           setResponseInEdition(index);
@@ -258,18 +229,9 @@ const getComponent = (
         }}
         onChange={(e) => {
           const value = e.target.value;
-          setResponse(
-            value,
-            makeValidate({
-              type,
-              required,
-              doValidation,
-              options: props.options,
-              getOptionLabel: props.getOptionLabel,
-            })(value)
-          );
+          setResponse(value, valid(value));
         }}
-        error={doValidation && !doValidation?.(inputedValue)}
+        error={valid(inputedValue)}
         label={label}
         type={type}
         variant="outlined"
