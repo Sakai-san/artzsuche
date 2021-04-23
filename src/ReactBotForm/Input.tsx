@@ -80,7 +80,7 @@ const makeValidate = ({
   } else if (type === "autocomplete") {
     if (required) {
       return (value: string) =>
-        options?.filter((option) => getOptionLabel?.(option) === value);
+        options?.some((option) => getOptionLabel?.(option) === value);
     } else {
       return (value: string) => true;
     }
@@ -91,7 +91,8 @@ const makeValidate = ({
       // at least one value is part of the labels
       const labels = options?.map((option) => getOptionLabel?.(option));
       return (inputedValues: string[]) =>
-        inputedValues.some((value: any) => labels?.indexOf(value) !== -1);
+        inputedValues &&
+        inputedValues?.some((value: any) => labels?.indexOf(value) !== -1);
     } else {
       return (inputedValues: string[]) => true;
     }
@@ -159,8 +160,8 @@ const getComponent = (
         }
         style={{ width: 300 }}
         onFocus={(event: FocusEvent<HTMLInputElement>) => {
-          // inupt not required or doValidation is not passed
-          if (!required || !doValidation) {
+          // input not required or doValidation is not passed
+          if (!required && !doValidation) {
             setIsValid(true);
           } else {
             setIsValid(valid(event.target.value));
@@ -213,8 +214,8 @@ const getComponent = (
           " "
         }
         onFocus={(event) => {
-          // inupt not required or doValidation is not passed
-          if (!required || !doValidation) {
+          // input not required or doValidation is not passed
+          if (!required && !doValidation) {
             setIsValid(true);
           } else {
             setIsValid(valid(event.target.value));
